@@ -1,0 +1,43 @@
+<!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js" integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/contrib/auto-render.min.js" integrity="sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body);
+        });
+    </script>
+
+<header>
+
+  <!--
+  Syntax highlighting - defaults to atom light theme.
+  List here: https://github.com/isagalaev/highlight.js/tree/master/src/styles
+  -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      {{ $title := lower .Title }}
+      {{ $section := lower .Section }}
+      <li class="pull-left {{ if .IsHome }}current{{ end }}">
+        <a href="{{ .Site.BaseURL }}">/home/{{ lower .Site.Title}}</a>
+      </li>
+      {{ range .Site.Menus.main }}
+      {{ $name := lower .Name }}
+      <li class="pull-left {{ if eq $name $title }}current{{ else if eq $section $name }}current{{ else if eq $title (pluralize $name) }}current{{ end }}">
+        <a href="{{ .URL }}">~/{{ lower .Name }}</a>
+      </li>
+      {{end}}
+
+      {{ range .Site.Menus.feed }}
+      {{ $name := lower .Name}}
+      <li class="pull-right">
+        <a href="{{ .URL }}">~/{{ lower .Name}}</a>
+      </li>
+      {{end}}
+
+    </ul>
+  </nav>
+</header>

@@ -1,0 +1,15 @@
+git:
+  depth: false
+
+# This gives us full control over what we intend to do
+# in the job
+language: generic
+# Needed for docker
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t amitsaha/echorandme-publisher .
+install:
+  - docker run -v `pwd`:/site -t amitsaha/echorandme-publisher
