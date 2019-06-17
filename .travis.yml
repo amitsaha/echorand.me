@@ -9,6 +9,17 @@ sudo: required
 services:
   - docker
 
+# Specify the github pages deploy provider
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  target-branch: master
+  repo: amitsaha/amitsaha.github.io
+  local-dir: public 
+  fqdn: echorand.me # This updates the repository settings in GitHub and also adds a CNAME file in the master branch
+  verbose: true
+
 before_install:
   - docker build -t amitsaha/echorandme-publisher .
 install:
