@@ -8,7 +8,7 @@ googleAnalytics = "UA-108901610-1"
   category = "categories"
   tag = "tags"
 
-[menu.main]]
+[[menu.main]]
     name = "About"
     url = "/about"
     weight = 1
