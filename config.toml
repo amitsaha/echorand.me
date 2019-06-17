@@ -2,6 +2,7 @@ baseURL = "https://echorand.me"
 languageCode = "en-us"
 title = "Exploring Software"
 theme = "hugo-classic"
+googleAnalytics = "UA-108901610-1"
 
 [taxonomies]
   category = "categories"
