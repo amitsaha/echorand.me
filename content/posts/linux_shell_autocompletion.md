@@ -453,6 +453,9 @@ we will see:
 577    bash               0 /home/vagrant/.local/share/bash-completion/completions/git
 ```
 
+In this section, we looked at how `bash-completion` enables auto-completion from a very high-level
+and also saw how auto-completions are looked up dynamically rather than all being loaded at the
+beginning of a shell session.
 
 
 ## `compgen` built-in command
