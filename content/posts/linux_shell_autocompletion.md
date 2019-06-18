@@ -17,7 +17,7 @@ this [blog post](https://www.joshmcguigan.com/blog/shell-completions-pure-rust/)
 my curiosity and made me find time out to learn more about something I use everyday, but didn't know much about how
 it worked.
 
-Let's learn more about the minions that gets to work when we press `<TAB>` or `<TAB><TAB>` on a popular Linux shell, `BASH`.
+Let's learn more about the minions that gets to work when we press `<TAB>` or `<TAB><TAB>` on a popular Linux shell, `bash`.
 
 ## Setting up
 
@@ -30,13 +30,19 @@ $ # ..
 $ vagrant up
 ...
 $ vagrant ssh
+```
+
+Once we are in the VM:
+
+```
  $ sudo dnf remove bash-completion
  $ sudo dnf install bpftrace
  $ curl https://raw.githubusercontent.com/iovisor/bpftrace/master/tools/execsnoop.bt -o execsnoop.bt
+ $ curl https://raw.githubusercontent.com/iovisor/bpftrace/master/tools/statsnoop.bt -o statsnoop.bt
 ```
 
 On a terminal, (Terminal 1), type in `$ git <TAB><TAB>` (the space between `git` and `<TAB><TAB>` is important). 
-The only suggestions you get will be the files in the
+The only suggestions you get will be the files in the 
 directory you are in. Not very helpful suggestions, you say. I know - and that's because we uninstalled a 
 package which would have magically done that for us. (`bash-completion`). Let's keep it that way for 
 now.
@@ -79,7 +85,6 @@ branch    checkout  clone     status
 
 Note that each of the suggestion is a line printed by the above script. Let's delve further into this.
 
-## Exec snooping 
 
 Open a new terminal (Terminal 2) and execute the following:
 
@@ -164,11 +169,10 @@ COMP_KEY=9
 
 
 
-These environment variables are related to Bash autocompletion:
+These environment variables are related to autocompletion:
 
-- `COMP_LINE`: This is the entire line of the command we pressed `<TAB><TAB>` on
-- `COMP_TYPE`: This is the type of completion that is being done, `63` is the ASCII code for `?`. According to the [manual](https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#Bash-Variables),
-this is the operation which will list completions after successive tabs
+- `COMP_LINE`: This is the entire line of the command we pressed `<TAB><TAB>` on.
+- `COMP_TYPE`: This is the type of completion that is being done, `63` is the ASCII code for `?`. According to the [manual](https://www.gnu.org/software/bash/manual/html_node/Bash-Variables.html#Bash-Variables), this is the operation which will list completions after successive tabs
 - `COMP_KEY`: This is the ASCII code of the key which triggered the auto-completion. 9 [stands for](https://en.wikipedia.org/wiki/Tab_key#Tab_characters)
 the TAB key
 - `COMP_POINT`: This is the cursor position where the `<TAB><TAB>` was pressed
@@ -262,17 +266,22 @@ when this happens.
 
 ## Getting good old BASH completion back
 
-Now, on Terminal 2, let's install the `bash-completion` package and then exec bash to get a new
-shell. On Terminal 1, run:
+Now, on Terminal 2, let's install the `bash-completion` package:
+
+```
+$ sudo dnf install bash-completion
+```
+
+Then `exec bash` to get a new shell. On Terminal 2, run:
 
 ```
 $ sudo bpftrace execnsnoop.bt
 
 ```
-On Terminal 2, type, in `$ git <TAB>`, we will not see any auto-completion being performed. 
+On Terminal 1, type, in `$ git <TAB>`, we will not see any auto-completion being performed. 
 
 
-On Terminal 1, now we will see something like:
+On Terminal 2, now we will see something like:
 
 ```
 95607      1470  git --list-cmds=list-mainporcelain,others,nohelpers,alias,list-complete,config
@@ -308,15 +317,143 @@ This verifies that there were no common prefix among all the suggestions and hen
 bring up any suggestion.
 
 
+Let's now ask the question - how did installing the `bash-completion` package magically bring our
+auto-completion machinery into motion? The short answer is a bunch of bash magic happening. Let's
+see what the long answer is.
 
-## `complete` built-in command
+## Magic of `bash-completion` package
 
-Let's revisit the `complete` built-in. Previously, we used `complete -C` to specify a command to be executed
-when an auto-completion is attempted for the `git` command. The next switch we will explore is `complete -p`:
+Let's start by listing all the files that this package creates on our system:
 
 ```
+$ sudo dnf download bash-completion
+$ rpm -qlp bash-completion-2.8-6.fc30.noarch.rpm 
+/etc/bash_completion.d
+..
+/etc/profile.d/bash_completion.sh
+..
+/usr/share/bash-completion/bash_completion
+
+...
+/usr/share/bash-completion/completions
+/usr/share/bash-completion/completions/2to3
+/usr/share/bash-completion/completions/7z
+/usr/share/bash-completion/completions/7za
+/usr/share/bash-completion/completions/_cal
+/usr/share/bash-completion/completions/_chfn
+...
+...
+/usr/share/pkgconfig/bash-completion.pc
+```
+
+The entry point for the completion machinery is the script `/etc/profile.d/bash_completion.sh`
+which then sources the file `/usr/share/bash-completion/bash_completion`. It is in this file that
+we see a whole bunch of things happening.
+
+As we start reading the file from the top, we see completions for various commands being setup. Let's
+look at a few.
+
+As a first example:
 
 ```
+# user commands see only users
+complete -u groups slay w sux
+```
+
+The `-u` switch  of the `complete` command is a shortcut to specify that the auto-completion suggestions
+for the commands, `groups`, `slay` and `sux` should be the user names on the system.
+
+The second example we will look at is:
+
+``
+# type and which complete on commands
+complete -c command type which
+```
+
+Here we are specifying via the `-c` switch that the suggested completions for the `command`, `type` and `which` commands should be 
+all possible command names on the system.
+
+Both the above are examples of pre-defined list of auto-completions that a program author can take advantage of.
+
+Earlier in this post, we saw how we can invoke external programs for auto-completion suggestions. We can also define
+shell functions. Here's an example from the above file:
+
+```
+complete -F _service service
+```
+
+`_service` is a function defined in the same file which uses various other helpers and external commands
+to come up with the list of services on the system.
+
+
+An interesting completion that is setup in this file is a "dynamic" completion handler:
+
+```
+complete -D -F _completion_loader
+```
+
+The `-D` switch setups a default completion handler for any command for which a compspec is not found. The default
+handler is set to the bash function, `_completion_loader` which is:
+
+```
+_completion_loader () 
+{ 
+    local cmd="${1:-_EmptycmD_}";
+    __load_completion "$cmd" && return 124;
+    complete -F _minimal -- "$cmd" && return 124
+}
+```
+
+The `__load_completion` function essentially looks for a bash script named as, `command-name`, `command-name.bash`
+and `_command-name` in the following locations (preferring whichever it finds first):
+
+```
+/home/<user-name>/.local/share/bash-completion/completions/
+/usr/local/share/bash-completion/completions/
+/usr/share/bash-completion/completions/
+```
+
+If it finds one, it sources it. Let's see it in action. On Terminal 2:
+
+
+```
+$ sudo bpftrace ./statsoop.bt
+```
+
+On Terminal 1, `exec bash` to start a new bash shell and type in `git <TAB>`. On Terminal 2, we will 
+see something like:
+
+
+```
+577    bash               2 /home/vagrant/.local/share/bash-completion/completions/git
+577    bash               2 /home/vagrant/.local/share/bash-completion/completions/git.bash
+577    bash               2 /home/vagrant/.local/share/bash-completion/completions/_git
+577    bash               2 /usr/local/share/bash-completion/completions/git
+577    bash               2 /usr/local/share/bash-completion/completions/git.bash
+577    bash               2 /usr/local/share/bash-completion/completions/_git
+577    bash               0 /usr/share/bash-completion/completions/git
+```
+The third column in the above output is the return code of the `stat` system call. A non-zero
+number there means the file doesn't exist. If we now create a file:
+
+```
+$ cat ~/.local/share/bash-completion/completions/git
+
+_my_git_completion()
+{
+	COMPREPLY="checkout"
+}
+complete -F _my_git_completion git
+```
+
+And `exec bash` and type in `git <TAB>`, we will see that `checkout` is inserted and on Terminal 2, 
+we will see:
+
+```
+577    bash               0 /home/vagrant/.local/share/bash-completion/completions/git
+```
+
+
 
 ## `compgen` built-in command
 
@@ -326,13 +463,14 @@ when an auto-completion is attempted for the `git` command. The next switch we w
 
 ## Putting the pieces together
 
-What does bash-completion package do?
 
 
 
 
 
 
+
+https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion-Builtins.html#Programmable-Completion-Builtins
 
 https://www.joshmcguigan.com/blog/shell-completions-pure-rust/
 
@@ -343,3 +481,4 @@ https://unix.stackexchange.com/questions/261687/is-it-possible-to-configure-bash
 https://stackoverflow.com/questions/12044574/getting-complete-and-menu-complete-to-work-together
 
 https://unix.stackexchange.com/questions/166908/is-there-anyway-to-get-compreply-to-be-output-as-a-vertical-list-of-words-instea
+https://github.com/scop/bash-completion
