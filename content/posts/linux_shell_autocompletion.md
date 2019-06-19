@@ -473,9 +473,8 @@ list of shell functions (`compgen -A function`) and others.
 
 ## Learning more
 
-In this post, we have delved a bit into how auto-completion works in Bash, there's definitely a lot we haven't
+So far, we have delved a bit into how auto-completion works in Bash, there's definitely a lot we haven't
 discussed. The following links are worth looking into:
-
 
 - [Programmable completion builtins](https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion-Builtins.html#Programmable-Completion-Builtins)
 - [Bash programmable completion](https://spin.atomicobject.com/2016/02/14/bash-programmable-completion/)
@@ -483,3 +482,5 @@ discussed. The following links are worth looking into:
 - [StackOverflow question #2](https://stackoverflow.com/questions/12044574/getting-complete-and-menu-complete-to-work-together)
 - [Unix stackexchange question](https://unix.stackexchange.com/questions/166908/is-there-anyway-to-get-compreply-to-be-output-as-a-vertical-list-of-words-instea)
 - [bash-completion package source](https://github.com/scop/bash-completion)
+
+## Bash completion for application authors
