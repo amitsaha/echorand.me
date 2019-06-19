@@ -471,23 +471,15 @@ will list all possible commands, `compgen -f` will list all the files in the cur
 list all the sub-directories. Further, we can use the "action" option to generate a list of signals (`compgen -A signal`),
 list of shell functions (`compgen -A function`) and others.
 
-## Other COMP_TYPE values, COMP* variables and readline variables
+## Learning more
 
 In this post, we have delved a bit into how auto-completion works in Bash, there's definitely a lot we haven't
-discussed. 
+discussed. The following links are worth looking into:
 
 
-
-
-https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion-Builtins.html#Programmable-Completion-Builtins
-
-https://www.joshmcguigan.com/blog/shell-completions-pure-rust/
-
-https://spin.atomicobject.com/2016/02/14/bash-programmable-completion/
-
-https://unix.stackexchange.com/questions/261687/is-it-possible-to-configure-bash-to-autocomplete-with-one-tab-like-zsh/461079
-
-https://stackoverflow.com/questions/12044574/getting-complete-and-menu-complete-to-work-together
-
-https://unix.stackexchange.com/questions/166908/is-there-anyway-to-get-compreply-to-be-output-as-a-vertical-list-of-words-instea
-https://github.com/scop/bash-completion
+- [Programmable completion builtins](https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion-Builtins.html#Programmable-Completion-Builtins)
+- [Bash programmable completion](https://spin.atomicobject.com/2016/02/14/bash-programmable-completion/)
+- [StackOverflow question #1](https://unix.stackexchange.com/questions/261687/is-it-possible-to-configure-bash-to-autocomplete-with-one-tab-like-zsh/461079)
+- [StackOverflow question #2](https://stackoverflow.com/questions/12044574/getting-complete-and-menu-complete-to-work-together)
+- [Unix stackexchange question](https://unix.stackexchange.com/questions/166908/is-there-anyway-to-get-compreply-to-be-output-as-a-vertical-list-of-words-instea)
+- [bash-completion package source](https://github.com/scop/bash-completion)
