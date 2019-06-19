@@ -179,6 +179,9 @@ the TAB key
 
 (As an aside, ([show-key](https://linux.die.net/man/1/showkey)) is pretty cool. It shoes you the ASCII code of a presssed key).
 
+It's worth mentioning here that the data provided to completion handlers and how the handler sends
+back the suggestions is different when the handler is a shell function.
+
 ## Single `<TAB>` and double `<TAB><TAB>`
 
 It's only while working on this article, I realized that a double `<TAB><TAB>` was necessary to display all the possible
@@ -365,7 +368,7 @@ for the commands, `groups`, `slay` and `sux` should be the user names on the sys
 
 The second example we will look at is:
 
-``
+```
 # type and which complete on commands
 complete -c command type which
 ```
@@ -446,25 +449,32 @@ _my_git_completion()
 complete -F _my_git_completion git
 ```
 
-And `exec bash` and type in `git <TAB>`, we will see that `checkout` is inserted and on Terminal 2, 
+Now, if we `exec bash` and type in `git <TAB>`, we will see that `checkout` is inserted and on Terminal 2, 
 we will see:
 
 ```
 577    bash               0 /home/vagrant/.local/share/bash-completion/completions/git
 ```
 
+We use the special variable `COMPREPLY` to send back the auto-completion suggestions to the
+shell.
+
 In this section, we looked at how `bash-completion` enables auto-completion from a very high-level
 and also saw how auto-completions are looked up dynamically rather than all being loaded at the
 beginning of a shell session.
 
-
 ## `compgen` built-in command
 
+While looking at the contents of `/usr/share/bash-completion/bash_completion`, you may have noticed the `compgen`
+command. `compgen` is a shell builtin to generate a set of pre-defined completion options. For example, `compgen -c`
+will list all possible commands, `compgen -f` will list all the files in the current directory and `compgen -d` will
+list all the sub-directories. Further, we can use the "action" option to generate a list of signals (`compgen -A signal`),
+list of shell functions (`compgen -A function`) and others.
 
-## Other COMP_TYPE values and readline variables
+## Other COMP_TYPE values, COMP* variables and readline variables
 
-
-## Putting the pieces together
+In this post, we have delved a bit into how auto-completion works in Bash, there's definitely a lot we haven't
+discussed. 
 
 
 
