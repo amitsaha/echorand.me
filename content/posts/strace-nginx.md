@@ -104,7 +104,8 @@ Let's see what we have on the terminal we have `strace` open. The most relevant 
 [pid  1661] writev(3, [{iov_base="HTTP/1.1 405 Not Allowed\r\nServer: nginx/1.16.0\r\nDate: Wed, 19 Jun 2019 03:22:14 GMT\r\nContent-Type: text/html\r\nContent-Length: 157\r\nConnection: keep-alive\r\n\r\n", iov_len=157}, {iov_base="<html>\r\n<head><title>405 Not Allowed</title></head>\r\n<body>\r\n<center><h1>405 Not Allowed</h1></center>\r\n", iov_len=104}, {iov_base="<hr><center>nginx/1.16.0</center>\r\n</body>\r\n</html>\r\n", iov_len=53}], 3) = 314
 ```
 
-The `recvfrom()` call has the HTTP request sent by our `curl` command which is what was most relevant to me.
+The `recvfrom()` call has the HTTP request sent by our `curl` command and the `writev()` call has the HTTP response being
+sent to the client.
 
 ## Summary
 
