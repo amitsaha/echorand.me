@@ -1,5 +1,5 @@
 ---
-title:  nginx + strace
+title:  Nginx + strace
 date: 2019-06-19
 categories:
 -  software
