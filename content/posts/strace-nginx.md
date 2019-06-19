@@ -109,4 +109,4 @@ sent to the client.
 
 ## Summary
 
-Hope you found this post useful and if you did, you may find this [other post](https://www.elvinefendi.com/2017/03/07/my-experience-with-lua-nginx-openssl-strace-gdb-glibc-and-linux-vm.html) useful too.
+Hope you found this post useful and if you did, you may find this [other post](https://www.elvinefendi.com/2017/03/07/my-experience-with-lua-nginx-openssl-strace-gdb-glibc-and-linux-vm.html) by a different author interesting as well.
