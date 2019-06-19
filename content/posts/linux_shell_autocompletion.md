@@ -469,10 +469,6 @@ beginning of a shell session.
 
 
 
-
-
-
-
 https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion-Builtins.html#Programmable-Completion-Builtins
 
 https://www.joshmcguigan.com/blog/shell-completions-pure-rust/
