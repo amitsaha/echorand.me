@@ -26,7 +26,7 @@ approach to start a HTTP 1.1 server. The following code does just that:
    func main() {
    	log.Fatal(http.ListenAndServe(":8080", nil))
    }
-    :lexer: python
+
 
 What is the `nil` second argument above? The documentation states that the second argument to the function should be a 
 "handler" and if it is specified as `nil`, it defaults to `DefaultServeMux`.
@@ -73,7 +73,7 @@ The error message is generated from the function below in `src/net/http/server.g
    	return
    }
    
-    :lexer: go
+    
 
 
 Now, let's roughly see how our GET request above reaches the above function. 
@@ -104,7 +104,7 @@ Let us consider the function signature of the above handler function: `func (mux
    var DefaultServeMux = &defaultServeMux
    
    var defaultServeMux ServeMux
-    :lexer: go
+    
 
 
 So, how does `DefaultServeMux` get set when the second argument to `ListenAndServe()` is `nil`? The following code 
@@ -122,7 +122,7 @@ snippet has the answer:
    	}
    	handler.ServeHTTP(rw, req)
    }
-    :lexer: go
+    
 
 
 The above call to `ServeHTTP()` calls the following implementation of `ServeHTTP()`:
@@ -142,7 +142,7 @@ The above call to `ServeHTTP()` calls the following implementation of `ServeHTTP
    	h, _ := mux.Handler(r)
    	h.ServeHTTP(w, r)
    }
-    :lexer: go
+    
 
 The call to `Handler()` function then calls the following implementation:
 
@@ -182,7 +182,7 @@ The call to `Handler()` function then calls the following implementation:
    	return
    }
    
-    :lexer: go
+    
 
 
 Now, when we make a request to "/" or "/status/", no match is found by the `mux.match()` call above and hence the 
@@ -198,7 +198,7 @@ error message:
    // that replies to each request with a ``404 page not found'' reply.
    func NotFoundHandler() Handler { return HandlerFunc(NotFound) }
    
-    :lexer: go
+    
 
 We will discuss how this "magic" happens in the next section.
 
@@ -234,7 +234,7 @@ Let's now update our server code to handle "/" and "/status/":
            
    	http.ListenAndServe(":8080", nil)
    }
-    :lexer: go
+    
 
 If we run the server and send the two requests above, we will see the following responses:
 
@@ -269,7 +269,7 @@ Let's now revisit how the right handler function gets called. In a code snippet 
    	}
    	return
    }
-    :lexer: go
+    
 
 ``mux.m`` is a a ``map`` data structure defined in the ``ServeMux`` structure (snippet earlier in the post) which stores a mapping of a path and the handler we have registered for it.
 
@@ -354,7 +354,7 @@ Let's look at what the call to `Handle()` function does:
    		mux.m[pattern[0:n-1]] = muxEntry{h: RedirectHandler(url.String(), StatusMovedPermanently), pattern: pattern}
    	}
    }
-    :lexer: go
+    
 
 
 It can feel cumbersome to define a type implementing the ``Handler`` interface for every path we want to register a handler for. Hence, a convenience function, ``HandleFunc()`` is provided to register any function which has a specified signature as a Handler function. For example:
@@ -395,7 +395,7 @@ Now, let's look at what the call to `HandleFunc()` function does:
    
    
    
-    :lexer: go
+    
 
 The call to the ``http.HandleFunc()`` function "converts" the provided function to the ``HandleFunc()`` type and then calls the ``(mux *ServeMux) Handle()`` function similar to what happens when we call the ``Handle()`` function. The idea of this conversion is explained in the `Effective Go guide <https://golang.org/doc/effective_go.html#interface_methods>`__ and this `blog post <http://jordanorelli.com/post/42369331748/function-types-in-go-golang>`__.
 
@@ -434,7 +434,7 @@ we register via ``Handle()`` and ``HandleFunc()`` are then added to this object.
    
    	http.ListenAndServe(":8080", mux)
    }
-    :lexer: go
+    
 
 We create an object of type ``ServeMux`` via ``mux := http.NewServeMux()``, register our handlers calling the same two functions, but those that are defined for the ``ServeMux`` object we created.
 
@@ -498,7 +498,7 @@ Either of steps 2 or 4 or both may occur and this is where "middleware" comes in
    	WrappedMux := RunSomeCode(mux)
    	http.ListenAndServe(":8080", WrappedMux)
    }
-    :lexer: go
+    
 
 When we run the server and send it a couple of requests as above, we will see:
 
@@ -574,7 +574,7 @@ i have a version which achieves what I wanted to be able to do via my middleware
    	WrappedMux := RunSomeCode(mux)
    	log.Fatal(http.ListenAndServe(":8080", WrappedMux))
    }
-    :lexer: go
+    
 
 
 In the example above, I define a new type ``MyResponseWriter`` which implements the ``http.ResponseWriter`` interface by implementing the
