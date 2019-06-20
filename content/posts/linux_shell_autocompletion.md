@@ -485,11 +485,22 @@ discussed. The following links are worth looking into:
 
 ## Bash completion for application authors
 
-If you are a command line application author or someone distributing on via operating system packages, you essentially have
+If you are a command line application author or someone distributing one via operating system packages, you essentially have
 to craft Bash completion scripts and then make sure they are read by Bash at the beginning of a user session. The latter is
 usually achieved by placing the scripts in `/usr/share/bash-completion/completions/<command-name>` and then letting
 the dynamic loading machinery to automatically load the completion script when the user types in ``git <TAB>` or 
 `git <TAB><TAB>`. Of course, crafting these scripts can be non-trivial, and hence various command line frameworks
-support generating these scripts. See this [hacker news thread](https://news.ycombinator.com/item?id=19950563) to learn more.
-In this thread, one of the comments is a link to [Shellac Protocol Proposal](https://github.com/oilshell/oil/wiki/Shellac-Protocol-Proposal)
-which states down some of my thoughts on how we could take a different approach to shell auto-completion for Linux commands.
+support generating these scripts. There are also a number of inter
+
+https://github.com/posener/complete
+
+https://github.com/joshmcguigan/shell_completion
+
+See this [hacker news thread](https://news.ycombinator.com/item?id=19950563) to learn more. In this thread, one of the comments is 
+a link to [Shellac Protocol Proposal](https://github.com/oilshell/oil/wiki/Shellac-Protocol-Proposal)
+which states down some of my thoughts on how we could take a different approach to shell auto-completion for Linux commands. Application
+
+
+## 
+
+`sudo`
