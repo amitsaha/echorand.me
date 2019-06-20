@@ -486,21 +486,27 @@ discussed. The following links are worth looking into:
 ## Bash completion for application authors
 
 If you are a command line application author or someone distributing one via operating system packages, you essentially have
-to craft Bash completion scripts and then make sure they are read by Bash at the beginning of a user session. The latter is
+to craft Bash completion scripts and then make sure they are registered at the beginning of a user session. The latter is
 usually achieved by placing the scripts in `/usr/share/bash-completion/completions/<command-name>` and then letting
-the dynamic loading machinery to automatically load the completion script when the user types in ``git <TAB>` or 
+the dynamic loading machinery to automatically load the completion script when the user types in `git <TAB>` or 
 `git <TAB><TAB>`. Of course, crafting these scripts can be non-trivial, and hence various command line frameworks
-support generating these scripts. There are also a number of inter
+support generating these scripts. Since these command line frameworks are aware of the various options, sub-commands
+and the flags of your application, it only makes sense to have this functionality. They also allow you to augment the
+generated completions with additional data as per your application's requirements. 
 
-https://github.com/posener/complete
+See this [hacker news thread](https://news.ycombinator.com/item?id=19950563) for pointers to a number of efforts that
+have been undertaken by people provide alternatives to manually writing bash completion scripts for your command line
+application. In this thread, one of the comments is link to [Shellac Protocol Proposal](https://github.com/oilshell/oil/wiki/Shellac-Protocol-Proposal)
+which states hts on how we could take a different approach to shell auto-completion for Linux commands. The idea is to aim for
+a shell aganostic approach to auto-completion that different compatible clients can take advatange of.
 
-https://github.com/joshmcguigan/shell_completion
+Couple of other projects which I found interesting from the same thread are [complete](https://github.com/posener/complete)
+and the [shell_completion](https://github.com/JoshMcguigan/shell_completion) project. Another interesting project which
+I came across was [dargs](https://github.com/aelsabbahy/dargs) which is in the similar spirit as the `complete` project.
 
-See this [hacker news thread](https://news.ycombinator.com/item?id=19950563) to learn more. In this thread, one of the comments is 
-a link to [Shellac Protocol Proposal](https://github.com/oilshell/oil/wiki/Shellac-Protocol-Proposal)
-which states down some of my thoughts on how we could take a different approach to shell auto-completion for Linux commands. Application
+## Auto-completion for `sudo` commands
+
 
 
 ## 
 
-`sudo`
