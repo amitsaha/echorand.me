@@ -483,7 +483,7 @@ discussed. The following links are worth looking into:
 - [Unix stackexchange question](https://unix.stackexchange.com/questions/166908/is-there-anyway-to-get-compreply-to-be-output-as-a-vertical-list-of-words-instea)
 - [bash-completion package source](https://github.com/scop/bash-completion)
 
-## Bash completion for application authors
+## Bash completion for applications
 
 If you are a command line application author or someone distributing one via operating system packages, you essentially have
 to craft Bash completion scripts and then make sure they are registered at the beginning of a user session. The latter is
@@ -495,18 +495,25 @@ and the flags of your application, it only makes sense to have this functionalit
 generated completions with additional data as per your application's requirements. 
 
 See this [hacker news thread](https://news.ycombinator.com/item?id=19950563) for pointers to a number of efforts that
-have been undertaken by people provide alternatives to manually writing bash completion scripts for your command line
-application. In this thread, one of the comments is link to [Shellac Protocol Proposal](https://github.com/oilshell/oil/wiki/Shellac-Protocol-Proposal)
-which states hts on how we could take a different approach to shell auto-completion for Linux commands. The idea is to aim for
+have been undertaken by people provide alternatives to manually writing bash completion scripts. 
+In the thread, one of the comments is a link to [Shellac Protocol Proposal](https://github.com/oilshell/oil/wiki/Shellac-Protocol-Proposal)
+which makes a proposal for how we could take a different approach to auto-completion for Linux commands. The idea is to aim for
 a shell aganostic approach to auto-completion that different compatible clients can take advatange of.
+
+Next, we will see how certain projects are tackling this issue of Bash completion.
+
+### Cobra (Golang)
+
+### Click (Python)
+
+### Clap (Rust)
+
+### complete (Golang)
+
+### dargs (Golang)
+
+### shell_completion (Rust)
 
 Couple of other projects which I found interesting from the same thread are [complete](https://github.com/posener/complete)
 and the [shell_completion](https://github.com/JoshMcguigan/shell_completion) project. Another interesting project which
-I came across was [dargs](https://github.com/aelsabbahy/dargs) which is in the similar spirit as the `complete` project.
-
-## Auto-completion for `sudo` commands
-
-
-
-## 
-
+I came across was [dargs](https://github.com/aelsabbahy/dargs) which is in a similar spirit as the `complete` project.
