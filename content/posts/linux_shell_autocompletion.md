@@ -504,6 +504,16 @@ Next, we will see how certain projects are tackling this issue of Bash completio
 
 ### Cobra (Golang)
 
+The [cobra](https://github.com/spf13/cobra) CLI framework supports generating Bash completions natively and is desribed
+in detail [here](https://github.com/spf13/cobra/blob/master/bash_completions.md). The summary version is that your application's
+user can run a dedicated sub-command to generate a completion script which they can then put in an appropriate
+location so as to integrate it into Bash's auto-completion machinery. Internally, cobra basically uses the various available
+annotations and exposed functionalities to generate the script consisting of Bash functions and using `compgen` and related
+Bash commands.
+
+I created an [issue](https://github.com/spf13/cobra/issues/867) here to discuss a different approach.
+
+
 ### Click (Python)
 
 ### Clap (Rust)
