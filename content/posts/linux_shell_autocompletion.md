@@ -511,7 +511,8 @@ location so as to integrate it into Bash's auto-completion machinery. Internally
 annotations and exposed functionalities to generate the script consisting of Bash functions and using `compgen` and related
 Bash commands.
 
-I created an [issue](https://github.com/spf13/cobra/issues/867) here to discuss a different approach.
+I created an [issue](https://github.com/spf13/cobra/issues/867) here to discuss a different approach. Essentially, what I am
+proposing is a way for the application to handle its own completion.
 
 
 ### Click (Python)
