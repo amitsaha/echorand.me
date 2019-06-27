@@ -502,22 +502,22 @@ a shell aganostic approach to auto-completion that different compatible clients 
 
 Next, we will see how certain projects are tackling this issue of Bash completion.
 
-### Cobra (Golang)
+### cobra (Golang), click (Python) and clap (Rust)
 
 The [cobra](https://github.com/spf13/cobra) CLI framework supports generating Bash completions natively and is desribed
 in detail [here](https://github.com/spf13/cobra/blob/master/bash_completions.md). The summary version is that your application's
 user can run a dedicated sub-command to generate a completion script which they can then put in an appropriate
 location so as to integrate it into Bash's auto-completion machinery. Internally, cobra basically uses the various available
 annotations and exposed functionalities to generate the script consisting of Bash functions and using `compgen` and related
-Bash commands.
+Bash commands. I created an [issue](https://github.com/spf13/cobra/issues/867) here to discuss a different approach. Essentially, 
+what I am proposing is a way for the application to handle its own completion.
 
-I created an [issue](https://github.com/spf13/cobra/issues/867) here to discuss a different approach. Essentially, what I am
-proposing is a way for the application to handle its own completion.
+The [click](https://click.palletsprojects.com/) CLI framework allows [generating](en/7.x/bashcomplete/) Bash completion scripts 
+including some customisation. Once the application has been installed, running it after setting a special environment
+variable will generate the auto-completion script which can then be sourced or put in an appropriate location for Bash to
+find and source it.
 
 
-### Click (Python)
-
-### Clap (Rust)
 
 ### complete (Golang)
 
