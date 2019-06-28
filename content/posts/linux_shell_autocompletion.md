@@ -517,6 +517,12 @@ including some customisation. Once the application has been installed, running i
 variable will generate the auto-completion script which can then be sourced or put in an appropriate location for Bash to
 find and source it.
 
+The [clap](https://docs.rs/clap/) CLI framework supports generating shell completions natively as well. 
+[build time](https://docs.rs/clap/2.33.0/clap/struct.App.html#method.gen_completions). In addition, making use
+of a `build script`, the completion script can be generated automatically at build time.
+
+Similar to `cobra`, both `click` and `clap` generates scripts which use the Bash functions to setup auto-completion
+for the command line application.
 
 
 ### complete (Golang)
