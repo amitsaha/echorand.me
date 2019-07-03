@@ -5,8 +5,6 @@ categories:
 -  software
 ---
 
-If you are using Bash in default, `vi mode`, this post aims to shed some light on how auto-completions work.
-
 What happens when you press `<command> <TAB>` or `<command> <TAB><TAB>`? You get a bunch of suggestions with one of them
 just the one you had in mind you were going to type. Auto completions in shells are super helpful and as we will find
 out, quite a bit goes on behind the scenes. Before we go too further into my investigations and findings, I  must credit the author of 
