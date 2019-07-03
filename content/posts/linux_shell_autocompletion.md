@@ -20,9 +20,33 @@ Let's get a fresh Fedora 30 VM in a Vagrant box and set it up:
 
 ```
 $ vagrant box add https://download.fedoraproject.org/pub/fedora/linux/releases/30/Cloud/x86_64/images/Fedora-Cloud-Base-Vagrant-30-1.2.x86_64.vagrant-virtualbox.box --name Fedora-30
-$ vagrant init Fedora-30
+```
+
+Create a `Vagrantfile` with the following contents:
+
+```
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "Fedora-30"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "2048"
+   end
+end
+
+```
+
+Then, let's bring up the VM:
+
+```
 $ vagrant up
-...
+```
+
+Once the VM is up, let's SSH into it:
+
+```
 $ vagrant ssh
 ```
 
