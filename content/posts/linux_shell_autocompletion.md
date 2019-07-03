@@ -510,27 +510,141 @@ user can run a dedicated sub-command to generate a completion script which they 
 location so as to integrate it into Bash's auto-completion machinery. Internally, cobra basically uses the various available
 annotations and exposed functionalities to generate the script consisting of Bash functions and using `compgen` and related
 Bash commands. I created an [issue](https://github.com/spf13/cobra/issues/867) here to discuss a different approach. Essentially, 
-what I am proposing is a way for the application to handle its own completion.
-
-The [click](https://click.palletsprojects.com/) CLI framework allows [generating](en/7.x/bashcomplete/) Bash completion scripts 
-including some customisation. Once the application has been installed, running it after setting a special environment
-variable will generate the auto-completion script which can then be sourced or put in an appropriate location for Bash to
-find and source it.
-
-The [clap](https://docs.rs/clap/) CLI framework supports generating shell completions natively as well. 
-[build time](https://docs.rs/clap/2.33.0/clap/struct.App.html#method.gen_completions). In addition, making use
-of a `build script`, the completion script can be generated automatically at build time.
-
-Similar to `cobra`, both `click` and `clap` generates scripts which use the Bash functions to setup auto-completion
-for the command line application.
+what I am proposing is a way for the application to handle its own completion. The [click](https://click.palletsprojects.com/) CLI 
+framework allows [generating](en/7.x/bashcomplete/) Bash completion scripts including some customisation. Once the application has 
+been installed, running it after setting a special environment variable will generate the auto-completion script which can then be 
+sourced or put in an appropriate location for Bash to find and source it. The [clap](https://docs.rs/clap/) CLI framework supports 
+generating shell completions natively as well. In addition, making use of a `build script`, the completion script can be generated 
+automatically at [build time](https://docs.rs/clap/2.33.0/clap/struct.App.html#method.gen_completions). Similar to `cobra`, both `click` and `clap` 
+generates scripts which use the Bash functions to setup auto-completion for the command line application.
 
 
-### complete (Golang)
+### complete (Golang) and shell_completion (Rust)
 
-### dargs (Golang)
+Two projects that aim to provide alternatives to Bash to write auto-completion programs are [complete](https://github.com/posener/complete)
+(golang) and [shell_completion](https://github.com/joshmcguigan/shell_completion)(Rust).
 
-### shell_completion (Rust)
 
-Couple of other projects which I found interesting from the same thread are [complete](https://github.com/posener/complete)
-and the [shell_completion](https://github.com/JoshMcguigan/shell_completion) project. Another interesting project which
-I came across was [dargs](https://github.com/aelsabbahy/dargs) which is in a similar spirit as the `complete` project.
+```
+package main
+
+import "github.com/posener/complete"
+
+func main() {
+
+	logLevelOptions := []string{"1", "2", "3"}
+
+	run := complete.Command{
+		Sub: complete.Commands{
+			"grafana": complete.Command{
+				Flags: complete.Flags{
+					"--grafana.url": complete.PredictAnything,
+				},
+			},
+			"kibana": complete.Command{
+				Flags: complete.Flags{
+					"--elkUrl": complete.PredictAnything,
+				},
+			},
+		},
+
+		// define flags of the 'run' main command
+		Flags: complete.Flags{
+			// a flag -o, which expects a file ending with .out after
+			// it, the tab completion will auto complete for files matching
+			// the given pattern.
+			"-h": complete.PredictAnything,
+		},
+
+		GlobalFlags: complete.Flags{
+			"--log": complete.PredictSet(logLevelOptions...),
+		},
+	}
+
+	// run the command completion, as part of the main() function.
+	// this triggers the autocompletion when needed.
+	// name must be exactly as the binary that we want to complete.
+	complete.New("myops", run).Run()
+}
+
+```
+
+```
+$ ./shell_autocompletion --help
+Usage of ./shell_autocompletion:
+  -install
+    	Install completion for myops command
+  -uninstall
+    	Uninstall completion for myops command
+  -y	Don't prompt user for typing 'yes' when installing completion
+amit@ip-192-168-12-243 ~/work/bitbucket.org/welovetravel/myops/shell_autocompletion (master)$ ./shell_autocompletion -install
+Install completion for myops? y
+Installing...
+Done!
+```
+
+$ complete -p | grep myops
+complete -C '/home/amit/work/bitbucket.org/welovetravel/myops/shell_autocompletion/shell_autocompletion' myops
+
+```
+complete -C /home/amit/work/bitbucket.org/welovetravel/myops/shell_autocompletion/shell_autocompletion myops
+```
+```
+$ myops grafana --log 
+1  2  3  
+```
+
+https://github.com/posener/complete/blob/master/gocomplete/complete.go
+
+
+
+## Conclusion
+
+We will end this post by peeking at where the auto-completion machinery is set to motion. Bash uses the `readline` library 
+for all the command line editing, history and auto-completion support. In the bash source code, we have this line in
+the file `bashline.c`:
+
+```
+# bashline.c
+rl_attempted_completion_function = attempt_shell_completion;
+```
+
+If we compile Bash from source, run it under `gdb` after placing a breakpoint at this function, 
+we can see a backtrace showing the invocation of this function when we press `TAB`:
+
+```
+$ <compile bash>
+$ gdb ./bash
+gdb) b attempt_shell_completion
+Breakpoint 1 at 0x479d00: file bashline.c, line 1434.
+$ run
+$  <TAB>
+Breakpoint 1, attempt_shell_completion (text=0x6dd8f8 "", start=0, end=0) at bashline.c:1434
+1434	  rl_ignore_some_completions_function = filename_completion_ignore;
+Missing separate debuginfos, use: dnf debuginfo-install sssd-client-2.1.0-2.fc30.x86_64
+(gdb) bt
+#0  attempt_shell_completion (text=0x6dd8f8 "", start=0, end=0) at bashline.c:1434
+#1  0x00000000004b24b9 in gen_completion_matches (text=0x6dd8f8 "", start=<optimized out>, end=<optimized out>, our_func=0x4b0000 <rl_filename_completion_function>, found_quote=<optimized out>, quote_char=<optimized out>)
+    at complete.c:1209
+#2  0x00000000004b2673 in rl_complete_internal (what_to_do=9) at complete.c:2013
+#3  0x00000000004a8bf3 in _rl_dispatch_subseq (key=9, map=0x514a20 <emacs_standard_keymap>, got_subseq=0) at readline.c:852
+#4  0x00000000004a918e in _rl_dispatch (map=<optimized out>, key=<optimized out>) at readline.c:798
+#5  readline_internal_char () at readline.c:632
+#6  0x00000000004a995d in readline_internal_charloop () at readline.c:659
+#7  readline_internal () at readline.c:671
+#8  readline (prompt=<optimized out>) at readline.c:377
+#9  0x0000000000424068 in yy_readline_get () at /usr/homes/chet/src/bash/src/parse.y:1487
+#10 0x0000000000426098 in yy_getc () at /usr/homes/chet/src/bash/src/parse.y:2345
+#11 shell_getc (remove_quoted_newline=1) at /usr/homes/chet/src/bash/src/parse.y:2345
+#12 shell_getc (remove_quoted_newline=1) at /usr/homes/chet/src/bash/src/parse.y:2264
+#13 0x00000000004297fa in read_token (command=<optimized out>) at /usr/homes/chet/src/bash/src/parse.y:3249
+#14 read_token (command=0) at /usr/homes/chet/src/bash/src/parse.y:3199
+#15 0x000000000042d158 in yylex () at /usr/homes/chet/src/bash/src/parse.y:2758
+#16 yyparse () at y.tab.c:1842
+#17 0x0000000000423397 in parse_command () at eval.c:303
+#18 0x00000000004234a3 in read_command () at eval.c:347
+#19 0x00000000004236c0 in reader_loop () at eval.c:143
+#20 0x00000000004221fe in main (argc=1, argv=0x7fffffffd668, env=0x7fffffffd678) at shell.c:805
+```
+You can learn about `readline` [here](https://tiswww.case.edu/php/chet/readline/readline.html#SEC_Contents).
+
