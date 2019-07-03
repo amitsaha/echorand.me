@@ -1,11 +1,8 @@
 ---
 title:  Notes on Bash auto-completion on Linux
-date: 2019-06-14
+date: 2019-07-03
 categories:
 -  software
-aliases:
-- /notes-on-bash-auto-completion-on-linux.html
-draft: true
 ---
 
 If you are using Bash in default, `vi mode`, this post aims to shed some light on how auto-completions work.
@@ -24,9 +21,8 @@ Let's learn more about the minions that gets to work when we press `<TAB>` or `<
 Let's get a fresh Fedora 30 VM in a Vagrant box and set it up:
 
 ```
-$ # Get fedora vagrant box
-$ # vagrant init
-$ # ..
+$ vagrant box add https://download.fedoraproject.org/pub/fedora/linux/releases/30/Cloud/x86_64/images/Fedora-Cloud-Base-Vagrant-30-1.2.x86_64.vagrant-virtualbox.box --name Fedora-30
+$ vagrant init Fedora-30
 $ vagrant up
 ...
 $ vagrant ssh
@@ -166,8 +162,6 @@ COMP_LINE=git
 COMP_TYPE=63
 COMP_KEY=9
 ```
-
-
 
 These environment variables are related to autocompletion:
 
@@ -510,22 +504,28 @@ user can run a dedicated sub-command to generate a completion script which they 
 location so as to integrate it into Bash's auto-completion machinery. Internally, cobra basically uses the various available
 annotations and exposed functionalities to generate the script consisting of Bash functions and using `compgen` and related
 Bash commands. I created an [issue](https://github.com/spf13/cobra/issues/867) here to discuss a different approach. Essentially, 
-what I am proposing is a way for the application to handle its own completion. The [click](https://click.palletsprojects.com/) CLI 
+what I am proposing is a way for the application to handle its own completion.[python-selfcompletion](https://github.com/dbarnett/python-selfcompletion)
+is an interesting project for Python's `argparse`. The [click](https://click.palletsprojects.com/) CLI 
 framework allows [generating](en/7.x/bashcomplete/) Bash completion scripts including some customisation. Once the application has 
 been installed, running it after setting a special environment variable will generate the auto-completion script which can then be 
 sourced or put in an appropriate location for Bash to find and source it. The [clap](https://docs.rs/clap/) CLI framework supports 
 generating shell completions natively as well. In addition, making use of a `build script`, the completion script can be generated 
-automatically at [build time](https://docs.rs/clap/2.33.0/clap/struct.App.html#method.gen_completions). Similar to `cobra`, both `click` and `clap` 
-generates scripts which use the Bash functions to setup auto-completion for the command line application.
+automatically at [build time](https://docs.rs/clap/2.33.0/clap/struct.App.html#method.gen_completions). Similar to `cobra`, 
+both `click` and `clap` generates scripts which use the Bash functions to setup auto-completion for the command line application.
 
 
 ### complete (Golang) and shell_completion (Rust)
 
-Two projects that aim to provide alternatives to Bash to write auto-completion programs are [complete](https://github.com/posener/complete)
-(golang) and [shell_completion](https://github.com/joshmcguigan/shell_completion)(Rust).
+In most cases, Bash auto-completion scripts are primarily driven by Bash scripts. The scripts may be invoking external
+programs (` git --list-cmds=list-mainporcelain,others,nohelpers,alias,list-complete,config` for example), but the primary
+driver remains Bash scripts. Two projects that aim to provide alternatives are [complete](https://github.com/posener/complete)(golang) 
+and [shell_completion](https://github.com/joshmcguigan/shell_completion)(Rust). These projects aim to provide completion
+primitives such as those provided by `compgen` in Golang and Rust respectively. 
 
+An example of using `complete` is the following golang program for auto-completing a fictional command line program, `myops`:
 
 ```
+# main.go
 package main
 
 import "github.com/posener/complete"
@@ -561,15 +561,16 @@ func main() {
 		},
 	}
 
-	// run the command completion, as part of the main() function.
-	// this triggers the autocompletion when needed.
-	// name must be exactly as the binary that we want to complete.
 	complete.New("myops", run).Run()
 }
 
 ```
 
+Build and register the binary with Bash so that it is invoked during auto-completion for the
+`myops` command:
+
 ```
+$ go build -o shell_completion main.go
 $ ./shell_autocompletion --help
 Usage of ./shell_autocompletion:
   -install
@@ -577,26 +578,25 @@ Usage of ./shell_autocompletion:
   -uninstall
     	Uninstall completion for myops command
   -y	Don't prompt user for typing 'yes' when installing completion
-amit@ip-192-168-12-243 ~/work/bitbucket.org/welovetravel/myops/shell_autocompletion (master)$ ./shell_autocompletion -install
+
+$ ./shell_autocompletion -install
 Install completion for myops? y
 Installing...
 Done!
 ```
 
-$ complete -p | grep myops
-complete -C '/home/amit/work/bitbucket.org/welovetravel/myops/shell_autocompletion/shell_autocompletion' myops
+When we run `-install`, it inserts the following line in the user's `~/.bashrc`:
 
 ```
-complete -C /home/amit/work/bitbucket.org/welovetravel/myops/shell_autocompletion/shell_autocompletion myops
+complete -C /home/amit/work/bitbucket.org/myops/shell_autocompletion/shell_autocompletion myops
 ```
+
+Now, we will start getting suggestions as configured above:
+
 ```
 $ myops grafana --log 
 1  2  3  
 ```
-
-https://github.com/posener/complete/blob/master/gocomplete/complete.go
-
-
 
 ## Conclusion
 
@@ -647,4 +647,3 @@ Missing separate debuginfos, use: dnf debuginfo-install sssd-client-2.1.0-2.fc30
 #20 0x00000000004221fe in main (argc=1, argv=0x7fffffffd668, env=0x7fffffffd678) at shell.c:805
 ```
 You can learn about `readline` [here](https://tiswww.case.edu/php/chet/readline/readline.html#SEC_Contents).
-
