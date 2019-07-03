@@ -193,7 +193,7 @@ These environment variables are related to autocompletion:
 the TAB key
 - `COMP_POINT`: This is the cursor position where the `<TAB><TAB>` was pressed
 
-(As an aside, ([show-key](https://linux.die.net/man/1/showkey)) is pretty cool. It shoes you the ASCII code of a presssed key).
+(As an aside, [show-key](https://linux.die.net/man/1/showkey) is pretty cool. It shoes you the ASCII code of a presssed key).
 
 It's worth mentioning here that the data provided to completion handlers and how the handler sends
 back the suggestions is different when the handler is a shell function.
