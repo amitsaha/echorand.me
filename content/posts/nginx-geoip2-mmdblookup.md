@@ -19,20 +19,10 @@ helped tremendously.
 
 ## mmdblookup
 
-`mmdblookup` can be used to read a MaxMind DB file for an IP address and query various information. To build and install:
+`mmdblookup` can be used to read a MaxMind DB file for an IP address and query various information. To install:
 
 ```
-# yum install wget gcc make -y
-# wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz && \
-    wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz && \
-    gzip -d GeoLite2-City.mmdb.gz && \
-    gzip -d GeoLite2-Country.mmdb.gz
-
-# cd /tmp
-# wget https://github.com/maxmind/libmaxminddb/releases/download/1.3.2/libmaxminddb-1.3.2.tar.gz && \
-    tar -zxvf libmaxminddb-1.3.2.tar.gz && \
-    cd libmaxminddb-1.3.2 && \
-    ./configure && make && make install && cd bin/ && make install
+# yum -y install libmaxminddb-devel
 ```
 
 We need to give it a path to the DB file and the IP address and it spits out all that it finds out. For example:
