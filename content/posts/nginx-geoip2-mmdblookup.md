@@ -228,9 +228,9 @@ geoip2 /etc/GeoLite2-City.mmdb {
 The explanations for the `GeoLite2-Country` DB is similar. Then later on in the nginx configuration, we log the 
 value of this variables in JSON format. A complete nginx.conf is [here](https://gist.github.com/amitsaha/f43e9397e5f84903e5d1bffaf8b4b9d9#file-nginx-conf).
 
-# Dealing with multiple IP addresses in X-Forwarded-For
+# Multiple IP addresses in X-Forwarded-For
 
-What happens when your X-Forwarded-For has a list of IP addresses: `<UserIP>, <LB>, <API gateway>`? We need to extract the user ip
+What happens when your X-Forwarded-For has a chain of IP addresses: `<UserIP>, <LB>, <API gateway>`? We need to extract the user ip
 from this list and then perform GeoIP lookup on it. We will make use nginx's map module (thanks to this [answer](https://stackoverflow.com/a/53630597):
 
 ```
