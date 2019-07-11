@@ -1,5 +1,5 @@
 ---
-title:  Nginx and geoip2
+title:  Nginx and geoip lookup with geoip2 module
 date: 2019-05-24
 categories:
 -  infrastructure
@@ -28,7 +28,7 @@ helped tremendously.
 We need to give it a path to the DB file and the IP address and it spits out all that it finds out. For example:
 
 ```
-$ mmdblookup --file /etc/GeoLite2-City.mmdb --ip 49.255.14.118 
+$ mmdblookup --file /usr/share/GeoIP/GeoLite2-City.mmdb --ip 49.255.14.118 
 
   {
     "city": 
@@ -176,7 +176,7 @@ $ mmdblookup --file /etc/GeoLite2-City.mmdb --ip 49.255.14.118
 Now, let's say we only wanted the name of the city in english, we would do something like this:
 
 ```
-$ mmdblookup --file /etc/GeoLite2-City.mmdb --ip 49.255.14.118 city names en
+$ mmdblookup --file /usr/share/GeoIP/GeoLite2-City.mmdb --ip 49.255.14.118 city names en
 
 "Sydney" <utf8_string>
 
@@ -226,4 +226,28 @@ geoip2 /etc/GeoLite2-City.mmdb {
 ```
 
 The explanations for the `GeoLite2-Country` DB is similar. Then later on in the nginx configuration, we log the 
-value of this variables in JSON format. A complete nginx.conf is [here](https://gist.github.com/amitsaha/f43e9397e5f84903e5d1bffaf8b4b9d9).
+value of this variables in JSON format. A complete nginx.conf is [here](https://gist.github.com/amitsaha/f43e9397e5f84903e5d1bffaf8b4b9d9#file-nginx-conf).
+
+# Dealing with multiple IP addresses in X-Forwarded-For
+
+What happens when your X-Forwarded-For has a list of IP addresses: `<UserIP>, <LB>, <API gateway>`? We need to extract the user ip
+from this list and then perform GeoIP lookup on it. We will make use nginx's map module (thanks to this [answer](https://stackoverflow.com/a/53630597):
+
+```
+map $http_x_forwarded_for $realip {
+        ~^(\d+\.\d+\.\d+\.\d+) $1;
+        default $remote_addr;
+}
+
+```
+
+We default to `$remote_addr` if we don't have any IP address in `$http_x_forwarded_for` and then update our GeoIP lookup as follows:
+
+```
+geoip2 /etc/GeoLite2-Country.mmdb {
+        $geoip2_data_country_code default=US source=$realip country iso_code;
+        $geoip2_data_country_name source=$realip country names en;
+}
+```
+
+An updated complete nginx.conf is [here](https://gist.github.com/amitsaha/f43e9397e5f84903e5d1bffaf8b4b9d9#file-nginx-conf-multiple_x_forwarded_for).
