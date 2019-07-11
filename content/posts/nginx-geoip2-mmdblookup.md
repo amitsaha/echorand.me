@@ -251,3 +251,7 @@ geoip2 /etc/GeoLite2-Country.mmdb {
 ```
 
 An updated complete nginx.conf is [here](https://gist.github.com/amitsaha/f43e9397e5f84903e5d1bffaf8b4b9d9#file-nginx-conf-multiple_x_forwarded_for).
+
+# Other links you may find useful
+
+- https://blog.jayway.com/2014/03/28/how-to-get-the-client-ip-when-using-cloudfront-and-nginx/
