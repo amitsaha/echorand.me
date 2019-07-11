@@ -25,7 +25,7 @@ output:
 .article-meta, .menu a {
   text-decoration: none;
   background: #D2D6EF;
-  color: #FFF;
+  /*color: #FFF;*/
   padding: 5px;
   border-radius: 5px;
 }
