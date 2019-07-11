@@ -16,7 +16,7 @@ references to these resources. Then, we  have to create a lambda function in AWS
 our `.zip` file that we have created above. Everytime, we update this, `.zip`, we have to ask AWS lambda to update the 
 code again. A lot of steps, all ripe for automation.
 
-## Automation using AWS CLI/Serverless frameworks - Creating Lambda infrastructure islands
+# Automation using AWS CLI/Serverless frameworks - Creating Lambda infrastructure islands
 
 One straight forward, no fuss approach is to use the [AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/lambda/index.html).
 The main problem I think with this approach and using any of the serverless
@@ -29,7 +29,7 @@ there will cross-application infrastructure references.
 What follows is a non-production tested suggestion for managing your lambda functions and their infrastructure as part of
 your global infrastructure as code repository.
 
-## Managing lambda functions using Terraform
+# Managing lambda functions using Terraform
 
 Consider a lambda function [ec2_state_change](https://github.com/amitsaha/cloudwatch-event-lambda/tree/master/functions/ec2_state_change).
 I wrote this for a recent [article](https://blog.codeship.com/cloudwatch-event-notifications-using-aws-lambda/). The `src` directory
@@ -82,7 +82,7 @@ but we can always download the terrraform configuration tarball or git clone it 
 to illustrate here is that your terraform configuration for the lambda function can and should co-exist with the rest of your infrastructure.
 
 
-## Terraform source layout
+# Terraform source layout
 
 While working on the article I mentioned above, I also worked for the first time with structuring my terraform code
 with modules. Especially, how we can leverage modules to manage different environments for our infrastructure. The above
@@ -237,7 +237,7 @@ popd
 ```
 
 
-## Replacing scripts
+# Replacing scripts
 
 Of course scripting is hard, and you run into all kinds of issues and they break in all kinds of ways, but they
 are a fact of life when it comes to infrastructure considering how quick they are to put together. 
@@ -247,7 +247,7 @@ from the current tools out there would be that it would work with existing terra
 May be [apex](https://github.com/apex/apex) someday? It uses `terraform` to manage your infrastructure, so may
 we could make it reuse your existing infrastructure as code.
 
-## Summary
+# Summary
 
 I plan to trial this setup out for managing lambda functions as I get a chance, what do you think? Is this something that could work
 better than managing lambda functions infrastructure as islands?

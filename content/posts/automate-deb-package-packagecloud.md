@@ -17,7 +17,7 @@ upon our recipe in that post:
 The primary assumption in my first post was using [dep](https://golang.github.io/dep/) for dependency management. 
 That still holds here.
 
-## Building the DEB packages in Travis CI
+# Building the DEB packages in Travis CI
 
 To let Travis build the DEB package, we add a `.travis.yml` file to our [git repository](https://github.com/amitsaha/golang-packaging-demo)
 with the following contents:
@@ -53,7 +53,7 @@ addons:
 
 The above creates the DEB package and places it in the `artifacts` directory.
 
-## Publishing DEB package to packagecloud.io
+# Publishing DEB package to packagecloud.io
 
 We have built our package now and we are going to push it to a repository created on [pacakagecloud.io](https://packagecloud.io). The first step is to create a repostiory by logging in - let's call it `logrus-demo`'
 and update our `.travis.yml` as follows:
@@ -86,7 +86,7 @@ page.
 At this stage we are all set. If we trigger a new build, it should build the DEB and deploy the package to your
 packagecloud.io repository. You should see your package in your repo similar to [mine](https://packagecloud.io/amitsaha/logrus-demo).
 
-## Installing the package
+# Installing the package
 
 Once the package is pushed, let's try installing it from our packagecloud.io repository. Helpful instructions
 are provided on how you can add the repository to your distribution:
@@ -143,14 +143,14 @@ INFO[0000] I love logrus!
 ```
 
 
-## References
+# References
 
 - [Get started with Travis CI](https://docs.travis-ci.com/user/getting-started)
 - [Quick and dirty debian packages for your Golang application
 ](http://echorand.me/quick-and-dirty-debian-packages-for-your-golang-application.html)
 - [Example repo](https://github.com/amitsaha/golang-packaging-demo)
 
-## Acknowledegements
+# Acknowledegements
 
 Thanks [packagecloud.io](https://packagecloud.io) for setting me up with their open source plan!
 

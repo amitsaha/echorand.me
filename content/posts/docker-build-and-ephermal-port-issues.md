@@ -29,11 +29,11 @@ The instruction `RUN apt-get -y update`  will make network requests to download 
 
 Let's see how we can do that.
 
-## Background
+# Background
 
 How does a docker build happen? Inside containers. What do we do if we want to configure the ephermal port range for these builder containers? We can’t seem to be able to run sysctl in this scenario. We could use `docker build --host` to share the host’s network namespace. And that will ensure that out host’s ephermal port range will be used. However, we also had user namespacing turned on in our setup since this is a [sensible](https://echorand.me/docker-userns-remap-and-system-users-on-linux.html) thing to do. However, we cannot use a user namespace while using the host network. So, what do we do?
 
-## Solution
+# Solution
 
 Could we have a iptables rule to perform a source port translation so that anything that is going out of our host always uses a source port from the specified port range? Generally speaking, we will need to perform a variation of Source NAT. However, we will only change the source port and leave the IP address alone. The following rule will do it:
 
@@ -70,7 +70,7 @@ COMMIT
 This assumes you don't have any other iptables rules configured other than what docker engine configures and then our rule above.
 
 
-## Gotchas
+# Gotchas
 
 Okay, so where/when do you add this `iptables` rule? We have to add this *after* docker engine has started. `docker` creates
 its own firewall rules which seems to be like "drop everything else and add my own". So, here's how I am doing it in AWS EC2 user
@@ -104,7 +104,7 @@ the above firewall rule when `docker` engine is started/restarted.
 
 Know about a better idea? Please let me know.
 
-## Learn more
+# Learn more
 
 There's much to learn about [iptables](https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html). The most relevant
 ones for this post to be familiar with are:

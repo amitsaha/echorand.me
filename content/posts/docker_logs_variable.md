@@ -41,7 +41,7 @@ In the second `docker logs` command, we redirect the host's `stderr` to `/dev/nu
 get only the output that was written `stdout` inside the container, we will need to make sure, we pipe
 the stderr to `/dev/null` on the host.
 
-## Assigning the output of docker logs
+# Assigning the output of docker logs
 
 Coming back to the primary use case which triggered this post, if we wanted just the standard output of the
 container to be assigned to a variable in bash, here's what we should do:

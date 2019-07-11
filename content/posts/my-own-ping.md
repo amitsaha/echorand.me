@@ -7,7 +7,7 @@ aliases:
 - /how-does-ping-roughly-work-over-ipv4-on-linux.html
 ---
 
-## Introduction
+# Introduction
 
 The `ping` program is one of the most common programs which is used to check the "aliveness" of a host and
 a typical execution looks as follows:
@@ -31,7 +31,7 @@ reply back. Then, it prints if any packets were lost and the timing statistics. 
 how the program works - what does it send? what does it receive? The final product ideally would be a 
 C program which will be a basic version of `ping`.
 
-## Theory
+# Theory
 
 This [pdf](http://www.galaxyvisions.com/pdf/white-papers/How_does_Ping_Work_Style_1_GV.pdf) here has a good description
 of the working of ping. The non-detailed version is that we create a special ICMP packet, package it up within a IP 
@@ -44,7 +44,7 @@ more along with a graphical representation.
 With that bit of theory under our belt, let's look into what system calls are made as part of the above invocation
 of the `ping` program using `strace`.
 
-## System calls made as part of ping
+# System calls made as part of ping
 
 If you don't have `strace` installed, please install it using your package manager. Let's now execute the above `ping` program under `strace`:
 
@@ -115,7 +115,7 @@ Finally, we have the call to, [sendto](https://linux.die.net/man/2/sendto) and [
 system calls which are used to send the IP packet (with the ICMP packet embedded in it) to the destination host and then
 receive the reply from the destination host respectively.
 
-## Implementation
+# Implementation
 
 We now know enough to copy bits and pieces from the `ping` implementation of the
 [iputils](https://github.com/iputils/iputils) project to transform our above understanding into code.
@@ -178,7 +178,7 @@ Sent 64 bytes
 Reply of 64 bytes received
 icmp_seq = 1
 ```
-## Parting notes
+# Parting notes
 
 If you have been following along starting from `strace` at the beginning you can see that I could run `ping` without
 needed `sudo` or having to set the group sysctl parameter. What happened? The `ping` program has the [setuid](https://www.cyberciti.biz/faq/unix-bsd-linux-setuid-file/) bit set:
@@ -198,7 +198,7 @@ Hence, we could do the same for our `./a.out` file above:
 
 Then, we would not need to change the sysctl parameter.
 
-### Resources
+## Resources
 
 - [Stackoverflow](https://stackoverflow.com/questions/8290046/icmp-sockets-linux)
 - ["ping" socket](https://lwn.net/Articles/443051/)

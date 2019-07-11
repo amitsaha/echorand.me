@@ -34,7 +34,7 @@ after the build. However, `user namespaces` via `userns-remap` is better than bo
 Before we get into configuring `docker` engine, we have a bit to learn about Linux `system` users and entries in
 `/etc/subuid` and `/etc/subgid`.
 
-## System users and entries in `/etc/subuid` and `/etc/subgid`
+# System users and entries in `/etc/subuid` and `/etc/subgid`
 
 On Linux, a `system` user is created with `-s` switch to `useradd`. A [system user](http://www.linuxfromscratch.org/blfs/view/svn/postlfs/users.html) doesn't have shell access or a home
 directory and is most useful for running daemons and other processes, like a CI slave for example.
@@ -57,7 +57,7 @@ When we create a non-system user, [useradd](https://linux.die.net/man/8/useradd)
 However, for `system` users, this is not done. I am not sure why though. 
 
 
-## docker `userns-remap` with system users
+# docker `userns-remap` with system users
 
 docker's `userns-remap` feature allows us to use a default `dockremap` user. In this scenario, docker engine creates 
 the user `dockremap` on the host and maps the `root` user inside a container to this user. For this user, `docker` also 
@@ -70,7 +70,7 @@ inside a container is performed as the same user as the one spawning the contain
 we want to specify another user on the host that the root user inside the container should map to.
 
 
-## Adding a `subuid` and `subgid` entry for system users
+# Adding a `subuid` and `subgid` entry for system users
 
 Since, we want the user inside the container to be the same user as that outside the container, we have to set the
 `subuid` starting user ID to be the same as the user ID on the host. If we don't do this, any changes to the volume
@@ -94,7 +94,7 @@ We are now ready to enable `userns-remap` and specify `docker engine` to use the
 Note that if you are trying to use this feature with a non-system user, you will have to manually modify the `subuid`
 and `subgid` entries so that your starting subuid is the same as the User ID.
 
-## Enabling `docker's` userns-remap
+# Enabling `docker's` userns-remap
 
 You could modify docker's daemon.json file to enable `userns-remap`. I went with the approach of using a
 drop in systemd unit file to update the `dockerd` flags:
@@ -112,7 +112,7 @@ $sudo systemctl restart docker
 ```
 
 
-## User namespace in action
+# User namespace in action
 
 Now, if we run a container and note the PID from the host:
 
@@ -133,7 +133,7 @@ Please see [user_namespaces(7)](http://man7.org/linux/man-pages/man7/user_namesp
 files.
 
 
-## Using third party images
+# Using third party images
 
 One of the interesting issues I faced while using `userns-remap` was an error when doing a `docker pull` of the form:
 `failed to register layer: Error processing tar file (exit status 1): container id xxx cannot be mapped to a host id`.
@@ -142,13 +142,13 @@ executing the docker client command. If an image you are pulling has files with 
 file entry doesn't have space for `1000` users, it is going to fail. The solution is to have a decent enough range
 of users in your `subuid` entry.
 
-## Problem with the above
+# Problem with the above
 
 Since we have manually set the sub ordinate user IDs to start at the same ID (say, A) as the user ID, a sub-ordinate 
 user ID B inside the container, such that B=A+N, may map to an existing user ID, C on the host and hence any changes
 to the volume mounted directory by a user B, will be mapped back on the host as being modified by user C.
 
-## Learn more
+# Learn more
 
 - [User namespacing on Linux](http://man7.org/linux/man-pages/man7/user_namespaces.7.html)
 - [User namespaces in Docker](https://success.docker.com/article/introduction-to-user-namespaces-in-docker-engine)

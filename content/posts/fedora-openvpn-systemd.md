@@ -61,7 +61,7 @@ $ sudo systemctl enable openvpn@fln2.service
 $ sudo systemctl start openvpn@fln2.service
 ```
 
-## Troubleshooting
+# Troubleshooting
 
 If something goes wrong, you can see the logs via `journalctl`:
 
@@ -70,7 +70,7 @@ $ sudo journalctl -u openvpn@fln
 ..
 ```
 
-## References
+# References
 
 - [Sample systemd unit file for Open VPN](https://ask.fedoraproject.org/en/question/113988/openvpn-will-not-start-via-systemd-after-upgrade-to-f25/?answer=114099#post-id-114099)
 - [systemd template unit files](https://fedoramagazine.org/systemd-template-unit-files/)

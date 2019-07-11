@@ -8,17 +8,17 @@ categories:
 Some notes on PostgreSQL which you may find useful. Thanks to all those numerous StackOverflow answers
 that helped me do my job at hand.
 
-## Schemas and Database
+# Schemas and Database
 
 The database is the highest level of organization. A database can have one or more `schemas`. The `public`
 schema is present by default and all tables created are created in this schema, if not otherwise specified.
 Learn more about it in the [documentation](https://www.postgresql.org/docs/8.1/ddl-schemas.html)
 
-## Users and roles
+# Users and roles
 
 [What is the difference?](https://stackoverflow.com/questions/27709456/what-is-the-difference-between-a-user-and-a-role)
 
-## User creation
+# User creation
 
 The first thing you need to be sure of is that you are connected to the right database before you do this.
 To find out the current database:
@@ -46,7 +46,7 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public  GRANT SELECT ON TABLES TO readonlyuse
 
 ```
 
-## User deletion
+# User deletion
 
 First, revoke privileges:
 
@@ -64,7 +64,7 @@ Now, drop the user:
 drop user readonlyuser;
 ```
 
-## List all roles/users
+# List all roles/users
 
 ```
 SELECT

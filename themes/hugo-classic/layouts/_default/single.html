@@ -2,7 +2,10 @@
 <div class="article-meta">
 <h1><span class="title">{{ .Title }}</span></h1>
 {{ with .Params.author }}<h2 class="author">{{ . }}</h2>{{ end }}
-{{ if .Params.date }}<h2 class="date">{{ .Date.Format "2006/01/02" }}</h2>{{ end }}
+{{ if .Params.date }}<h4 class="date">First posted on: {{ .Date.Format "2006/01/02" }}</h4>{{ end }}
+<h4 class="date">Last modified: {{ .GitInfo.AuthorDate }}, <a href="https://github.com/amitsaha/echorand.me/commit/{{ .GitInfo.Hash }}">{{ .GitInfo.AbbreviatedHash }}</a></h4>
+
+
 <p class="terms">
   {{ range $i := (slice "categories" "tags") }}
   {{ with ($.Param $i) }}
@@ -12,7 +15,7 @@
 </p>
 </div>
 
-{{ if .Params.toc }}
+{{ if not .Params.toc }}
 {{ .TableOfContents }}
 {{ end }}
 

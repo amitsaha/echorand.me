@@ -111,7 +111,7 @@ coredns_dns_response_size_bytes_count{proto="udp",zone="."} 242
 ```
 
 
-## Firefox and DNS over HTTPS (DOH)
+# Firefox and DNS over HTTPS (DOH)
 
 Another interesting bit of information I learned about was Mozilla's plan to integrate DNS over HTTPS in their Firefox
 browser. This [article](https://www.ghacks.net/2018/03/20/firefox-dns-over-https-and-a-worrying-shield-study/) has the

@@ -16,7 +16,7 @@ make this post relevant to you are:
 - Target operating system: Windows
 - Local operating environment/system: Linux (including Windows Subsystem for Linux).
 
-## Why I chose certbot?
+# Why I chose certbot?
 
 I decided to use [certbot](https://certbot.eff.org/) since it allowed me do create the DNS TXT entries manually. This
 was the first time I was doing this and I just wanted to get an idea of what's involved. To me it seemed like a two
@@ -32,7 +32,7 @@ so I could have used it to create the DNS TXT record automatically. However, it 
 I was after. `win-acme` needed hooks to be provided for the DNS challenge, which seemed like another thing to do 
 at the moment - meaning, writing the hooks.
 
-## Generating the certificate
+# Generating the certificate
 
 Once you have installed `certbot`:
 
@@ -69,7 +69,7 @@ IMPORTANT NOTES:
    ...
 ```
 
-## Importing into IIS
+# Importing into IIS
 
 The directory created will have a bunch of files. We will next create a .pfx file for importing into IIS using `openssl`:
 
@@ -82,12 +82,12 @@ Verifying - Enter Export Password:
 The resultant file will be certificate.pfx. Now, copy the `certificate.pfx` file to the target IIS box and import
 it using this handy [guide](https://www.digicert.com/ssl-support/pfx-import-export-iis-7.htm).
 
-## Using with `traefik`
+# Using with `traefik`
 
 If you are generating the certificates manually for `traefik` reverse proxy, the `cert.pem` file is the public
 certificate and the `privkey.pem` file is the private key.
 
-## Automating
+# Automating
 
 The next step is to attempt to automate the certificate generation process using `lego` and perhaps some Powershell [glue](https://docs.microsoft.com/en-us/powershell/module/pkiclient/?view=win10-ps) to import the certificate and change/setup
 IIS site binding with the new certificate.

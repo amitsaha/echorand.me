@@ -17,7 +17,7 @@ Once I had installed the module, the hard part for me was how to get the data I 
 from nginx and the geoip2 module integration. This is where [mmdblookup](https://maxmind.github.io/libmaxminddb/mmdblookup.html)
 helped tremendously.
 
-## mmdblookup
+# mmdblookup
 
 `mmdblookup` can be used to read a MaxMind DB file for an IP address and query various information. To install:
 
@@ -186,7 +186,7 @@ If you look at the first "object" in the output above, you will see that the abo
 like accessing a nested key inside a dictionary. I say almost, becomes it's not a JSON format. Anyway, this was the key thing
 I needed to learn to be able to write the right things in my nginx configuration. 
 
-## Logging the GeoIP decoded data
+# Logging the GeoIP decoded data
 
 This is how the relevant nginx configuration for GeoIP2 lookup looked like:
 

@@ -37,7 +37,7 @@ The `-O` option is equivalent to `--remote-name` which basically says two things
 - Implicitly, save the content to a file
 - Use the file part of the remote URL as the local file name
 
-## What's that error above?
+# What's that error above?
 
 The `Failed wrtiting body` error seems to surface in different circumstances. It certainly didn't help my debugging. However,
 I was running [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10), and a older `curl` version:

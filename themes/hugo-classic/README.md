@@ -2,7 +2,7 @@
 
 Classic is forked from the **XMin** theme, written by [Yihui Xie](https://yihui.name). I made a fresh remix of it for my [personal blog](https://goodroot.ca). It provides some simplifications, `highlight.js` for syntax highlighting, emoji support, and slick fonts.
 
-### Instructions
+## Instructions
 
 1: Install Hugo.
 
@@ -32,7 +32,7 @@ git clone git@github.com:goodroot/hugo-classic.git
 
 6: Run `hugo server` within `classic/` and enjoy and customize to your hearts content!
 
-### New Posts
+## New Posts
 
 To make new posts, simply use the command line:
 
@@ -40,7 +40,7 @@ To make new posts, simply use the command line:
 hugo new post/good-to-great.md
 ```
 
-### Header Colour
+## Header Colour
 
 To adjust the header colour, head to `static/css/style.css` and change...
 
@@ -62,11 +62,11 @@ header a {
 
 Change `color:` to a nice matching colour.
 
-#### Screenshot
+## Screenshot
 
 ![Screenshot of Hugo Classic](https://github.com/goodroot/hugo-classic/raw/master/images/screenshot.png)
 
-## Blog Posts
+# Blog Posts
 
 hugo-classic has appeared in...
 

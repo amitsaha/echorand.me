@@ -13,7 +13,7 @@ I went back to the drawing board - basically reading
 [setup-vs-requirement](https://caremad.io/posts/2013/07/setup-vs-requirement/).
 
 
-## Applications
+# Applications
 
 This is what I did:
 
@@ -31,7 +31,7 @@ git+https://<git repo>@master
 
 You can replace the `master` by a specific commit/git tag.
 
-## Libraries/End-user focused tools
+# Libraries/End-user focused tools
 
 Now, let's say you are publishing a package to PyPI and this package has a dependency on
 a version of a package which is not in PyPi or in a git repo. This is what we do:
@@ -103,7 +103,7 @@ Usage:       my-awesome-cli
 
 ```
 
-## Helpful links
+# Helpful links
 
 - [setup-vs-requirement](https://caremad.io/posts/2013/07/setup-vs-requirement/)
 - [pip install specific git commit](https://yuji.wordpress.com/2011/04/11/pip-install-specific-commit-from-git-repository/)

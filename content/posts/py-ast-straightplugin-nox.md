@@ -34,7 +34,7 @@ are concerned, they check if a certain condition or conditions are met by the cl
 
 Please note that I am using Python 3.6 for everything.
 
-## Core analyser engine
+# Core analyser engine
 
 The core analyser engine uses the [ast](https://docs.python.org/3/library/ast.html) module to create an AST node. Checkout
 this PyCon 2018 talk - [The AST and Me](https://www.youtube.com/watch?v=XhWvz4dK4ng) if you want to learn more.
@@ -132,7 +132,7 @@ setup(
 
 ```
 
-## Writing plugins
+# Writing plugins
 
 Our core engine is done, how do we write plugins? I was faced with this new thing called `namespace packages`.
 Looking at the [docs](https://packaging.python.org/guides/packaging-namespace-packages/), it made complete sense.
@@ -177,7 +177,7 @@ setup(
 In a practical scenario, we will have these packages elsewhere and will just `pip install` them and the effect
 will be the same.
 
-## Trying it all out
+# Trying it all out
 
 These are the things we will need to do:
 
@@ -219,7 +219,7 @@ def human_testing(session, python_version):
     session.run('python', 'analyser/main.py', './module_under_test.py')
  
 ```
-## Other learnings
+# Other learnings
 
 Besides all the above things that I learned, I also learned something about the `issubclass` function.
 I was wondering why, the below comparisions was returning False:
@@ -232,7 +232,7 @@ issubclass(<class 'analyser.extensions.capwords.CheckCapwords'> <class '__main__
 And so basically, I moved `BaseClassCheck` from `analyser/main.py` to `analyser/bases.py` which meant
 the namespace of `BaseClassCheck` was always going to be the same.
 
-## Summary
+# Summary
 
 We saw how we can use `straight.plugin` to implement a plug-in architecture in  our programs. We also saw how
 we can use the `ast` module to parse Python source code and analyse them and finally we learned about `nox`.

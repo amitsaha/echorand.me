@@ -12,7 +12,7 @@ building and deploying your golang applications as Debian packages.
 The packages produced will not be official quality DEB packages.
 
 
-## Assumptions
+# Assumptions
 
 I have been using [dep](https://golang.github.io/dep/) for dependency management, and I assume that
 you are doing the same. Other dependency management solutions should
@@ -24,7 +24,7 @@ version control.
 If you want to integrate my workflow into an existing project, 
 please skip ahead to the second use case and then read back.
 
-## Use case #1: New golang application project
+# Use case #1: New golang application project
 
 Create a new directory which will be the home of our new project.
 Since we are going to use [dep](https://golang.github.io/dep/), it has to be somewhere in our
@@ -79,7 +79,7 @@ $(GODEP):
 Gopkg.toml: $(GODEP)
 	$(GODEP_BIN) init
 
-vendor:         ## Vendor the packages using dep
+vendor:         # Vendor the packages using dep
 vendor: $(GODEP) Gopkg.toml Gopkg.lock
 	@ echo "No vendor dir found. Fetching dependencies now..."
 	GOPATH=$(GOPATH):. $(GODEP_BIN) ensure
@@ -87,12 +87,12 @@ vendor: $(GODEP) Gopkg.toml Gopkg.lock
 version:
 	@ echo $(VERSION)
 
-build:          ## Build the binary
+build:          # Build the binary
 build: vendor
 	test $(BINARY_NAME)
 	go build -o $(BINARY_NAME) -ldflags "-X main.Version=$(VERSION)" 
 
-build-deb:      ## Build DEB package (needs other tools)
+build-deb:      # Build DEB package (needs other tools)
 	test $(BINARY_NAME)
 	test $(DEB_PACKAGE_NAME)
 	test "$(DEB_PACKAGE_DESCRIPTION)"
@@ -101,11 +101,11 @@ build-deb:      ## Build DEB package (needs other tools)
 test: vendor
 	go test -race $(packages)
 
-vet:            ## Run go vet
+vet:            # Run go vet
 vet: vendor
 	go tool vet -printfuncs=Debug,Debugf,Debugln,Info,Infof,Infoln,Error,Errorf,Errorln $(files)
 
-lint:           ## Run go lint
+lint:           # Run go lint
 lint: vendor $(GOLINT)
 	$(GOLINT) -set_exit_status $(packages)
 $(GOLINT):
@@ -115,8 +115,8 @@ clean:
 	test $(BINARY_NAME)
 	rm -f $(BINARY_NAME) 
 
-help:           ## Show this help
-	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
+help:           # Show this help
+	@fgrep -h "#" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/#//'
 ```
 
 **Workflow - Step #2**
@@ -364,7 +364,7 @@ ME=demo BINARY_NAME=demo
 The resulting debian package will be in the `artifacts/` 
 sub-directory.
 
-## Use case #2: Existing golang application project
+# Use case #2: Existing golang application project
 
 If you want to use the proposed workflow in an existing golang
 application project, you will have to carry out all the workflow
@@ -374,7 +374,7 @@ you will need to remove the `vendor` or similar directory, and
 any other metadata files that may be related to the package
 management tool you are migrating from.
 
-## Example project
+# Example project
 
 An example project with the above files is at 
 [golang-packaging-demo](https://github.com/amitsaha/golang-packaging-demo). The files in the project are:
@@ -410,7 +410,7 @@ the use of [dep](https://github.com/jordansissel/fpm) as the package management 
 You may be interested in the extension of this post in [Automatic building and publishing DEB packages for Golang applications](http://echorand.me/automatic-building-and-publishing-deb-packages-for-golang-applications.html)
 
 
-## Resources
+# Resources
 
 - [Dep](https://golang.github.io/dep/)
 - [Daily Dep](https://golang.github.io/dep/docs/daily-dep.html)

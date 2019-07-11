@@ -6,7 +6,7 @@ title: Home
 
 # Hugo.io - Classic
 
-### For text focused goodness
+## For text focused goodness
 
 About twenty years ago Jobs and Wozniak, the founders of Apple, came up with the very strange idea of selling information processing machines for use in the home. The business took off, and its founders made a lot of money and received the credit they deserved for being daring visionaries. But around the same time, Bill Gates and Paul Allen came up with an idea even stranger and more fantastical: **selling computer operating systems**. This was much weirder than the idea of Jobs and Wozniak.
 
@@ -25,4 +25,4 @@ A computer at least had some sort of physical reality to it. It came in a box, y
 
 <hr/>
 
-### Blog
+## Blog

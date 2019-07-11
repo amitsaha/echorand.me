@@ -20,7 +20,7 @@ $ uname -a
 Linux vagrant 4.15.0-29-generic #31-Ubuntu SMP Tue Jul 17 15:39:52 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
-## Stopping a process
+# Stopping a process
 
 In our first exploration, we will stop the `tracee` from our `tracer` with the help of `ptrace()`.
 
@@ -120,4 +120,4 @@ python3 tracee.py
 KeyboardInterrupt
 ```
 
-### PTRACE_ATTACH
+## PTRACE_ATTACH

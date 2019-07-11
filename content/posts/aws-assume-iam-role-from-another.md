@@ -37,7 +37,7 @@ before you can run `terraform apply`.
 This functionality may be found useful in different problem scenarios. Next, I describe the scenario where
 I first used it.
 
-## Problem Scenario
+# Problem Scenario
 
 Consider the following scenario for 3 services running on their own AWS EC2 instances in
 a production setup:
@@ -115,7 +115,7 @@ As I note in the diagram above, the individual services will get an access denie
 the EC2 instance above is using a different IAM profile than the ones used when the services
 are running in the production setup. 
 
-## Setting up test infrastructure
+# Setting up test infrastructure
 
 Let's verify the problem for ourselves first by created a test infrastructure as follows:
 
@@ -161,7 +161,7 @@ assume role operation to succeed. If an IAM role, `role1` wants to assume anothe
 Before we move on, we will run `terraform destroy` here so that the next step succeeds. We are using a local
 `tfstate` file in each configuration directory for the demos which makes this step necessary.
 
-## Solution: Infrastructure setup
+# Solution: Infrastructure setup
 
 If an IAM role, `role1` wants to assume another role, `role2`, then:
 
@@ -232,7 +232,7 @@ An error occurred (AccessDenied) when calling the ListObjects operation: Access 
 However, since the infrastructure is now setup to allow us to perform assume role, we can make use
 of that.
 
-## Solution: Perform AssumeRole operation
+# Solution: Perform AssumeRole operation
 
 The AWS CLI is already installed in the EC2 instance we spun up, so let's see how we can perform `assume role` operation:
 
@@ -284,7 +284,7 @@ $ AWS_SESSION_TOKEN="<session-token-above>" \
 2018-02-25 12:38:32         12 hello
 ```
 
-## Discussions of the solution
+# Discussions of the solution
 
 When we discussed the necessary permissions for `role1` to be able to assume `role2`, we learned that:
 
@@ -307,13 +307,13 @@ as follows:
 You can find the entire configuration in the 
 [solution_demo_root_user](https://github.com/amitsaha/aws-assume-role-demo/tree/master/terraform_configuration/solution_demo_root_user).
 
-## AssumeRole in your applications
+# AssumeRole in your applications
 
 Above we performed the assume role operation via the AWS CLI, but in your applications we will use the corresponding
 language's SDK function to do so. We will also need to check the expiry of the access key and secret key pair before
 we attempt to use it make an AWS API call with them.
 
-## Alternatives to modifying your application
+# Alternatives to modifying your application
 
 [metadataproxy](https://github.com/lyft/metadataproxy) aims to provide a solution to this problem such that you
 don't have to modify your application code. This is great if you are using containers to deploy your application
@@ -322,13 +322,13 @@ and should work out of the box when you combine the infrastructure setup that th
 [kube2iam](https://github.com/jtblin/kube2iam) again aims to provide a similar solution to `metadataproxy` for
 Kubernetes.
 
-## Conclusion
+# Conclusion
 
 The problem is generic enough and whether you have to modify your application or not depends on your deployment
 platform and choices. However, the infrastructure setup needed for these solutions are similar and hopefully my post
 will help you with that.
 
-## Resources
+# Resources
 
 - [Terraform configuration repo](https://github.com/amitsaha/aws-assume-role-demo)
 - [AWS Assume Role](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html)

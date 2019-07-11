@@ -10,7 +10,7 @@ aliases:
 If you are running your server applications via [supervisord](http://supervisord.org/) on a Linux distro running 
 [systemd](https://www.freedesktop.org/wiki/Software/systemd/), you may find this post useful.
 
-## Problem Scenario
+# Problem Scenario
 
 An example scenario to help us establish the utility for this post is as follows:
 
@@ -20,7 +20,7 @@ An example scenario to help us establish the utility for this post is as follows
 - You see in-flight requests being dropped
 
 
-## Solution
+# Solution
 
 What we want to do is **prevent** in-flight requests being dropped when a system is shutting down as part of
 a power off cycle (AWS instance termination, for example). We can do so in two ways:
@@ -44,7 +44,7 @@ When you are using a software like [linkerd](https://linkerd.io/) as your RPC pr
 `linkerd` will see that your service instance is unhealthy, so it will not proxy any more requests to it.
 
 
-## Proposed solution implementation
+# Proposed solution implementation
 
 The proposed solution is a systemd unit - let's call it `drain-connections` which is defined as follows:
 
@@ -95,7 +95,7 @@ Wants=drain-connections.service
 
 This ensures that `drain-connections` service gets started when `supervisord` is started.
 
-## Discussion
+# Discussion
 
 Let's see how the above fits in to our scenario:
 

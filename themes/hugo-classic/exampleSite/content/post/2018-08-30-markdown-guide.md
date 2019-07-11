@@ -73,7 +73,7 @@ for i in range(10):
 
 
 
-### An h3 header ###
+## An h3 header ##
 
 Now a nested list:
 
@@ -150,6 +150,6 @@ $$I = \int \rho R^{2} dV$$
 And note that you can backslash-escape any punctuation characters
 which you wish to be displayed literally, ex.: \`foo\`, \*bar\*, etc.
 
-#### Images auto center:
+## Images auto center:
 
 ![Party](http://emojis.slackmojis.com/emojis/images/1475875185/1223/party-dinosaur.gif?1475875185)

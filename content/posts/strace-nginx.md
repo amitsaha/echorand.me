@@ -17,7 +17,7 @@ point of investigation was what are we getting on the nginx side? Do we get the
 entire message that we are expecting and something is going on the ElasticSearch
 side? To do so, I used `strace`.
 
-## Setup
+# Setup
 
 Install `nginx` using your distribution's package manager. On Fedora, `sudo dnf install nginx`
 did it for me. Once installed, start `nginx`:
@@ -37,7 +37,7 @@ If the above request succeeds, we are good to proceed.
 Install `strace` on your system using your package manager. On Fedora, `sudo dnf install strace`
 was sufficient.
 
-## Tracing `nginx` request and response
+# Tracing `nginx` request and response
 
 To trace system calls made by `nginx` in the context of handling a request, we will attach to
 the nginx process. However, `nginx` [runs](https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/) multiple worker processes, 
@@ -107,6 +107,6 @@ Let's see what we have on the terminal we have `strace` open. The most relevant 
 The `recvfrom()` call has the HTTP request sent by our `curl` command and the `writev()` call has the HTTP response being
 sent to the client.
 
-## Summary
+# Summary
 
 Hope you found this post useful and if you did, you may find this [other post](https://www.elvinefendi.com/2017/03/07/my-experience-with-lua-nginx-openssl-strace-gdb-glibc-and-linux-vm.html) by a different author interesting as well.

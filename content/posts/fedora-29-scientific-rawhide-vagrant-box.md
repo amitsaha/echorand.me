@@ -17,12 +17,12 @@ the ISO and then going through the installation process, you can now basically d
 - `vagrant up`
     
     
-## Trying it out before Fedora 29 release
+# Trying it out before Fedora 29 release
 
 As of a few days back, Fedora 29 rawhide vagrant boxes for Fedora Scientific are now being published. Thanks to release
 engineering for moving this forward. 
 
-## Mac OS X Hosts - VirtualBox
+# Mac OS X Hosts - VirtualBox
 
 Here's what I did using VirtualBox on an OS X host. First, install [vagrant](https://www.vagrantup.com/). Then, from a terminal:
 
@@ -94,20 +94,20 @@ $ vagrant reload
 
 This will recreate the virtual machine.
 
-## Windows hosts - VirtualBox
+# Windows hosts - VirtualBox
 
 To be done (If you end up doing it, please let me know - see for a link at the bottom of this post).
 
-## Linux hosts - libvirt
+# Linux hosts - libvirt
 
 To be done (If you end up doing it, please let me know - see for a link at the bottom of this post).
 
-## Linux hosts - VirtualBox
+# Linux hosts - VirtualBox
 
 To be done (If you end up doing it, please let me know - see for a link at the bottom of this post).
 
 
-## Explore
+# Explore
 
 Now that we have Fedora Scientific setup, head over to the [docs](http://fedora-scientific.readthedocs.io/en/latest/) to 
 explore what's in Fedora Scientific.

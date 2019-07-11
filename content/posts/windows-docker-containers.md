@@ -24,7 +24,7 @@ integration tests (including selenium tets) are run on docker containers on the 
 
 Next, I share some of my findings in the hope that it may be useful to others.
 
-## Docker versions
+# Docker versions
 
 On Windows 10, when we install docker from the [docker store](https://www.docker.com/docker-windows), we get the community
 version of docker. Once you install it, and run `docker version`, you will get the version stated as `18.03.1-ce` or similar.
@@ -42,7 +42,7 @@ Install-Package -Name docker -ProviderName DockerMsftProvider -Force
 choco install docker-compose # this needs chocolatey installed
 ```
 
-## Container Isolation
+# Container Isolation
 
 On Windows 10, `docker` uses `hyperv` isolation:
 
@@ -63,7 +63,7 @@ process
 This basically means that on Windows 10, a container is running within a tiny VM. I suspect this is a major reason for 
 the slow container startup and image build times on Windows 10. To learn more, see [here](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container) and a relevant [issue](https://github.com/docker/for-win/issues/1822).
 
-## Docker commit
+# Docker commit
 
 `docker commit` allows us to create a image from a running container. However, on Windows we cannot do that:
 
@@ -79,7 +79,7 @@ $ docker stop hopeful_clarke
 $ docker commit hopeful_clarke myimage
 ```
 
-## User-defined networks
+# User-defined networks
 
 On Windows 10, multiple `nat` networks are supported, but on Windows Server with 17.06 EE docker engine, only 
 one `nat` network is supported. Hence, when using `docker-compose`, we must specify the following:
@@ -98,19 +98,19 @@ fail with an error: `Problem : Error response from daemon: HNS failed with error
 See [here](https://docs.microsoft.com/en-us/virtualization/windowscontainers/container-networking/network-drivers-topologies)
 to learn more.
 
-## Using DNS for inter-container communication
+# Using DNS for inter-container communication
 
 All the services running as part of a test cycle are running in the same `nat` network on Windows server, hence they
 can all use the container name as host names for the services. Combining it with runtime configuration updates, it
 worked great. One issue to be aware of is DNS Client caching, and it can be solved using `Clear-DNSClientCache` powershell
 command.
 
-##  `failed to create endpoint <service> on network nat`
+#  `failed to create endpoint <service> on network nat`
 
 I got this error only a couple of times in all my testing over 2 months. It is filed [here](https://github.com/docker/libnetwork/issues/1950).
 
 
-## `hcsshim::PrepareLayer failed in Win32`
+# `hcsshim::PrepareLayer failed in Win32`
 
 While building images and running containers, an error as follows appeared with varying frequency:
 
@@ -128,7 +128,7 @@ A retry of the operation usually fixed it. Relevant project - [hccshim](https://
 
 
 
-## Docker compose and volume mounting
+# Docker compose and volume mounting
 
 I needed the following voume mount to work:
 
@@ -143,7 +143,7 @@ I needed the following voume mount to work:
 
 For this, I [needed](https://github.com/docker/compose/issues/4763) to use `3.2` as the docker compose yaml version.
 
-## Writing Dockerfiles for Windows containers
+# Writing Dockerfiles for Windows containers
 
 One of the first things I had to tackle while writing a `Dockerfile` was that of which slash to use in Path names.
 Basically, for Dockerfile instructions such as `ADD`, `WORKDIR`, `COPY`, continue using the "Linux" style, "/".
@@ -180,7 +180,7 @@ RUN powershell -command \
 ..
 ```
 
-## Volume mounting in NodeJS applications
+# Volume mounting in NodeJS applications
 
 Trying to do a `npm install` (for example) on a NodeJS application inside a container with the directory
 volume mounted from host wouldn't work. The issue is described [here](https://github.com/nodejs/node/issues/8897).
@@ -192,7 +192,7 @@ My solution was to basically:
 - Build within `C:\workspace`
 - Copy built assets back from `C:\workspace` to `C:\app`
 
-## Karma test runner with PhantomJS inside a Windows container
+# Karma test runner with PhantomJS inside a Windows container
 
 I couldn't get [phantomjs-prebuilt](https://www.npmjs.com/package/phantomjs-prebuilt) to work inside a Windows container 
 for some reason. I decided to give a systemwide installation a try and it worked. The following `Dockerfile` worked for me:
@@ -212,7 +212,7 @@ CMD powershell -File .\RunTests.ps1
 ```
 A complete example is [here](https://github.com/amitsaha/karma-phantomjs-demo).
 
-## Running a ASP.NET framework application in Docker
+# Running a ASP.NET framework application in Docker
 
 The main application I was setting up the testing environment for was a DotNet framework web application with multiple sites
 configured in IIS. Coming from a Linux/Nginx/Python/Golang background, I found it quite challenging to find instructions

@@ -13,7 +13,7 @@ on the topic of hard links and soft links (a.k.a symbolic links) on Linux. I hav
 However, I end up getting confused between the two, specifically the differences between the two. So, here's 
 my post on the topic with the hope that I will stop getting confused ever again.
 
-## Our setup
+# Our setup
 
 Let's create a file and write a line into it:
 
@@ -46,7 +46,7 @@ Hello, I am file1
 $ cat file1-slink
 Hello, I am file1
 ```
-## Investigation: Inodes
+# Investigation: Inodes
 
 One of the key differences between soft links and hard links is with respect to how they are represented
 in the filesystem. If we run `ls` with the `i` switch, it will show the [inode](https://en.wikipedia.org/wiki/Inode)
@@ -105,7 +105,7 @@ file1-hlink  -----> FILE CONTENTS ("Hello, I am file1") <------ file1
 Perhaps, this post [here](https://linuxgazette.net/35/tag/links.html) best describes how hard links defer from
 soft links.
 
-## Investigation: Size of hard links and soft links
+# Investigation: Size of hard links and soft links
 
 Let's go back to one of the previous output of `ls -l`:
 
@@ -131,7 +131,7 @@ file1
 It is the "relative" path to the original file. Contrary to a hard link, a soft link actually takes up some space of it's
 own.
 
-## Investigation: Deleting the original file
+# Investigation: Deleting the original file
 
 What happens to each kind of link when we delete the original file? From the graphics above, we expect that the symbolic
 link will basically be a "dangling" link and hence, we will lose access to the file contents. In the case of hard link, the contents will still continue to be accessible, since all we are doing is deleting one of the links. Even though it is the original file,
@@ -177,11 +177,11 @@ Hello, I am a different file1
 
 I wonder what kind of security risk this may post - may be we need symbolic links with checksums?
 
-## Investigation: Modifying original file contents
+# Investigation: Modifying original file contents
 
 What happens if we modify the original file contents? They will be reflected in both types of links
 
-## Investigation: Directories and Links
+# Investigation: Directories and Links
 
 We cannot create hardlinks to directories. This [link](https://askubuntu.com/questions/210741/why-are-hard-links-not-allowed-for-directories) is a good resource to learn why. Soft links doesn't have such a limitation.
 
@@ -202,19 +202,19 @@ additional entries. Where do we get the two links by default?
 - The first is the `.` inside the directory itself
 - The other is each directory will have a link to the sub-directory, hence 2 links
 
-## Miscellaneous
+# Miscellaneous
 
-### Is it a symbolic link or a hard link?
+## Is it a symbolic link or a hard link?
 
 As a program how do I know if a file is a "regular" file, symbolic link or a hard link? The answer lies in the
 data that the `stat()` system call returns. Specifically, the `st_mode` field as described [here](http://man7.org/linux/man-pages/man7/inode.7.html).
 
-### Links and Filesystem Boundaries
+## Links and Filesystem Boundaries
 
 A hard link - since it points to the same Inode cannot span a filesystem boundary. That is, we cannot create a hard link
 to a file which resides in a different filesystem. Soft links have no such limitations.
 
-## Using links to solve a problem
+# Using links to solve a problem
 
 What are links useful for? One reason you may want to use links is to not have duplicate data in multiple files.
 Let's say, we have a bunch of files lying around in our file-system and we want to keep only a single copy of any duplicate
@@ -222,6 +222,6 @@ data, and replace the others by links. Since hard links cannot span more than on
 attractive. However, one caveat to keep in mind with symbolic links is, if we accidentally delete the original file, we end up 
 losing the data. So, it depends on the use-case. 
 
-## Learning more
+# Learning more
 
 - [inode man page](http://man7.org/linux/man-pages/man7/inode.7.html)

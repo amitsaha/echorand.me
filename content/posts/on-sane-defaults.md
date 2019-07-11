@@ -12,7 +12,7 @@ a build host (**host1**) and move it to a deployment host (**host2**) and run it
 close to two full working days trying to debug a simple issue which sane default behavior of a tool would have cut it to 
 seconds.
 
-## Key details
+# Key details
 
 The key details that are important to my story are:
 
@@ -21,7 +21,7 @@ The key details that are important to my story are:
 - **host2** has access to these services, and **host1** does not.
 
 
-## Observations on build host
+# Observations on build host
 
 I built the image on build host, and ran it in a docker container, like so:
 
@@ -41,7 +41,7 @@ I get back errors saying there was a error in connecting to the external service
 
 Great, so I push the docker image to AWS ECR.
 
-## Observations on deployment host
+# Observations on deployment host
 
 I pull the image from ECR, and run it, as above. Then I try to make the same request as above:
 
@@ -61,7 +61,7 @@ above, but from inside the container and I get back a `200`. Note that the appli
 to the external services, so `200` is an expected response.
 
 
-## Debugging
+# Debugging
 
 Alright, so what is going on? I get a "unable to connect to the remote server" from outside on the deployment host, but
 that same request works from inside the container. On top of that, accessing the application externally worked on the
@@ -78,7 +78,7 @@ Since my IIS site was not actually configured to recieve HTTPS connections, it w
 This also makes sense, because on the deployment host, the IIS logs were showing a 301 in case of the request coming from
 outside the container - done in the application. If only, my client would be tell me about the redirect.
 
-## On Sane defaults
+# On Sane defaults
 
 So, let's talk about what could have helped me debug this in seconds. When I replace the "fake" curl by the [real
 curl](https://curl.haxx.se/windows/):
@@ -136,7 +136,7 @@ At line:1 char:1
 
 Good bye fake curl. I am switching to real curl the first time I see such a weird issue next time.
 
-## Summary of the problem
+# Summary of the problem
 
 On **host1**, since the application was not able to talk to the external services, the application was returning
 an error before it had reached the point to force the HTTPS redirect. On **host2**, since it could talk to these

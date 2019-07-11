@@ -42,7 +42,7 @@ resource "aws_network_acl_rule" "rule_SubnetA_ingress_101" {
 We will specifically be using AWS Network ACL rules as an example, but the solution for the problem discussed is likely
 extrpolable to other cloud resources.
 
-## Background on `count`
+# Background on `count`
 
 Using count is a [popular approach](https://www.terraform.io/docs/configuration/resources.html#count-multiple-resource-instances) to
 creating multiple instances of the same resource. I have been combining it with `lists` and `maps` to configure
@@ -128,7 +128,7 @@ by hand. Instead of writing by hand however, what if we generate the ACL rules? 
 - We don't run into the issue with count
 - We don't have to manually write the terraform configuration for each network ACL rule
 
-## Specification for Network ACL rules
+# Specification for Network ACL rules
 
 An AWS network ACL rule has the following specification:
 
@@ -153,7 +153,7 @@ rules = [
 The assumption here is that, we will have a Network ACL rules specification file per Network ACL and the network ACL ID 
 will be derived from the Subnet's name specified in `subnet_name`.
 
-## Generating Terraform configuration
+# Generating Terraform configuration
 
 Now that we have a specification for our network acl rules, we will now write our program which will generate Terraform code 
 from it. I will be using [burntsushi/toml](https://github.com/BurntSushi/toml) to parse the TOML file and serialize
@@ -229,7 +229,7 @@ generateTfNaclRules(naclRules.Rules)
 
 The `generateTfNaclRules` function makes use of Golang templates to create the Terraform configuration. 
 
-## Demo
+# Demo
 
 If we build the [code](https://github.com/amitsaha/toml_to_tf/tree/master/nacl), and run it:
 

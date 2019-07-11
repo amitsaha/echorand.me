@@ -27,7 +27,7 @@ So..what is going on?
 
 # Solution - Background
 
-## Ephermal ports
+# Ephermal ports
 
 Communication over IP network sockets involves two parties - usually referred to as a client and a server with
 each end happening over a `socket`. A socket is composed of a pair - IP address and a port. The port for the
@@ -36,7 +36,7 @@ is chosen `dynamically` at run time and are referred to as [ephermal port](https
 
 Operating systems set a configurable range from which this ephermal port will be chosen. This brings us to AWS Network ACLs.
 
-## AWS Network ACLs
+# AWS Network ACLs
 
 [AWS Network ACLs](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html) allow controlling/regulating traffic
 flow to and from subnets. Our topic of interest is the outbound rules via which we can specify source ports for our
@@ -46,7 +46,7 @@ In other words, if our docker container above is selecting a ephermal port which
 the request is not going to go through. This can happen when the Network ACLs range is different from the default range of your
 operating system.
 
-## Docker networks
+# Docker networks
 
 I mentioned in the symptoms above that I am using docker's default `docker0` which by default works in a NAT mode and
 hence any outgoing traffic from a docker container will have it's source IP as the host's IP. For example:
@@ -73,7 +73,7 @@ one in the list of allowed ranges in the Network ACL. This port was not in the l
 
 The solution is to basically set the ephermal range so that it matches the one allowed in the network ACL.
 
-## Set the ephermal port range on a Linux VM
+# Set the ephermal port range on a Linux VM
 
 We will add an entry to `sysctl.conf`:
 
@@ -84,7 +84,7 @@ $ echo 'net.ipv4.ip_local_port_range=49152 65535' | sudo tee --append /etc/sysct
 To effect the above change on a running system, `$sudo sysctl -p`.
 
 
-## Set the ephermal port range in a Linux docker container
+# Set the ephermal port range in a Linux docker container
 
 Pass it at `docker run` time:
 
@@ -94,7 +94,7 @@ $ docker run --sysctl net.ipv4.ip_local_port_range="49152 65535" ...
 
 Learn more about [sysctl for docker](https://docs.docker.com/engine/reference/commandline/run/#configure-namespaced-kernel-parameters-sysctls-at-runtime).
 
-##  Set the ephermal port range on Windows
+#  Set the ephermal port range on Windows
 
 Use the `netsh` command:
 

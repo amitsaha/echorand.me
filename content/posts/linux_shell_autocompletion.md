@@ -5,6 +5,8 @@ categories:
 -  software
 ---
 
+# Introduction
+
 What happens when you press `<command> <TAB>` or `<command> <TAB><TAB>`? You get a bunch of suggestions with one of them
 just the one you had in mind you were going to type. Auto completions in shells are super helpful and as we will find
 out, quite a bit goes on behind the scenes. Before we go too further into my investigations and findings, I  must credit the author of 
@@ -14,7 +16,7 @@ it worked.
 
 Let's learn more about the minions that gets to work when we press `<TAB>` or `<TAB><TAB>` on a popular Linux shell, `bash`.
 
-## Setting up
+# Setting up
 
 Let's get a fresh Fedora 30 VM in a Vagrant box and set it up:
 
@@ -65,7 +67,7 @@ directory you are in. Not very helpful suggestions, you say. I know - and that's
 package which would have magically done that for us. (`bash-completion`). Let's keep it that way for 
 now.
 
-## DIY bash completion
+# DIY bash completion
 
 When we type in `$git <TAB><TAB>`, we expect to see suggestions of the git sub-commands, such as `status`, `clone`,
 and `checkout`. Let's aim to achieve that.
@@ -149,7 +151,7 @@ line in the output is suggested as possible candidates for the auto-completion.
 
 Let's discuss more about the data provided to completion handlers.
 
-## Data provided to completion handlers
+# Data provided to completion handlers
 
 We will update our `/tmp/git_suggestions` script to be as follows:
 
@@ -198,7 +200,7 @@ the TAB key
 It's worth mentioning here that the data provided to completion handlers and how the handler sends
 back the suggestions is different when the handler is a shell function.
 
-## Single `<TAB>` and double `<TAB><TAB>`
+# Single `<TAB>` and double `<TAB><TAB>`
 
 It's only while working on this article, I realized that a double `<TAB><TAB>` was necessary to display all the possible
 auto-completions in most cases. Let's look into that. A single `<TAB>` will aim to complete (not list) the current command
@@ -283,7 +285,7 @@ If you have your terminal bell turned on and your computer's speaker switched on
 when this happens.
 
 
-## Getting good old BASH completion back
+# Getting good old BASH completion back
 
 Now, on Terminal 2, let's install the `bash-completion` package:
 
@@ -340,7 +342,7 @@ Let's now ask the question - how did installing the `bash-completion` package ma
 auto-completion machinery into motion? The short answer is a bunch of bash magic happening. Let's
 see what the long answer is.
 
-## Magic of `bash-completion` package
+# Magic of `bash-completion` package
 
 Let's start by listing all the files that this package creates on our system:
 
@@ -479,7 +481,7 @@ In this section, we looked at how `bash-completion` enables auto-completion from
 and also saw how auto-completions are looked up dynamically rather than all being loaded at the
 beginning of a shell session.
 
-## `compgen` built-in command
+# `compgen` built-in command
 
 While looking at the contents of `/usr/share/bash-completion/bash_completion`, you may have noticed the `compgen`
 command. `compgen` is a shell builtin to generate a set of pre-defined completion options. For example, `compgen -c`
@@ -487,7 +489,7 @@ will list all possible commands, `compgen -f` will list all the files in the cur
 list all the sub-directories. Further, we can use the "action" option to generate a list of signals (`compgen -A signal`),
 list of shell functions (`compgen -A function`) and others.
 
-## Learning more
+# Learning more
 
 So far, we have delved a bit into how auto-completion works in Bash, there's definitely a lot we haven't
 discussed. The following links are worth looking into:
@@ -499,7 +501,7 @@ discussed. The following links are worth looking into:
 - [Unix stackexchange question](https://unix.stackexchange.com/questions/166908/is-there-anyway-to-get-compreply-to-be-output-as-a-vertical-list-of-words-instea)
 - [bash-completion package source](https://github.com/scop/bash-completion)
 
-## Bash completion for applications
+# Bash completion for applications
 
 If you are a command line application author or someone distributing one via operating system packages, you essentially have
 to craft Bash completion scripts and then make sure they are registered at the beginning of a user session. The latter is
@@ -518,7 +520,7 @@ a shell aganostic approach to auto-completion that different compatible clients 
 
 Next, we will see how certain projects are tackling this issue of Bash completion.
 
-### cobra (Golang), click (Python) and clap (Rust)
+## cobra (Golang), click (Python) and clap (Rust)
 
 The [cobra](https://github.com/spf13/cobra) CLI framework supports generating Bash completions natively and is desribed
 in detail [here](https://github.com/spf13/cobra/blob/master/bash_completions.md). The summary version is that your application's
@@ -536,7 +538,7 @@ automatically at [build time](https://docs.rs/clap/2.33.0/clap/struct.App.html#m
 both `click` and `clap` generates scripts which use the Bash functions to setup auto-completion for the command line application.
 
 
-### complete (Golang) and shell_completion (Rust)
+## complete (Golang) and shell_completion (Rust)
 
 In most cases, Bash auto-completion scripts are primarily driven by Bash scripts. The scripts may be invoking external
 programs (` git --list-cmds=list-mainporcelain,others,nohelpers,alias,list-complete,config` for example), but the primary
@@ -620,7 +622,7 @@ $ myops grafana --log
 1  2  3  
 ```
 
-## Conclusion
+# Conclusion
 
 We will end this post by peeking at where the auto-completion machinery is set to motion. Bash uses the `readline` library 
 for all the command line editing, history and auto-completion support. In the bash source code, we have this line in

@@ -20,14 +20,14 @@ deployments without any external help. By external help I mean taking the applic
 having another healthchecking process automatically taking it out of a load balancing pool or something like that.
 In this post, I discuss one way of achieving that. The ideas aren't limited to ASP.NET applications, of course.
 
-## Background
+# Background
 
 Traefik's [api](https://docs.traefik.io/configuration/api/) provides a way to query the current backends that
 are registered with the server. If we configure traefik to enable the API listener, we can query the endpoint
 `http://localhost:<port>/api/providers/<provider>/backends` to obtain a JSON response containing details of
 the currently registered backends. My suggested approach will use this API endpoint.
 
-## Approach
+# Approach
 
 My approach assumes the following:
 
@@ -45,7 +45,7 @@ with `traefik` as a reverse proxy and using native docker integration:
 4. Wait till the old "server" has been deregistered in `traefik` by polling the API endpoint
 5. Kill the old container
 
-## Example
+# Example
 
 An example `docker-compose` file that you can use to experiment with the above idea is:
 
@@ -124,14 +124,14 @@ in more concrete terms, this is how we can check if a new server container has b
 
 Similarly, for the deregistration, we check for the absence of the server.
 
-## Tips
+# Tips
 
-### Traefik backend naming
+## Traefik backend naming
 
 One of the tricky issues I faced while working on this is the naming of the backend. See [this issue](https://github.com/containous/traefik/issues/4284)
 to learn more. Basically, the backend name is not fixed, it will need to be derived at runtime.
 
-### Getting the relevant container's IP address
+## Getting the relevant container's IP address
 
 How do you get the new container's IP address that you want to check if it's been registered? I used something like this:
 
@@ -151,7 +151,7 @@ Basically, I check the container of the same application which was created befor
 approach would be to store the previous version that was deployed and use that.
 
 
-## Conclusion
+# Conclusion
 
 The above approach currently seems to be working fairly well for the setup I have - ASP.NET framework application on Windows Server 1803
 and our requirements. It basically allows one to have a deployment setup without any downtime which is especially useful when 

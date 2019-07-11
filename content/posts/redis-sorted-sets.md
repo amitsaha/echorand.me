@@ -26,7 +26,7 @@ In this post, we will see a demo of *sorted sets* in [redis](https://redis.io/).
 We will first need a local redis server running. We will see how we do so on Fedora Linux next. If you are running 
 another operating system, please see the [download page](https://redis.io/download).
 
-## Installation and server setup on Fedora Linux
+# Installation and server setup on Fedora Linux
 
 We can install `redis` server using `dnf`, like so:
 
@@ -57,7 +57,7 @@ Feb 18 00:08:22 fedora.home systemd[1]: Started Redis persistent key-value datab
 ..
 ```
 
-## Check if Redis is alive
+# Check if Redis is alive
 
 Once the server has started, let's check if our server is up and running:
 
@@ -66,7 +66,7 @@ $ redis-cli ping
 PONG
 ```
 
-## Sorted Sets
+# Sorted Sets
 
 Redis' sorted set is a set data structure but each element in the set is also associated with a `score`. It is a
 hash map but with an interesting property - the set is ordered based on this `score` value. 
@@ -79,13 +79,13 @@ This allows us to perform the following operations easily:
 
 The section on sorted sets [here](https://redis.io/topics/data-types#sorted-sets) and [here](https://redis.io/topics/data-types-intro) in the Redis docs has more details on this.
 
-## Example scenario: Top tags
+# Example scenario: Top tags
 
 We will now create a sorted set called `tags`. This set will store tags for posts in a blog or some other content
 system where entries can have one or more tags associated with them. At any given point of time, we would like to
 know what are the top 5 tags in our system.
 
-## `redis-cli` demo
+# `redis-cli` demo
 
 We will first add a few tags to our sorted set `tags` using the [ZADD](https://redis.io/commands/zadd) command:
 
@@ -174,7 +174,7 @@ Now, to get the top 5 tags, we will do the following:
 1
 ```
 
-## Python demo
+# Python demo
 
 We will use the [redis-py](https://github.com/andymccurdy/redis-py) package to talk to redis and perform the above operations. The Python client looks as follows:
 
@@ -218,7 +218,7 @@ b'memcache' 1.0
 
 Note above how the syntax for the Python wrappers  are almost the same as the corresponding redis CLI command.
 
-## Golang demo
+# Golang demo
 
 We will use the [go-redis](https://github.com/go-redis/redis) package to interact with redis. The following program shows
 how we can achieve the above in Go:
@@ -283,7 +283,7 @@ $ go run sorted_sets.go
 
 And that's all for this post.
 
-## Resources
+# Resources
 
 - [Redis data types](https://redis.io/topics/data-types-intro)
 - [Redis quick start](https://redis.io/topics/quickstart)

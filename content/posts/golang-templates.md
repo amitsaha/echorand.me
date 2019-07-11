@@ -11,7 +11,7 @@ While working on creating a template file for a Golang project, I wanted to bett
 with data in Golang templates as available via the `html/template` package. In this post, I discuss
 a few use cases that may arise.
 
-## Accessing a variable
+# Accessing a variable
 
 Let's consider our first program:
 
@@ -92,7 +92,7 @@ The output now would be:
 Variable contents: {Tabby}
 ```
 
-## Accessing structure members
+# Accessing structure members
 
 Now, let's consider that our structure has multiple members and we want to access the individual members in our
 template. Here's how we can do so (Golang playground)[https://play.golang.org/p/8BSiYJ_7Mfd]:
@@ -138,7 +138,7 @@ field name, like so, `.<Field>`. The output will be:
 Tabby is 21 years old
 ```
 
-## Do something with array elements
+# Do something with array elements
 
 Going back to our first example, how do we access the individual array elements? Let's see how we can do so. 
 
@@ -158,7 +158,7 @@ for _, item := range names {       // corresponding to {{range .}}
 ```
 `range` can be used to iterate over arrays, slice, map or a channel. 
 
-## Arrays of structure objects
+# Arrays of structure objects
 
 Combining the two previous examples, we can access array elements which are structure objects, like so:
 
@@ -183,7 +183,7 @@ Tabby is 21 years old
 Jill is 19 years old
 
 ```
-## Calling user defined functions and Chaining
+# Calling user defined functions and Chaining
 
 Our next example demonstrates two new things:
 
@@ -199,7 +199,7 @@ Jill has an even name
 
 The two main changes from our previous program are:
 
-### Adding a `FuncMap`
+## Adding a `FuncMap`
 
 ```
 funcMap := template.FuncMap{  
@@ -214,7 +214,7 @@ rules around the semantics of functions we can add which you can learn [here](ht
 My favorite is if I return a non-nil error, the template execution will halt without me having to do any
 extra checks.
 
-### Chaining
+## Chaining
 
 Chaining is how we perform an action and feed it's output to another action via the `|` (pipe) operator:
 
@@ -224,7 +224,7 @@ tmpl, err := tmpl.Parse("{{range .}}{{.Name}} has an {{len .Name | oddOrEven}} n
 
 Here, we invoke the in-built `len` function to calculate the length of `Name` and then call the `oddOrEven` function.
 
-## Controlling output using template strings
+# Controlling output using template strings
 
 My first encounter with Golang templates was when working with [docker](https://docs.docker.com/config/formatting/) output
 formatting which allowed controlling what I get as output. Let's see how we can implement something like that
@@ -275,7 +275,7 @@ func getFormatString() string {
 ```
 We can of course define any arbitrary functions and make them available to be invoked in the context of our templates.
 
-## Rendering an arbitrary template file using arbitrary values
+# Rendering an arbitrary template file using arbitrary values
 
 Our next program will take a template string in a file, like so:
 
@@ -327,13 +327,13 @@ Nodes:
 As a side note, note the dash in `{{- end}}`? That is to prevent newlines and spaces. I still don't quite get it,
 but it seems like a hit and trial thing!
 
-## Accessing a map object
+# Accessing a map object
 
 Complete example [here](https://play.golang.org/p/4kz3Ji_56s9). You will see that by default `range .` iterates
 over the map's values, rather than keys (opposite of what we see in the Golang language).
 
 
-## Explore
+# Explore
 
 There's a lot more to explore in Golang templates. Check out:
 

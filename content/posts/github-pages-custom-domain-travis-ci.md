@@ -21,7 +21,7 @@ This is how I set it all up.
 
 Please see issue [issue](https://github.com/amitsaha/amitsaha.github.io/issues/1).
 
-## Blog repository setup
+# Blog repository setup
 
 I use [pelican](http://docs.getpelican.com/en/stable/) as my blog engine. The "source" code for my
 blog lives at the [amitsaha.github.io](https://github.com/amitsaha/amitsaha.github.io/)
@@ -69,7 +69,7 @@ To summarize, my blog has two branches:
 The generation step is done via Travis and the generated files are pushed to the `master` branch.
 
 
-## Generating the blog
+# Generating the blog
 
 The `.travis.yml` file is read by Travis CI and is the entry point for what happens when we push a
 commit to the `site` branch of the repository. Below I reproduce snippets from the file and their
@@ -152,7 +152,7 @@ a CNAME file in the master branch ([Learn more](https://help.github.com/articles
 ![Travis CI repository settings]({filename}/images/github-pages-custom-domain.png "GitHub Pages Custom Domain")
 
 
-## Adding the repository to Travis CI
+# Adding the repository to Travis CI
 
 We will then login to [Travis CI](https://travis-ci.org) and follow the [guide](https://docs.travis-ci.com/user/getting-started/)
 to add our repository. Under the hood, this step adds a new service integration to our repository. We can see the
@@ -162,7 +162,7 @@ If you are logging in for the first time using GitHub (or signing up), you will 
 
 ![Travis CI permissions]({filename}/images/travisci-github.png "GitHub Pages Custom Domain")
 
-## Travis CI repository settings
+# Travis CI repository settings
 
 Next, we will configure the repository settings in Travis to add the `GITHUB_TOKEN` environment 
 variable and set the value to a generated a personal access token. You can generate one by going to
@@ -171,7 +171,7 @@ variable and set the value to a generated a personal access token. You can gener
 
 ![Travis CI repository settings]({filename}/images/travisci-1.png "Repository settings in Travis CI")
 
-## Links
+# Links
 
 - [Blog github repository](https://github.com/amitsaha/amitsaha.github.io)
 - [Travis CI + GitHub Pages](https://docs.travis-ci.com/user/deployment/pages/)

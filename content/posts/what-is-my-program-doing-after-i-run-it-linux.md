@@ -40,7 +40,7 @@ The first tool we will explore is `pidstat`. On most distributions, you will fin
 
 # pidstat
 
-## CPU 
+# CPU 
 
 Let's run `pidstat` specifying the process ID via `-p` option:
 
@@ -118,7 +118,7 @@ When you pressed a Ctrl + C, a summary is printed at the end. If you added a `5`
 command, it would print the above data for a total of 5 counts and exit. Try it out. 
 
 
-## Disk
+# Disk
 
 Let's now monitor our process' disk activity using the `-d` switch:
 
@@ -149,7 +149,7 @@ The new fields are desribed below:
 **iodelay**
 
 
-## Memory
+# Memory
 
 ```
 $ pidstat -p 2114 -r 1
@@ -182,7 +182,7 @@ $  sudo perf trace -p 13419
  ```
  
  
- ## /proc
+ # /proc
  
  
  ```
