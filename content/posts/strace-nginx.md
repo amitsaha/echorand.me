@@ -2,7 +2,7 @@
 title:  Nginx + strace
 date: 2019-06-19
 categories:
--  software
+-  infrastructure
 ---
 
 I was debugging a issue where we were getting truncated logs in ElasticSearch 
