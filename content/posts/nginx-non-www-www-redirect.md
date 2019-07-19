@@ -5,7 +5,7 @@ categories:
 -  infrastructure
 ---
 
-# Introduction
+## Introduction
 
 I wanted a Nginx configuration which would satisfy the following requirements:
 
@@ -13,7 +13,7 @@ I wanted a Nginx configuration which would satisfy the following requirements:
 2. The above should happen for `http` and `https`
 3. `http://example.com` should redirect directly to `https://www.example.com`
 
-# Solution
+## Solution
 
 We will need four server blocks:
 
@@ -73,14 +73,16 @@ server {
 
 ```
 
-# Learn more
+## Learn more
 
 I got help from the following resources:
 
 - [Understanding Nginx configuration file structure and configuration contexts](https://www.digitalocean.com/community/tutorials/understanding-the-nginx-configuration-file-structure-and-configuration-contexts)
 - [Nginx essentials](https://www.digitalocean.com/community/tutorials/nginx-essentials-installation-and-configuration-troubleshooting)
 
+## Related posts
+
 If you like this post, you may also like my other posts on Nginx:
 
-- [Nginx + geoIP2](./nginx-geoip2-mmdblookup.md)
-- [Nginx + strace](./strace-nginx.md)
+- [Nginx and geoip lookup with geoip2 module]({{< ref "nginx-geoip2-mmdblookup.md" >}})
+- [Nginx + strace]({{< ref "strace-nginx.md" >}})
