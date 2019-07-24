@@ -8,7 +8,8 @@ Hello, My name is Amit - I work in software.  A lot of what I explore makes it t
 These are a result of a lot of hit and trial and frustrating hours spent fighting with software only having 
 the end result in mind. My approach to work has recently become - i struggle with everything, so I don't
 need to pick and choose what kind of software I am working with - frontend, backend, infrastructure, windows
-or Linux.
+or Linux. Given a problem or an idea at hand, I will try to implement it without thinking I am better off 
+doing something else.
 
 You can contact me via [email](mailto:amit.saha@protonmail.com), [Twitter](http://twitter.com/echorand)
 and on [LinkedIn](https://au.linkedin.com/in/echorand).
