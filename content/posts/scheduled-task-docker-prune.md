@@ -28,6 +28,4 @@ $prncipal = New-ScheduledTaskPrincipal -GroupId "BUILTIN\Administrators" -RunLev
 Register-ScheduledTask -Action $action -Trigger $trigger -Principal $prncipal -TaskName "\PowerShell\PruneUnusedDockerImages" -Description "Prune unused docker images"
 ```
 
-That's it, and the result:
-
-![Free disk space after scheduled task]({filename}/images/free_disk_space.png "Docker images being pruned")
+That's it.
