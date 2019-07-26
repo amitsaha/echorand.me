@@ -7,9 +7,14 @@ aliases:
 - /notes-on-using-cloudflare-dns-over-https.html
 ---
 
+# Introduction
 
-I recently learned about Cloudflare's [1.1.1.1](https://developers.cloudflare.com/1.1.1.1/) DNS service. One of the more
-interesting things that caught my attention there was DNS over HTTPS. That is, we can do this:
+
+I recently learned about Cloudflare's [1.1.1.1](https://developers.cloudflare.com/1.1.1.1/) DNS service. Let's explore.
+
+# Exploration
+
+One of the more interesting things that caught my attention there was DNS over HTTPS. That is, we can do this:
 
 ```
 22:27 $ http 'https://cloudflare-dns.com/dns-query?ct=application/dns-json&name=echorand.
