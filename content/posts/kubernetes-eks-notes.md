@@ -6,6 +6,8 @@ categories:
 draft: true
 ---
 
+# EKS private host
+
 # Authentication and Authorization
 
 # Getting cluster data
