@@ -1,6 +1,6 @@
 ---
 title:  Notes on using Kubernetes
-date: 2018-04-10
+date: 2019-08-02
 categories:
 -  infrastructure
 ---
