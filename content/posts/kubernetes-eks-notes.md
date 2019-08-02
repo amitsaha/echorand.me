@@ -1,5 +1,5 @@
 ---
-title:  Notes on using Kubernetes
+title:  Notes on Kubernetes
 date: 2019-08-02
 categories:
 -  infrastructure
@@ -8,7 +8,7 @@ categories:
 # Introduction
 
 This in-progress page lists some of my findings while working with [Kubernetes](https://kubernetes.io/). My findings are
-based on working with a kubernetes cluster running in AWS EKS.
+based on working with a managed kubernetes cluster running in AWS EKS.
 
 # EKS cluster setup
 
