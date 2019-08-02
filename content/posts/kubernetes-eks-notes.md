@@ -7,29 +7,40 @@ categories:
 
 # Introduction
 
-This in-progress page lists some of my findings while working with [Kubernetes](https://kubernetes.io/). 
+This in-progress page lists some of my findings while working with [Kubernetes](https://kubernetes.io/). My findings are
+based on working with a kubernetes cluster running in AWS EKS.
 
 # EKS cluster setup
-
-## Terraform configuration
-
-## EKS private master and DNS resolution
-
-This is only relevant to [AWS EKS](https://aws.amazon.com/eks/). In my setup, the master was private 
-(along with all the nodes residing in private subnets). Right off the bat, I ran into issue of the master 
-hostname not resolving from my local workstation (even when I was connected to the VPN which had VPC peering 
-with the VPC the master was running in). This issue is described [here](https://github.com/aws/containers-roadmap/issues/221). The solution ended up being getting the IP address of the master via the network interface attached to it
-and then making an entry in the local `/etc/hosts` file.
 
 ## Private subnet tagging
 
 ## Public subnet tagging
 
+## Terraform configuration
+
+## EKS private master and DNS resolution
+
+In my setup, the master was private (along with all the nodes residing in private subnets). Right off the bat, 
+I ran into issue of the master  hostname not resolving from my local workstation (even when I was connected to 
+the VPN which had VPC peering with the VPC the master was running in). This issue is described 
+[here](https://github.com/aws/containers-roadmap/issues/221). The solution I used ended up getting the IP 
+address of the master via the network interface attached to it and then making an entry in the local `/etc/hosts` file.
 
 
-# Authentication and Authorization
+## Authentication and Authorization
 
-# Getting cluster data
+## Getting cluster data
+
+## Authentication and Authorization for other users
+
+## RBAC
+
+## Human users
+
+## Service accounts
+
+## Using kubectl with a service account token
+
 
 # Worker node joining
 
@@ -50,8 +61,3 @@ https://kubernetes.io/docs/tasks/debug-application-cluster/debug-pod-replication
 # Jobs
 
 # Cron jobs
-
-
-
-
-
