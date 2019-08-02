@@ -7,10 +7,11 @@ categories:
 
 # Introduction
 
-This in-progress page lists some of my findings while working with [Kubernetes](https://kubernetes.io/). My findings are
-based on working with a managed kubernetes cluster running in AWS EKS.
+This in-progress page lists some of my findings while working with [Kubernetes](https://kubernetes.io/). 
 
 # EKS cluster setup
+
+This section will have findings that are relevant when working with an AWS EKS cluster.
 
 ## Private subnet tagging
 
