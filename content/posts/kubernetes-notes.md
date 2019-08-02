@@ -127,7 +127,6 @@ resource "aws_eks_cluster" "cluster" {
 
 ## Terraform configuration for nodes
 
-
 ## Public subnet tagging
 
 Public subnets will need the following key-value pairs as tags:
@@ -151,22 +150,21 @@ address of the master via the network interface attached to it and then making a
 
 ## Authentication and Authorization
 
+RBAC
 ## Getting cluster data
+
+## Worker node joining
 
 ## Authentication and Authorization for other users
 
-## RBAC
-
 ## Human users
+
+## Adding users and roles
 
 ## Service accounts
 
 ## Using kubectl with a service account token
 
-
-# Worker node joining
-
-# Adding users and roles
 
 # Persistent volumes
 
@@ -174,12 +172,16 @@ When you create a persistent volume claim, an EBS volume is created for you in A
 
 Topology aware: https://kubernetes.io/blog/2018/10/11/topology-aware-volume-provisioning-in-kubernetes/
 
-# Pods in pending state
-
-https://kubernetes.io/docs/tasks/debug-application-cluster/debug-pod-replication-controller/
-
 # Ingress with SSL throughout
 
 # Jobs
 
 # Cron jobs
+
+
+# Miscellaneous
+
+## Pods in pending state
+
+https://kubernetes.io/docs/tasks/debug-application-cluster/debug-pod-replication-controller/
+
