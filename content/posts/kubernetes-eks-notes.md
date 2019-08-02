@@ -5,8 +5,8 @@ categories:
 -  infrastructure
 ---
 
-This in-progress page lists some of my findings while working with Kubernetes. There are a few things in on this page which are
-only relevant to [AWS EKS](https://aws.amazon.com/eks/).
+This in-progress page lists some of my findings while working with [Kubernetes](https://kubernetes.io/). 
+There are a few things in on this page which are only relevant to [AWS EKS](https://aws.amazon.com/eks/).
 
 # EKS private host
 
@@ -36,5 +36,12 @@ https://kubernetes.io/docs/tasks/debug-application-cluster/debug-pod-replication
 # Public ALB with subnet tagging
 
 # Ingress with SSL throughout
+
+# Jobs
+
+# Cron jobs
+
+
+
 
 
