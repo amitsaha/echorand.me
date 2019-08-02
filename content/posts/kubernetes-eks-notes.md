@@ -5,15 +5,27 @@ categories:
 -  infrastructure
 ---
 
+# Introduction
+
 This in-progress page lists some of my findings while working with [Kubernetes](https://kubernetes.io/). 
-There are a few things in on this page which are only relevant to [AWS EKS](https://aws.amazon.com/eks/).
 
-# EKS private host
+# EKS cluster setup
 
-In my setup, my master was private (along with all the nodes residing in private subnets). Right off the bat, I ran into
-issue of the master hostname not resolving from my local workstation (even when I was connected to the VPN which
-had VPC peering with the VPC the master was running in). This issue is described [here](https://github.com/aws/containers-roadmap/issues/221). The solution ended up being getting the IP address of the master via the network interface attached to it
+## Terraform configuration
+
+## EKS private master and DNS resolution
+
+This is only relevant to [AWS EKS](https://aws.amazon.com/eks/). In my setup, the master was private 
+(along with all the nodes residing in private subnets). Right off the bat, I ran into issue of the master 
+hostname not resolving from my local workstation (even when I was connected to the VPN which had VPC peering 
+with the VPC the master was running in). This issue is described [here](https://github.com/aws/containers-roadmap/issues/221). The solution ended up being getting the IP address of the master via the network interface attached to it
 and then making an entry in the local `/etc/hosts` file.
+
+## Private subnet tagging
+
+## Public subnet tagging
+
+
 
 # Authentication and Authorization
 
@@ -32,8 +44,6 @@ Topology aware: https://kubernetes.io/blog/2018/10/11/topology-aware-volume-prov
 # Pods in pending state
 
 https://kubernetes.io/docs/tasks/debug-application-cluster/debug-pod-replication-controller/
-
-# Public ALB with subnet tagging
 
 # Ingress with SSL throughout
 
