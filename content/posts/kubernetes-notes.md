@@ -172,11 +172,163 @@ When you create a persistent volume claim, an EBS volume is created for you in A
 
 Topology aware: https://kubernetes.io/blog/2018/10/11/topology-aware-volume-provisioning-in-kubernetes/
 
-# Ingress with SSL throughout
+# Secret management
+
+# Nginx Ingress with SSL throughout
+
+
+The following specification enables Nginx ingress with SSL to your backend as well:
+
+```
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: api-ingress
+  namespace: mynamespace
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes/ingress.class: nginx
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  tls:
+  - hosts:
+    - "myhost.dns.com"
+    secretName: myhost-tls
+  rules:
+    - host: myhost.dns.com
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: xledger
+            servicePort: 443
+
+```
+
+However when trying to use the above with AWS ELB, I had to:
+
+- Follow the docs [here](https://kubernetes.github.io/ingress-nginx/deploy/) for AWS ELB L7
+- Update config map with the following:
+
+```
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-configuration
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+data:
+  use-proxy-protocol: "false"
+  use-forwarded-headers: "true"
+  proxy-real-ip-cidr: "0.0.0.0/0" # restrict this to the IP addresses of ELB
+  ssl-ciphers: "ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA"
+  ssl-protocols: "TLSv1 TLSv1.1 TLSv1.2"
+
+```
+
+The key parts that I struggled with was having to set `ssl-ciphers` and `ssl-protocols`. Without those, the connections
+from ALB was just hanging and eventually would give me a 408. For reference, here's a `service-l7.yaml` I used:
+
+```
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "your certificate arn"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "https"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+    service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+  ports:
+   - name: https
+     port: 443
+     targetPort: 443
+
+```
 
 # Jobs
 
+Jobs are useful for running one off tasks - database migrations for example. Here's a sample spec:
+
+```
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: my-job-name
+  namespace: my-namespace
+spec:
+  template:
+    spec:
+      containers:
+      - name: my-job-name
+        image: myproject/job
+        args:
+        - bash
+        - -c
+        - /migrate.sh
+        env:
+          - name: ENVIRONMENT
+            value: qa
+          - name: TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: secret-token
+                key: token
+      nodeSelector:
+        nodegroup: "services"
+        environment: "qa"
+      restartPolicy: Never
+  backoffLimit: 4
+  ```
+
 # Cron jobs
+
+Cron jobs are useful for running scheduled jobs:
+
+```
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron
+  namespace: my-namespace
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cron
+            image: myproject/cron-job
+            args:
+            - bash
+            - -c
+            - /schedule.sh
+            env:
+              - name: ENVIRONMENT
+                value: qa
+              - name: TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: secret-token
+                    key: token
+          restartPolicy: OnFailure
+          nodeSelector:
+            nodegroup: "services"
+            environment: "qa"
+
+```
 
 
 # Miscellaneous
