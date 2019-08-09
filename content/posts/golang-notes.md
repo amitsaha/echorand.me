@@ -2,7 +2,7 @@
 title:  Notes on Golang
 date:  2019-08-07
 categories:
--  software
+-  golang
 ---
 
 
