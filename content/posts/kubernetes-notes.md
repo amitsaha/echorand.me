@@ -209,11 +209,61 @@ users:
 
 ## Worker node joining
 
-https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html
+Once you have configured the above kubeconfig correctly, if you run `kubectl get nodes`,
+you will see that no nodes have joined the cluster. That is because, we will need to
+first update a special `ConfigMap` to allow the nodes to authenticate to the cluster:
 
-## Authentication and Authorization for other users
+```
+apiVersion: v1
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::AWS-ACCOUN-ID:role/myrole
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+      - system:bootsrappers
+      - system:nodes
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
 
-## Human users
+```
+The `mapRoles` array lists all the IAM roles that we want to allow to authenticate
+successfully to the cluster. We add the role to the kubernetes groups `system:bootstrappers`
+and `system:nodes`. We have to add all the IAM roles of the nodes in our cluster to this
+ConfigMap. Once we apply this manifest, you should see the nodes are ready when you run
+`kubectl get nodes` again.
+
+
+## Adding other admins
+
+The cluster creator gets admin privileges by default. To add other admin users, we will
+have to update the above ConfigMap as follows:
+
+```
+apiVersion: v1
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::AWS-ACCOUN-ID:role/myrole
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+      - system:bootsrappers
+      - system:nodes
+  mapUsers: |
+    - userarn: arn:aws:iam::AWS-ACCOUN-ID:user/someusername
+      username: someusername
+      groups:
+      - system:masters
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+```
+
+## Add human non-admin users
+
+To add human non-admin users to authenticate to the cluster and then perform certain operations,
+we have to perform a few steps.
 
 ## Adding users and roles
 
