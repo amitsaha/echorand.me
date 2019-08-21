@@ -14,7 +14,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build docker image
       run: docker build -t amitsaha/echorandme-publisher .
-    - name: Run a multi-line script
+    - name: Build site
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+        docker run -v `pwd`:/site -t amitsaha/echorandme-publisher
