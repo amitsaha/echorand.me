@@ -150,10 +150,66 @@ address of the master via the network interface attached to it and then making a
 
 ## Authentication and Authorization
 
-RBAC
+The first step to accessing the cluster is authenticating yourself and the second step is whether
+based on the credentials you authenticated yourself with, are you authorized to perform the operation
+you are trying to currently perform. For EKS clusters, using AWS IAM is the most straightforward
+approach for authentication. The user who sets up the EKS cluster are automatically given access to
+the cluster as a member of the `system:masters` kubernetes group and the authentication setup in
+kubeconfig looks as follows:
+
+```
+- name: mycluster-admin
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      command: aws-iam-authenticator
+      args:
+      - token
+      - -i
+      - myclustername
+```
+
+For the user who created the cluster, there is no further configuration required.
+
 ## Getting cluster data
 
+To be able to make API requests, we have to get another key piece of information
+- the certificate authority data. We can get it from the AWS console or from
+the terraform output, or via using the AWS CLI or directly via the API.
+
+A complete `~/.kube/config` file for admin access for the cluster creator will look like 
+as follows:
+
+```
+apiVersion: v1
+current-context: ""
+clusters:
+- cluster:
+    certificate-authority-data: foobar 
+    server: https://adasd.yl4.eu-central-1.eks.amazonaws.com
+  name: myclustername
+contexts:
+- context:
+    cluster: myclustername
+    namespace: default
+    user: admin
+  name: admin
+kind: Config
+users:
+- name: admin
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      command: aws-iam-authenticator
+      args:
+      - token
+      - -i
+      - myclustername
+```
+
 ## Worker node joining
+
+https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html
 
 ## Authentication and Authorization for other users
 

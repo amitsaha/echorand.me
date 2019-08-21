@@ -1,5 +1,5 @@
 ---
-title: lockandexec: Ensure only one running copy of your program
+title: Ensure only one running copy of your program
 date: 2019-08-09
 categories:
 -  software
