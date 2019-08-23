@@ -4,6 +4,14 @@ aliases:
 - /pages/talks.html
 ---
 
+
+Django + Prometheus - Sydney Django Meetup, August, 2019
+--------------------------------------------------------
+
+Slides are `here <https://github.com/amitsaha/python-monitoring-talk/blob/master/slides/Django-monitoring-with-prometheus.pdf>`__
+Materials are available in this `repo <https://github.com/amitsaha/python-monitoring-talk>`__.
+
+
 Counter, Gauge, Upper 90 - Oh My! - PyCon US, 2018
 --------------------------------------------------
 
