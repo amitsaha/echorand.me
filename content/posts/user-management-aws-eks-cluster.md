@@ -476,14 +476,113 @@ You can write your own script for this. I implemented this in my hobby AWS CLI p
 The interface looks like:
 
 ```
-$ yawsi  eks whois --uid heptio-authenticator-aws:<user-id>:AROAUBGCRZPAQIISY7KAL --username projectA-qa-1566432791140199108 --lookback 6
+$ yawsi eks whois --uid heptio-authenticator-aws:<user-id>:AROAUBGCRZPAQIISY7KAL --username projectA-qa-1566432791140199108 --lookback 6
 ```
 
 The `--lookback` parameter specifies the number of hours of CloudTrail events to look back to.
 
 ## Automating kubeconfig management for human users
 
-To be completed.
+To allow human users to access the kubernetes cluster in a setup where we use a IAM role per project
+and environment, there are a few steps involved:
+
+- An AWS account
+- Setup the AWS account with the right permissions (described below)
+- Give them the EKS cluster endpoint and certificate authority data
+- Generate a kubeconfig context per project environment
+
+Once we have created the AWS account for an user with the right permissions, we can allow the users
+to configure their own kubeconfig files using a tool - this is better than emailing them configuration files
+or walking up to them. 
+
+Let's talk about the permisions which also allows us to look into the steps involved.
+
+The first thing the user needs to do is be able to query AWS for a specific cluster name. This
+gives us the certificate authority data and the cluster endpoint. However, if you are using a private
+EKS cluster, you will also need to account for this [issue](https://github.com/aws/containers-roadmap/issues/221)
+where the cluster endpoint DNS is not resolvable from outside the cluster. The solution I have
+decided to go forward is to create an `/etc/hosts` entry with the IP address which we find by
+query the network interfaces in AWS. Once we have got all the information we need to talk to the cluster,
+the remaining step is to generate the different project environment specific kubeconfig contexts.
+To generate the project environment specific kubeconfig contexts, we need to lookup the IAM role ARN
+that we want to assume while authenticating ourselves to the cluster. The conventions that I am currently
+following which I have referred to previously is that the IAM role which users assume are named as: 
+`<project name>-<environment>-humans`. The following IAM policy gives all these permissions:
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "NI1",
+      "Effect": "Allow",
+      "Action": "ec2:DescribeNetworkInterfaces",
+      "Resource": "*"
+    },
+    {
+      "Sid": "EKS1",
+      "Effect": "Allow",
+      "Action": [
+        "eks:ListUpdates",
+        "eks:DescribeUpdate",
+        "eks:DescribeCluster",
+        "eks:ListClusters"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "IAM1",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetRole"
+      ],
+      "Resource": "arn:aws:iam::AWS-ACCOUNT-ID:role/*-humans"
+    }
+  ]
+}
+```
+
+And ofcourse, we need to allow the user to assume the project environment specific role:
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": {
+    "Effect": "Allow",
+    "Action": "sts:AssumeRole",
+    "Resource": "arn:aws:iam::AWS-ACCOUNT-ID:role/projectA-qa-humans"
+  }
+}
+```
+(Instead of managing these permissions for individual users, I am using AWS user groups
+and assigning users to relevant groups and managing policies at the group level).
+
+I have implemented this in the `yawsi` project. To create a kubeconfig context if you want to access the 
+EKS cluster as a individual AWS user:
+
+```
+$ yawsi eks create-kube-config --cluster-name <your-cluster-name>
+Kubeconfig written
+
+--------------------------/etc/hosts/ file entry ---------------------
+
+<ip> <EKS cluster endpoint>
+```
+
+
+To create a kubeconfig context if you want to access the EKS cluster by assuming another role
+which follows the specified convention above:
+
+```
+$ yawsi eks create-kube-config --cluster-name <your-cluster-name> --project projectA --environment qa
+Kubeconfig written
+
+--------------------------/etc/hosts/ file entry ---------------------
+
+<ip> <EKS cluster endpoint>
+```
+
+Checkout the other [eks related commands](https://github.com/amitsaha/yawsi/blob/master/docs/yawsi_eks.md).
 
 
 # Non human users 
@@ -624,4 +723,6 @@ subjects:
 
 # Conclusion
 
-To be completed.
+In this post, I have discussed how we can leverage AWS Identity and Access Management features for authentication
+and authorization in an AWS EKS cluster setup. With the right amount of convention and automation, we can come up
+with a simple and easy to understand and reason approach. Time will tell how this scales though.
