@@ -5,14 +5,14 @@ categories:
 -  infrastructure
 ---
 
-## Introduction
+# Introduction
 
 When implementing a solution for allowing users other than the cluster creator to access the cluster resources we are 
 faced with two fairly old generic problems - authentication and authorization. There are various ways one can solve 
 these problems. I will discuss one such solution in this post. It makes use of AWS Identity and access management (IAM) 
 features. This in my humble opinion is the simplest and hopefully secure enough solution when it comes to EKS.
 
-## Allowing nodes to join the cluster
+# Allowing nodes to join the cluster
 
 Before we discuss human users (and services), I want to discuss how the nodes are able to talk to the master 
 and join the cluster. One of the first things to do when you are setting up an EKS cluster is to setup a special
@@ -43,7 +43,7 @@ ConfigMap. Once we apply this manifest, you should see the nodes are ready when 
 `kubectl get nodes` again.
 
 
-## Allowing other admins
+# Allowing other admins
 
 The cluster creator gets admin privileges by default. To add other admin users, we will
 have to update the above ConfigMap as follows:
@@ -70,7 +70,7 @@ metadata:
 
 
 
-## Allowing other non-admin users
+# Allowing other non-admin users
 
 You have different teams working on different projects who need varying levels of access to the cluster resources.
 First of all, we want to have each project and environment in their own Kubernetes namespace - that's how
@@ -363,12 +363,12 @@ And then allow user's accounts to assume this role via this policy:
 ```
 
 
-## Non human users 
+# Non human users 
 
 For non-human users, we can once again leverage IAM roles for authentication and groups and role bindings
 for authorization. I will discuss two scenarios which brings to light two different use cases.
 
-### Deployment of applications
+## Deployment of applications
 
 Let's consider a scenario where we use Jenkins running outside the cluster to build and deploy applications 
 to our kubernetes cluster. Simply because of the operations that Jenkins will need to perform
@@ -463,7 +463,7 @@ data:
       ...
 ```
 
-### Read only access to the cluster API 
+## Read only access to the cluster API 
 
 Let's consider a scenario where you want to run some software outside the cluster which will need to make API
 calls to the cluster to read various information - example, for monitoring. In this case, we can use an approach
@@ -499,14 +499,14 @@ subjects:
     name: monitoring
 ```
 
-## Which AWS user performed this API operation?
+# Which AWS user performed this API operation?
 
 To be completed.
 
-## Automating kubeconfig management for human users
+# Automating kubeconfig management for human users
 
 To be completed.
 
-## Conclusion
+# Conclusion
 
 To be completed.
