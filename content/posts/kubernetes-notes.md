@@ -237,8 +237,7 @@ ConfigMap. Once we apply this manifest, you should see the nodes are ready when 
 
 ## Adding other admins and managing users
 
-This is discussed in a separate post. (Will update link)
-
+This is discussed in a [separate post](https://echorand.me/posts/user-management-aws-eks-cluster/#automating-kubeconfig-management-for-human-users).
 
 # Persistent volumes
 

@@ -726,3 +726,11 @@ subjects:
 In this post, I have discussed how we can leverage AWS Identity and Access Management features for authentication
 and authorization in an AWS EKS cluster setup. With the right amount of convention and automation, we can come up
 with a simple and easy to understand and reason approach. Time will tell how this scales though.
+
+# Resources
+
+To learn more, please refer to the following:
+
+- https://kubernetes.io/docs/reference/access-authn-authz/controlling-access/
+- https://kubernetes.io/docs/reference/access-authn-authz/rbac/
+- https://docs.aws.amazon.com/eks/latest/userguide/security-iam.html
