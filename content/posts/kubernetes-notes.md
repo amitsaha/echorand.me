@@ -235,41 +235,9 @@ ConfigMap. Once we apply this manifest, you should see the nodes are ready when 
 `kubectl get nodes` again.
 
 
-## Adding other admins
+## Adding other admins and managing users
 
-The cluster creator gets admin privileges by default. To add other admin users, we will
-have to update the above ConfigMap as follows:
-
-```
-apiVersion: v1
-data:
-  mapRoles: |
-    - rolearn: arn:aws:iam::AWS-ACCOUN-ID:role/myrole
-      username: system:node:{{EC2PrivateDNSName}}
-      groups:
-      - system:bootsrappers
-      - system:nodes
-  mapUsers: |
-    - userarn: arn:aws:iam::AWS-ACCOUN-ID:user/someusername
-      username: someusername
-      groups:
-      - system:masters
-kind: ConfigMap
-metadata:
-  name: aws-auth
-  namespace: kube-system
-```
-
-## Add human non-admin users
-
-To add human non-admin users to authenticate to the cluster and then perform certain operations,
-we have to perform a few steps.
-
-## Adding users and roles
-
-## Service accounts
-
-## Using kubectl with a service account token
+This is discussed in a separate post. (Will update link)
 
 
 # Persistent volumes
