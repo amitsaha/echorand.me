@@ -1,5 +1,5 @@
 ---
-title:  An approach to user access management on AWS EKS Kubernetes cluster
+title:  User access management on AWS Kubernetes cluster
 date: 2019-08-23
 categories:
 -  infrastructure
@@ -363,6 +363,129 @@ And then allow user's accounts to assume this role via this policy:
 ```
 
 
+
+
+## Which AWS user performed this API operation
+
+Let's say we have rolled out the idea of using a single IAM role per project environment which 
+the project's team members use (via `AssumeRole`) to access and perform operations in the Kubernetes cluster. One
+question you will soon encounter is how do you identify which actual AWS user was performing
+the operation? Currently, [aws-iam-authenticator](https://github.com/kubernetes-sigs/aws-iam-authenticator/issues/242)
+doesn't support this. However, we can write our own solution by reading Kubernetes logs and leveraging
+AWS CloudTrail. 
+
+
+### API server audit logs
+
+The specific EKS log stream we are interested in is `kube-apiserver-audit`. Entires in this log stream are similar to:
+
+```
+{
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1beta1",
+    "metadata": {
+        "creationTimestamp": "2019-08-22T00:13:15Z"
+    },
+    "level": "Request",
+    "timestamp": "2019-08-22T00:13:15Z",
+    "auditID": "b7140a45-50bf-4dc3-ad64-e64d211e4e6e",
+    "stage": "ResponseComplete",
+    "requestURI": "/api/v1/namespaces/projectA-qa/pods?limit=500",
+    "verb": "list",
+    "user": {
+        "username": "projectA-qa-1566432791140199108",
+        "uid": "heptio-authenticator-aws:<AWS-ACCOUNT-ID>:AROAUBGCRZPAQIISY7KAL",
+        "groups": [
+            "system:basic-user",
+            "projectA:qa",
+            "system:authenticated"
+        ]
+    },
+    "sourceIPs": [
+        "10.0.57.37"
+    ],
+    "userAgent": "kubectl/v1.12.7 (linux/amd64) kubernetes/6f48297",
+    "objectRef": {
+        "resource": "pods",
+        "namespace": "projectA-qa",
+        "apiVersion": "v1"
+    },
+    "responseStatus": {
+        "metadata": {},
+        "code": 200
+    },
+    "requestReceivedTimestamp": "2019-08-22T00:13:15.584533Z",
+    "stageTimestamp": "2019-08-22T00:13:15.589325Z",
+    "annotations": {
+        "authorization.k8s.io/decision": "allow",
+        "authorization.k8s.io/reason": "RBAC: allowed by RoleBinding \"projectA-qa-human-users/projectA-qa\" of Role \"projectA-qa-human-users\" to Group \"projectA:qa\""
+    }
+}
+```
+
+Our main interest in the above log is the `user` object and it's fields - `uid` and `username`. The `username` is composed
+of two parts - a hardcoded `projectA-qa` and a generated session name - `1566432791140199108`. This was specified in the `username` field of the
+`ConfigMap` (`username: projectA-{{SessionName}}`). The `uid` field is set to `"heptio-authenticator-aws:<AWS-ACCOUNT-ID>:AROAUBGCRZPAQIISY7KAL"`.
+The two key bits of data here that we will use to query CloudTrial are the strings `AROAUBGCRZPAQIISY7KAL` and `1566432791140199108`.
+
+### CloudTrail
+
+A CloudTrail event whose `EventName` is `AssumeRole` has the following structure:
+
+```
+{
+  AccessKeyId: "AKKKLKLJLJLJLLHLHLHL",
+  CloudTrailEvent: "...",
+  EventName: "AssumeRole",
+  EventSource: "sts.amazonaws.com",
+  EventTime: 2019-08-22 00:13:12 +0000 UTC,
+  ReadOnly: "true",
+  Resources: [
+    {
+      ResourceName: "AKHKHKLJLHLJLLHHLHLHL",
+      ResourceType: "AWS::IAM::AccessKey"
+    },
+    {
+      ResourceName: "1566432791140199108",
+      ResourceType: "AWS::STS::AssumedRole"
+    },
+    {
+      ResourceName: "AROAUBGCRZPAQIISY7KAL:1566432791140199108",
+      ResourceType: "AWS::STS::AssumedRole"
+    },
+    {
+      ResourceName: "arn:aws:sts::AWS-ACCOUNT-ID:assumed-role/projectA-qa-humans/1566432791140199108",
+      ResourceType: "AWS::STS::AssumedRole"
+    },
+    {
+      ResourceName: "arn:aws:iam::AWS-ACCOUNT-ID:role/projectA-qa-humans",
+      ResourceType: "AWS::IAM::Role"
+    }
+  ],
+  Username: "username1"
+}
+```
+
+In the above event, if you see the third entry in the `Resources` array, you can see that the `ResourceName` is
+basically composed of our two strings of interest from the kubeserver audit logs. Thus, if we search for CloudTrail
+AssumeRole events for this ResourceName, we will have our actual AWS user who performed a specific operation
+in the `Username` field.
+
+You can write your own script for this. I implemented this in my hobby AWS CLI project [yawsi](https://github.com/amitsaha/yawsi).
+
+The interface looks like:
+
+```
+$ yawsi  eks whois --uid heptio-authenticator-aws:<user-id>:AROAUBGCRZPAQIISY7KAL --username projectA-qa-1566432791140199108 --lookback 6
+```
+
+The `--lookback` parameter specifies the number of hours of CloudTrail events to look back to.
+
+## Automating kubeconfig management for human users
+
+To be completed.
+
+
 # Non human users 
 
 For non-human users, we can once again leverage IAM roles for authentication and groups and role bindings
@@ -498,14 +621,6 @@ subjects:
     kind: Group
     name: monitoring
 ```
-
-# Which AWS user performed this API operation?
-
-To be completed.
-
-# Automating kubeconfig management for human users
-
-To be completed.
 
 # Conclusion
 
