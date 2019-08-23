@@ -5,6 +5,7 @@ categories:
 -  infrastructure
 ---
 
+## Introduction
 
 When implementing a solution for allowing users other than the cluster creator to access the cluster resources we are 
 faced with two fairly old generic problems - authentication and authorization. There are various ways one can solve 
