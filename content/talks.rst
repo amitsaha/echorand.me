@@ -8,7 +8,7 @@ aliases:
 Golang for Ops Automation - Sydney Golang/Infracoders/Women Who Go meetup, September, 2019
 ------------------------------------------------------------------------------------------
 
-Slides are `here <https://bit.ly/2mJCEnn>`__.
+The video starts from `here <https://youtu.be/5nqO_1yKhZE?t=383>`__ and the slides are `here <https://bit.ly/2mJCEnn>`__.
 
 Django + Prometheus - Sydney Django Meetup, August, 2019
 --------------------------------------------------------
