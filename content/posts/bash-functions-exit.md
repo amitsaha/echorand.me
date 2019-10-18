@@ -1,10 +1,9 @@
 ---
-title:  Notes from operations land
-date:  2010-10-18 
+title:  Bash functions and exit
+date:  2019-10-18 
 categories:  infrastructure
 ---
 
-# PHP dotenv, php-fpm and Bash
 
 Monday was just beginning to roll on as Monday does, I had managed to work out the VPN issues and had
 just started to do some planned work. Then, slack tells me that new deployment had just been pushed out successfully, but
@@ -17,8 +16,10 @@ Oct 14 00:03:35 ip-192-168-6-113.eu-central-1.compute.internal docker[20833]: Fa
 ```
 
 This was a PHP service which was using [phpdotenv](https://github.com/vlucas/phpdotenv) to load the environment variables
-from a file. Okay, so we have found the issue which we can now fix. So, I think why didn't the whole startup script
-just abort when it got this error? This is how our startup script looked like at this stage:
+from a file. Okay, so we have found the issue which we can now fix. 
+
+However, I think why didn't the whole startup script just abort when it got this error? This is how our startup script 
+looked like at this stage:
 
 ```bash
 #!/usr/bin/env bash
@@ -169,4 +170,27 @@ wait $CHILD_PID
 
 Essentially, i have now running `php artisan migrate:status` twice. First to check if the `.env` file can be read
 successfully and error out if not. Second, actually check for the migrations. We can make it more concise, but who
-knows what will break?
+knows what will break? 
+
+If you really want to use a Bash function and also exit early, this [link](https://stackoverflow.com/a/9894126) will help.
+
+Here's some test code:
+
+```bash
+function foo() {
+	echo "in foo, exiting"
+	exit 1
+}
+
+function bar() {
+	echo "In bar"
+}
+
+bar
+# this invocation will exit the script
+foo
+# this invocation will not exit the script
+f=$( foo )
+echo $f
+echo "hi there"
+```
