@@ -1,9 +1,9 @@
 ---
-title:  Bash functions and exit
-date:  2019-10-18 
-categories:  infrastructure
+title:  Bash function and exiting early
+date: 2019-10-18
+categories:
+-  infrastructure
 ---
-
 
 Monday was just beginning to roll on as Monday does, I had managed to work out the VPN issues and had
 just started to do some planned work. Then, slack tells me that new deployment had just been pushed out successfully, but
