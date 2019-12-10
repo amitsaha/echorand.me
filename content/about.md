@@ -18,8 +18,8 @@ need to pick and choose what kind of software I am working with - frontend, back
 or Linux. Given a problem or an idea at hand, I will try to implement it without thinking I am better off 
 doing something else.
 
-Feel free to reuse/relink any contents on this blog in anyway you please. I appreciate a credit, but not
-mandatory. 
+Feel free to reuse/relink any contents on this blog in anyway you please. I appreciate a credit linking back to
+my post/blog.
 
 # Contact me
 
