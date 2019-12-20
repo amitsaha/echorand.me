@@ -1,5 +1,5 @@
 ---
-title:   Kubernetes manifest management
+title: On Kubernetes and YAML
 date: 2019-12-20
 categories:
 -  infrastructure
