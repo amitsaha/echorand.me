@@ -16,10 +16,23 @@ These are a result of a lot of hit and trial and frustrating hours spent fightin
 the end result in mind. My approach to work has recently become - i struggle with everything, so I don't
 need to pick and choose what kind of software I am working with - frontend, backend, infrastructure, windows
 or Linux. Given a problem or an idea at hand, I will try to implement it without thinking I am better off 
-doing something else.
+doing something else. It's all a learning experience.
 
 Feel free to reuse/relink any contents on this blog in anyway you please. I appreciate a credit linking back to
 my post/blog.
+
+# Open source contributions
+
+Over the years, I have contributed code/docs to various projects in various programming languages:
+
+- NetBeans IDE (Java)
+- SymPy (Python)
+- CPython (Python)
+- NLog (C sharp)
+- Statsd exporter (Golang)
+- Vector (Rust)
+- Inspec (Ruby)
+
 
 # Contact me
 
@@ -33,5 +46,3 @@ If you would like to get an email everytime I write something new, please subscr
 
 I get paid for my books and articles I write for other people. However, if my articles/code on this blog 
 has helped you in anyway and want to say thanks, I welcome donations via [PayPal](https://www.paypal.me/echorand).
-Of course, my work is based completely of the excellent open source software by all the other people who are 
-in most cases doing it for free, so that's there.
