@@ -10,8 +10,9 @@ This blog is generated using [Hugo](https://gohugo.io) and hosted on GitHub page
 
 # About me
 
-Hello, My name is Amit - I work in software.  A lot of what I explore makes it to my 
-[articles](../articles), [books](../books), [talks](../talks) and [code](https://github.com/amitsaha). 
+Hello, My name is Amit - I work as a software engineer and I [explore software](https://github.com/amitsaha)
+via programming, writing [articles](../articles) and [books](../books) and giving [talks](../talks).
+
 These are a result of a lot of hit and trial and frustrating hours spent fighting with software only having 
 the end result in mind. My approach to work has recently become - i struggle with everything, so I don't
 need to pick and choose what kind of software I am working with - frontend, backend, infrastructure, windows
