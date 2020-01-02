@@ -34,6 +34,7 @@ Over the years, I have contributed code/docs to various projects in various prog
 - Vector (Rust)
 - Inspec (Ruby)
 
+(My email address for these commits would be amitsaha.in@gmail.com or amitksaha@netbeans.org)
 
 # Contact me
 
