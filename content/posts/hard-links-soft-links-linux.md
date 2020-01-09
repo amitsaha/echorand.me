@@ -134,8 +134,8 @@ own.
 # Investigation: Deleting the original file
 
 What happens to each kind of link when we delete the original file? From the graphics above, we expect that the symbolic
-link will basically be a "dangling" link and hence, we will lose access to the file contents. In the case of hard link, the contents will still continue to be accessible, since all we are doing is deleting one of the links. Even though it is the original file,
-it doesn't matter. Other links continue to exist and point to the data.
+link will basically be a "dangling" link and hence, we will lose access to the file contents. In the case of hard link, the contents will still continue to be accessible, since all we are doing is deleting one of the links. 
+Even though it is the original file, it doesn't matter. Other links continue to exist and point to the data.
 
 Let's validate our theory:
 
@@ -207,7 +207,8 @@ additional entries. Where do we get the two links by default?
 ## Is it a symbolic link or a hard link?
 
 As a program how do I know if a file is a "regular" file, symbolic link or a hard link? The answer lies in the
-data that the `stat()` system call returns. Specifically, the `st_mode` field as described [here](http://man7.org/linux/man-pages/man7/inode.7.html).
+data that the `stat()` system call returns. Specifically, the `st_mode` field as described 
+[here](http://man7.org/linux/man-pages/man7/inode.7.html).
 
 ## Links and Filesystem Boundaries
 
@@ -219,8 +220,8 @@ to a file which resides in a different filesystem. Soft links have no such limit
 What are links useful for? One reason you may want to use links is to not have duplicate data in multiple files.
 Let's say, we have a bunch of files lying around in our file-system and we want to keep only a single copy of any duplicate
 data, and replace the others by links. Since hard links cannot span more than one filesystem, symbolic links may seem more
-attractive. However, one caveat to keep in mind with symbolic links is, if we accidentally delete the original file, we end up 
-losing the data. So, it depends on the use-case. 
+attractive. However, one caveat to keep in mind with symbolic links is, if we accidentally delete the original file, 
+we end up losing the data. So, it depends on the use-case. 
 
 # Learning more
 
