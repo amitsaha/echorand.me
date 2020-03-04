@@ -1,5 +1,5 @@
 ---
-title: On Kubernetes and YAML
+title: On managing Kubernetes YAML manifests
 date: 2019-12-20
 categories:
 -  infrastructure
@@ -10,21 +10,19 @@ categories:
 
 There are two broad discussion points in this post:
 
-1. Creating a new  Kubernetes service/job/deployment unit should involve minimal inputs from the user
-2. Static guarantees/best practices enforcements around Kubernetes YAML files before they are applied to a cluster
+1. Managing the lifecycle of Kubernetes YAML manifests 
+2. Static guarantees/best practices enforcements around Kubernetes YAML files *before* they are applied to a cluster
 
 
 ## Prior art and background
 
 Please read [this article](https://blog.cedriccharly.com/post/20191109-the-configuration-complexity-curse/) to
 get a more holistic view of this space. What follows is my summary of what I think is the state at this stage
-and how it fits in with my two goals above.
+and how it fits in with my two gols above.
 
-The idea of managing top-level kubernetes YAML manifests via non-YAML solutions is not very new.
-For a few years now, the community has been coming up with various alternatives. The
-two top reasons as far as my interepretations are concerned are:
+The top two pain points (as far as my understanding goes) with managing YAML manifests for Kubernetes resource are:
 
-- Prevent "YAML duplication" across similar functional resources and allow a hierarchy of YAML files
+- Prevent "YAML duplication" across similar functional resources and environments
 - Data validation
 
 The solutions to the the first issue above has been solved via mechanisms such as "helm templates"
@@ -49,7 +47,7 @@ can meet the requirement (1) with either "helm template" + kustomize or "cue" it
 ## Limitations of prior art
 
 All the solutions discussued in the previous section still need that initial "seed" configuration to be
-specified for a service manually in some form - a helm chart, a kustomize base YAML or a cue specification.
+specified for a Kubernetes resource manually in some form - a helm chart, a kustomize base YAML or a cue specification.
 That is, a human operator is needed to copy/paste or write a new YAML/Cue file from scratch for each service 
 and then have the overrides in each environment to establish the hierarchical setup. In addition, it will involve
 using one or more external tools. "helm" specifically adds too much complexity for us (IMO), even though
@@ -116,10 +114,6 @@ accepts 1 arg(s), received 0
 
 ```
 
-Todo:
-
-- CI user
-
 Out of scope at this stage:
 
 - Cluster admin will be the exclusive manifest applier
@@ -182,6 +176,28 @@ To summarize, the following resources are created:
 - NetworkPolicy
 - ServiceAccount
 - Ingress object
+
+## Improvements to the above generation
+
+With the above command, we generate the initial set of manifests for an environment. We have the following limitations:
+
+- We need to do the above per environment
+- We essentially have duplication across environments, althought not hand written
+- If we wanted to change something across all environments, we will have to manually edit each environments' manifests
+- For the same kind of service  (`redis`, `db`), we will need to do the same operation over and over again
+
+All the above problems can be solved by instead generating the seed configuration for `kustomize` or `helm` instead
+of plain YAML files. For example, [kubekutr](https://github.com/mr-karan/kubekutr) generates `kustomize` bases based
+on user input. 
+
+Alternatively, we could enhance our above generation command as follows. We will consider two kinds of deployment units:
+
+- Custom services
+- Standard services - DBs, Storage services, Cache
+
+For custom services, we 
+Using the command line parameters, create a specification for your application. Then using this specification,
+generate manifests for each environment.
 
 ## Brain dump
 
