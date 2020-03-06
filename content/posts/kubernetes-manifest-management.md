@@ -181,10 +181,10 @@ To summarize, the following resources are created:
 
 With the above command, we generate the initial set of manifests for an environment. We have the following limitations:
 
-- We need to do the above per environment
-- We essentially have duplication across environments, althought not hand written
-- If we wanted to change something across all environments, we will have to manually edit each environments' manifests
-- For the same kind of service  (`redis`, `db`), we will need to do the same operation over and over again
+1. We need to do the above per environment: `qa`, `staging`, `production`, etc.
+2. We essentially have duplication across environments, althought not hand written or copied
+3. If we wanted to change something across all environments, we will have to manually edit each environment's manifests
+4. For the same kind of service  (`redis`, `db`), we will need to do the same operation over and over again
 
 All the above problems can be solved by instead generating the seed configuration for `kustomize` or `helm` instead
 of plain YAML files. For example, [kubekutr](https://github.com/mr-karan/kubekutr) generates `kustomize` bases based
@@ -195,9 +195,121 @@ Alternatively, we could enhance our above generation command as follows. We will
 - Custom services
 - Standard services - DBs, Storage services, Cache
 
-For custom services, we 
-Using the command line parameters, create a specification for your application. Then using this specification,
-generate manifests for each environment.
+For custom services, using the command line parameters, create a specification for your application. Then using this specification,
+generate manifests for each environment. This will solve 1, 2 and 3 above. If we want to change something across 
+all or a specific environments, we will change the specification. Let's consider example specifications:
+
+
+```
+# For an external PHP service with a
+# Web, Worker, DB migration jobs and a Cron job
+
+Kind: PHPService
+Project: xledger
+Type: External
+Host: api.xledger.xcover.com
+Port: 8443
+Container:
+  Image: 121211.aws.ecr.io/xledger-api:<githash>
+DBMigration: true
+CIServiceAccount: true
+CronSchedule: "* * * * *"
+Environments:
+  qa:
+    Namespace: xledger-qa
+    WebReplicas: 2
+    WorkerReplicas: 2
+    EnvVars:
+      Environment: qa
+      TruncateDB: true
+    NodeGroup: xledger_qa
+  staging:
+    Namespace: xledger-qa 
+    WebReplicas: 3
+    WorkerReplicas: 3
+    EnvVars:
+      Environment: staging
+    NodeGroup: xledger_staging
+EnvVars:
+  secret:
+  - name: TOKEN
+    path: xledger-api/token
+  plain:
+  - name: APP_NAME
+    value: xledger
+PersistentVolumeClaims:
+  - name: data
+    mountPath: /storage
+    size:5
+```
+
+
+```
+# For an external Python service with a
+# Web, Worker, DB migration jobs and a Cron job
+
+Kind: PythonService
+Project: xledger
+Type: External
+Host: api.xledger.xcover.com
+Port: 8443
+Container:
+  Image: 121211.aws.ecr.io/xledger-api:<githash>
+DBMigration: true
+CIServiceAccount: true
+CronSchedule: "* * * * *"
+Environments:
+  qa:
+    Namespace: xledger-qa
+    WebReplicas: 2
+    WorkerReplicas: 2
+    EnvVars:
+      Environment: qa
+      TruncateDB: true
+    NodeGroup: xledger_qa
+  staging:
+    Namespace: xledger-qa 
+    WebReplicas: 3
+    WorkerReplicas: 3
+    EnvVars:
+      Environment: staging
+    NodeGroup: xledger_staging
+EnvVars:
+  secret:
+  - name: TOKEN
+    path: xledger-api/token
+  plain:
+  - name: APP_NAME
+    value: xledger
+PersistentVolumeClaims:
+  - name: data
+    mountPath: /storage
+    size:5
+
+```
+
+For deploying standard services which will be deployed in multiple environments across multiple
+applications, the following specification will be generated using even less inputs:
+
+```
+Kind: Redis
+Project: xledger
+Type: Internal
+Port: 6379
+Container:
+  Image: 12121.aws.ecr.io/redis-infra:<git bash>
+Environments:
+  qa:
+    Namespace: xledger-qa
+    NodeGroup: xledget_qa
+PersistentVolumeClaims:
+  - name: data
+    mountPath: /redis-data
+    size: 5
+...
+```
+
+Similarly, we can do the same for other standard services like PostgreSQL, etc.
 
 ## Brain dump
 
