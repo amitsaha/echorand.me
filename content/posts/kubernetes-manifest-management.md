@@ -205,38 +205,38 @@ all or a specific environments, we will change the specification. Let's consider
 # Web, Worker, DB migration jobs and a Cron job
 
 Kind: PHPService
-Project: xledger
+Project: hello-world
 Type: External
-Host: api.xledger.xcover.com
+Host: api.hello-world.xcover.com
 Port: 8443
 Container:
-  Image: 121211.aws.ecr.io/xledger-api:<githash>
+  Image: 121211.aws.ecr.io/hello-world-api:<githash>
 DBMigration: true
 CIServiceAccount: true
 CronSchedule: "* * * * *"
 Environments:
   qa:
-    Namespace: xledger-qa
+    Namespace: hello-world-qa
     WebReplicas: 2
     WorkerReplicas: 2
     EnvVars:
       Environment: qa
       TruncateDB: true
-    NodeGroup: xledger_qa
+    NodeGroup: hello-world_qa
   staging:
-    Namespace: xledger-qa 
+    Namespace: hello-world-qa 
     WebReplicas: 3
     WorkerReplicas: 3
     EnvVars:
       Environment: staging
-    NodeGroup: xledger_staging
+    NodeGroup: hello-world_staging
 EnvVars:
   secret:
   - name: TOKEN
-    path: xledger-api/token
+    path: hello-world-api/token
   plain:
   - name: APP_NAME
-    value: xledger
+    value: hello-world
 PersistentVolumeClaims:
   - name: data
     mountPath: /storage
@@ -249,38 +249,38 @@ PersistentVolumeClaims:
 # Web, Worker, DB migration jobs and a Cron job
 
 Kind: PythonService
-Project: xledger
+Project: hello-world
 Type: External
-Host: api.xledger.xcover.com
+Host: api.hello-world.xcover.com
 Port: 8443
 Container:
-  Image: 121211.aws.ecr.io/xledger-api:<githash>
+  Image: 121211.aws.ecr.io/hello-world-api:<githash>
 DBMigration: true
 CIServiceAccount: true
 CronSchedule: "* * * * *"
 Environments:
   qa:
-    Namespace: xledger-qa
+    Namespace: hello-world-qa
     WebReplicas: 2
     WorkerReplicas: 2
     EnvVars:
       Environment: qa
       TruncateDB: true
-    NodeGroup: xledger_qa
+    NodeGroup: hello-world_qa
   staging:
-    Namespace: xledger-qa 
+    Namespace: hello-world-qa 
     WebReplicas: 3
     WorkerReplicas: 3
     EnvVars:
       Environment: staging
-    NodeGroup: xledger_staging
+    NodeGroup: hello-world_staging
 EnvVars:
   secret:
   - name: TOKEN
-    path: xledger-api/token
+    path: hello-world-api/token
   plain:
   - name: APP_NAME
-    value: xledger
+    value: hello-world
 PersistentVolumeClaims:
   - name: data
     mountPath: /storage
@@ -289,18 +289,19 @@ PersistentVolumeClaims:
 ```
 
 For deploying standard services which will be deployed in multiple environments across multiple
-applications, the following specification will be generated using even less inputs:
+applications, the following specification will be generated using in-built custom parameters, thus
+minimizing the number of user inputs:
 
 ```
 Kind: Redis
-Project: xledger
+Project: hello-world
 Type: Internal
 Port: 6379
 Container:
   Image: 12121.aws.ecr.io/redis-infra:<git bash>
 Environments:
   qa:
-    Namespace: xledger-qa
+    Namespace: hello-world-qa
     NodeGroup: xledget_qa
 PersistentVolumeClaims:
   - name: data
@@ -309,7 +310,25 @@ PersistentVolumeClaims:
 ...
 ```
 
-Similarly, we can do the same for other standard services like PostgreSQL, etc.
+We can do the same for other standard services like PostgreSQL, etc.
+
+### Why not use `kubekutr` + `kustomize`?
+
+The above solution aims to make it straighforward to:
+
+- Generate initial multi-environment YAML manifests
+- Make subsequent changes across environments
+- Not require experience with another tool
+
+`kubekutr`'s scope is limited to generating `kustomize` bases. That way, the proposed tool's scope
+is more extensive as well as being self-contained - not needing another tool.
+
+The workflow we are aiming for with the proposed tool is:
+
+- Run the above tool
+- Run standard linting/checks
+- Run `kubectl apply`
+
 
 ## Brain dump
 
