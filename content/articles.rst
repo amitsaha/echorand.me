@@ -4,6 +4,8 @@ aliases:
 - /pages/articles.html
 ---
 
+*Software publications*
+
 A lot of my articles (besides this blog) were written for various print and online magazines which
 are subscriber only. However, here's some recent ones that are online:
 
@@ -15,3 +17,12 @@ are subscriber only. However, here's some recent ones that are online:
 
 
 Some old articles are available from previous writings page: https://amitksaha.wordpress.com/writings/
+
+*Research publications*
+
+- `Practical Design Optimization Techniques <https://trove.nla.gov.au/work/173982059?q&versionId=252600574>`__
+- `Multimodal Optimization Using a Bi-Objective Evolutionary Algorithm <https://www.mitpressjournals.org/doi/10.1162/EVCO_a_00042>`__
+- `A Bi-criterion Approach to Multimodal Optimization: Self-adaptive Approach <https://link.springer.com/chapter/10.1007/978-3-642-17298-4_10>`__
+- `Practical Robust Design Optimization Using Evolutionary Algorithms <https://asmedigitalcollection.asme.org/mechanicaldesign/article-abstract/133/10/101012/467457/Practical-Robust-Design-Optimization-Using?redirectedFrom=fulltext>`__
+- `How does the good old Genetic Algorithm fare at real world optimization <https://dblp.uni-trier.de/rec/html/conf/cec/SahaR11>`__
+- `Equality Constrained Multi-objective optimization <https://ieeexplore.ieee.org/document/6256109>`__
