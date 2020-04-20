@@ -9,6 +9,7 @@ aliases:
 A lot of my articles (besides this blog) were written for various print and online magazines which
 are subscriber only. However, here's some recent ones that are online:
 
+- `Deploying Docker Containers to AWS using CloudBees CodeShip, CodeDeploy and Chef <https://rollout.io/blog/deploying-docker-containers-to-aws-using-cloudbees-codeship-codedeploy-and-chef/>`__
 - `Testing Linux Docker Images in CloudBees CodeShip CI <https://rollout.io/blog/testing-linux-docker-images-in-cloudbees-codeship-ci/>`__
 - `Using gRPC in Python <https://rollout.io/blog/using-grpc-in-python/>`__
 - `Exploring Security, Metrics, and Error-handling with gRPC in Python <https://rollout.io/blog/exploring-security-metrics-and-error-handling-with-grpc-in-python/>`__
