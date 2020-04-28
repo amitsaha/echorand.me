@@ -65,13 +65,15 @@ $ custodian report s3.yaml --output-dir=. --format grid
 ```
 
 
-
 ### EC2
+
+Let's now write a policy for checking the tagging across EC2 resources. Create a new file `ec2.yaml` and
+save it in the same directory as the above:
 
 ```
 policies:
   - name: ec2-tag-policy
-    resource: aws.rds
+    resource: aws.ec2
     filters:
       - or:
         - "tag:Project": absent
@@ -81,6 +83,10 @@ policies:
 
 
 ### RDS
+
+Let's now write a policy for checking the tagging across RDS resources. Create a new file `rds.yaml` and
+save it in the same directory as the above:
+
 
 ```
 policies:
