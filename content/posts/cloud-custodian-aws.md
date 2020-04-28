@@ -20,12 +20,18 @@ command `custodian` used to invoke the application.
 We will also need to ensure that we have the AWS CLI configuration setup correctly. I am using the `AWS_PROFILE`
 environment variable to point to the configuration I want to use with `custodian`.
 
-## Ensuring certain tags exist
+## Writing non-actionable policies and obtaining reports
+
+The policies we will write and focus on in this section will have no actions associated with them. We will only
+use them as a discovery mechanism and then we will use the reporting functionality of cloud custodian to obtain
+a summarized report.
+
+### Ensuring certain tags exist
 
 Let's say that we want to find out all the S3 buckets which do not have certain tags defined. Cloud custodian
 requires us to specify this requirement as a policy YAML file which looks like as follows:
 
-### S3
+**S3**
 
 Create a new file called, `s3.yaml` and paste in the following contents:
 
@@ -66,7 +72,7 @@ $ custodian report s3.yaml --output-dir=. --format grid
 ```
 
 
-### EC2
+**EC2**
 
 Let's now write a policy for checking the tagging across EC2 resources. Create a new file `ec2.yaml` and
 save it in the same directory as the above:
@@ -83,7 +89,7 @@ policies:
 ```
 
 
-### RDS
+**RDS**
 
 Next, let write a policy for checking the tagging across RDS resources. Create a new file `rds.yaml` and
 save it in the same directory as the above:
@@ -156,5 +162,5 @@ $ custodian report --output-dir=. rds.yaml -r ap-southeast-2 -r eu-central-1 -r 
 +------------------------+----------+----------+-----------------+-----------+--------------------+--------------------+----------------------+----------------------+----------+
 ```
 
-
+## Multi-account/Organizational Invocation
 
