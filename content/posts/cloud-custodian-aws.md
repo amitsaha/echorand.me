@@ -40,6 +40,30 @@ policies:
         - "tag:Provisioner": absent
 ```
 
+Now, let's run `custodian` from the same directory as the above policy file:
+
+```
+$ custodian run s3.yaml --output-dir=. 
+2020-04-28 15:26:39,312: custodian.policy:INFO policy:s3-tag-policy resource:aws.s3 region:eu-central-1 count:13 time:27.72
+```
+
+The above command has invoked cloud custodian with the above policy definition and created a few files with
+presumably the result of the query in a new sub-directory `s3-tag-policy` in 
+the current directory specified via `--output-dir`. We will next use the `report` sub-command to summarize
+the results for us:
+
+```
+$ custodian report s3.yaml --output-dir=. --format grid
++-----------------------------------------+---------------------------+
+| Name                                    | CreationDate              |
++=========================================+===========================+
+| bucket 1                                | 2020-03-18T05:44:33+00:00 |
++-----------------------------------------+---------------------------+
+| bucket 2                                | 2020-03-18T05:44:33+00:00 |
+..
+
+```
+
 
 
 ### EC2
