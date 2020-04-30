@@ -13,7 +13,7 @@ to take a look at some of the [example policies](https://cloudcustodian.io/docs/
 
 Some of the areas I will cover are resource tagging and unused resources across multiple AWS accounts.
 
-## Installation and setup
+# Installation and setup
 
 Cloud Custodian is a Python 3 application, so you will need that [installed](https://cloudcustodian.io/docs/quickstart/index.html#install-cloud-custodian).
 A docker image is also available to be used. In this post, I will assume a host installation with the CLI
@@ -22,13 +22,13 @@ command `custodian` used to invoke the application.
 We will also need to ensure that we have the AWS CLI configuration setup correctly. I am using the `AWS_PROFILE`
 environment variable to point to the configuration I want to use with `custodian`.
 
-## Writing non-actionable policies and obtaining reports
+# Writing non-actionable policies and obtaining reports
 
 The policies we will write and focus on in this section will have no actions associated with them. We will only
 use them as a discovery mechanism and then we will use the reporting functionality of cloud custodian to obtain
 a summarized report.
 
-### Ensuring certain tags exist
+## Ensuring certain tags exist
 
 Let's say that we want to find out all the S3 buckets which do not have certain tags defined. Cloud custodian
 requires us to specify this requirement as a policy YAML file which looks like as follows:
@@ -108,7 +108,7 @@ policies:
         - "tag:Provisioner": absent
 ```
 
-### Running with all the policies
+## Running with all the policies
 
 Let's now run cloud custodian with all the above policies and across multiple AWS regions:
 
@@ -164,7 +164,7 @@ $ custodian report --output-dir=. rds.yaml -r ap-southeast-2 -r eu-central-1 -r 
 +------------------------+----------+----------+-----------------+-----------+--------------------+--------------------+----------------------+----------------------+----------+
 ```
 
-## Multi-account/Organizational Invocation
+# Multi-account/Organizational Invocation
 
 To run `custodian` against multiple AWS accounts under the same organization, we will use another application
 which is part of the cloud custodian project - [c7n-org](https://cloudcustodian.io/docs/tools/c7n-org.html#).
@@ -226,4 +226,6 @@ As compared to `custodian`, `c7-org run` doesn't support multiple policy files a
 the grid format.
 
 
+
+# Putting custodian to use
 
