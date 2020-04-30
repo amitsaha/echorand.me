@@ -164,3 +164,52 @@ $ custodian report --output-dir=. rds.yaml -r ap-southeast-2 -r eu-central-1 -r 
 
 ## Multi-account/Organizational Invocation
 
+To run `custodian` against multiple AWS accounts under the same organization, we will use another application
+which is part of the cloud custodian project - [c7n-org](https://cloudcustodian.io/docs/tools/c7n-org.html#).
+In my case, in the same virtual environment, I installed `c7n-org`  using `pip install c7n-org`.
+
+The next step is to create a account config file using the script pointed to from 
+[here](https://cloudcustodian.io/docs/tools/c7n-org.html#config-file-generation) which will allow generation 
+using the AWS Organizations API):
+
+```
+$ python orgaccounts.py  -f accounts.yaml
+```
+
+The  generated accounts.yaml will look like:
+
+```
+accounts:
+- account_id: 1212121212121
+  email: awsroot+a@example.com
+  name: acccount1
+  role: arn:aws:iam::1212121212121:role/OrganizationAccountAccessRole
+  tags:
+  - path:/SomePath
+- account_id: 42312121477
+  email: awsroot+b@example.com
+  name: acccount2
+  role: arn:aws:iam::42312121477:role/OrganizationAccountAccessRole
+  tags:
+  - path:/SomePath1
+
+```
+
+Next, we will need to have the IAM role `OrganizationAccountAccessRole` in each of the member accounts. 
+For accounts which were created as a member account, this IAM role already exists. For accounts which were 
+invited, we will need to create the IAM role manually.
+
+The key features for the Role are:
+
+- Name: `OrganizationAccountAccessRole`
+- Attached policies: `AdministratorAccess`
+- Trust relationships: AWS Account ID of your master account
+
+
+Once we have created the IAM roles, we will run `c7n-org` as follows:
+
+
+
+
+
+
