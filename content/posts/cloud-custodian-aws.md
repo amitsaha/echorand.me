@@ -172,7 +172,7 @@ In my case, in the same virtual environment, I installed `c7n-org`  using `pip i
 
 The next step is to create a account config file using the script pointed to from 
 [here](https://cloudcustodian.io/docs/tools/c7n-org.html#config-file-generation) which will allow generation 
-using the AWS Organizations API):
+using the AWS Organizations API:
 
 ```
 $ python orgaccounts.py  -f accounts.yaml
