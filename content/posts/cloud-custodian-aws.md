@@ -208,8 +208,20 @@ The key features for the Role are:
 
 Once we have created the IAM roles, we will run `c7n-org` as follows:
 
+```
+$ c7n-org run -c accounts.yaml -s output -u ec2.yaml  -r ap-southeast-2 -r eu-central-1 -r eu-west-1
+```
 
+We can now use the `report` sub-command to summarize the results:
 
+```
+$ c7n-org report -c accounts.yaml -s output -u ec2.yaml  -r ap-southeast-2 -r eu-central-1 -r eu-west-1 
+Account,Region,Policy,CustodianDate,InstanceId,tag:Name,InstanceType,LaunchTime,VpcId,PrivateIpAddress
+Acc1,eu-central-1,ec2-tag-policy,2020-04-30 16:07:05.109961,i-0e979a763cfcd3d82,website-application,t3.medium,2020-04-20T03:56:31+00:00,vpc-ce7b04a5,192.168.6.145
+```
+
+As compared to `custodian`, `c7-org run` doesn't support multiple policy files and `c7n-org report` doesn't support
+the grid format.
 
 
 
