@@ -13,7 +13,7 @@ to take a look at some of the [example policies](https://cloudcustodian.io/docs/
 
 Some of the areas I will cover are resource tagging and unused resources across multiple AWS accounts.
 
-# Installation and setup
+## Installation and setup
 
 Cloud Custodian is a Python 3 application, so you will need that [installed](https://cloudcustodian.io/docs/quickstart/index.html#install-cloud-custodian).
 A docker image is also available to be used. In this post, I will assume a host installation with the CLI
@@ -22,7 +22,7 @@ command `custodian` used to invoke the application.
 We will also need to ensure that we have the AWS CLI configuration setup correctly. I am using the `AWS_PROFILE`
 environment variable to point to the configuration I want to use with `custodian`.
 
-# Writing non-actionable policies and obtaining reports
+# Non-actionable policies and reporting
 
 The policies we will write and focus on in this section will have no actions associated with them. We will only
 use them as a discovery mechanism and then we will use the reporting functionality of cloud custodian to obtain
@@ -228,4 +228,10 @@ the grid format.
 
 
 # Putting custodian to use
+
+TBD
+
+# Conclusion
+
+TBD
 
