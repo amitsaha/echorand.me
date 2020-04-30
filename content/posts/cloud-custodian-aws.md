@@ -7,9 +7,11 @@ categories:
 
 # Introduction
 
-In this post, I will describe my experiments with using [Cloud Custodian](https://cloudcustodian.io/docs/index.html) to perform
-various tasks usually falling into the bucket of compliance and sometimes convention. Some of the areas I will cover are
-resource tagging and unused resources across multiple AWS accounts.
+In this post, I will describe my experiments with using [Cloud Custodian](https://cloudcustodian.io/docs/index.html) 
+to perform various tasks usually falling into the bucket of compliance and sometimes convention. I encourage you 
+to take a look at some of the [example policies](https://cloudcustodian.io/docs/aws/examples/index.html).
+
+Some of the areas I will cover are resource tagging and unused resources across multiple AWS accounts.
 
 ## Installation and setup
 
