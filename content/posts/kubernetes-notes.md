@@ -403,6 +403,59 @@ spec:
 
 ```
 
+# Accessing internal network services
+
+`kubectl exec` allows us to exec into a pod and run arbitrary commands inside the pod. However, let's say
+we wanted to run a graphical database client locally and wanted to connect to a database pod. We cannot make
+use of `kubectl exec`. `kubectl port-forward` helps us here. We can setup a port forward from our local workstation
+on port XXXX to the DB port and we are done. However, things get complicated when we are using network policies
+and we should. In this particular case, network policies were setup for the database pod to allow only ingress
+traffic from within the namespace. Hence, when we try to access the DB pod via port forwarding, it doesn't work.
+
+In such a case, we can make use of the `ipBlock` object in the policy definition, for example:
+
+```
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: db-policy
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: my-app
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              project: my-app
+        - ipBlock:
+            cidr: 10.0.56.0/21 # Trusted subnet
+      ports:
+        - protocol: TCP
+          port: 5432
+  ```
+  
+ The `ingress` section defines two selectors for `from` - one based on namespace and the other based on `ipBlock`.
+ 
+It's worth noting that since I am using AWS EKS cluster, the CNI plugin generates the IP addresses of the pods 
+in the specified subnet  IPv4 ranges, so that may be something which makes this solution not applicable to another 
+kubernetes setup.
+
+The nice thing about using `kubectl port-forward` here is that we have both authentication and authorization being enforced
+to even obtain the IP address of the DB pod, since we can allow/disallow `port-forward` via a custom `Role`:
+
+```
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: team-access-services
+rules:
+
+- apiGroups: [""]
+  resources: ["pods/exec", "pods/portforward"]
+  verbs: ["create"]
+```
+
 # Writing policy tests
 
 # Miscellaneous
