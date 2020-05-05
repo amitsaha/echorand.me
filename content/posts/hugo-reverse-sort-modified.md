@@ -1,5 +1,5 @@
 ---
-title:  Sorting pages by last modified data in Hugo
+title:  Sorting pages by last modified date in Hugo
 date: 2020-05-05
 categories:
 -  software
