@@ -469,7 +469,7 @@ The  summarized version of how pod security policies are enforced in practice is
 - Create a cluster role allowing usage of the policy
 - Create a cluster role binding assigning subjects to the above role and hence allow usage of the policy
 
-On an AWS [EKS] cluster (https://docs.aws.amazon.com/eks/latest/userguide/pod-security-policy.html), we can see there 
+On an AWS [EKS cluster](https://docs.aws.amazon.com/eks/latest/userguide/pod-security-policy.html), we can see there 
 is an existing policy already defined:
 
 ```
