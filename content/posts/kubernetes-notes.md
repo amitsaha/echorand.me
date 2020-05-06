@@ -543,6 +543,8 @@ So, let's say we want to make things better. Instead of one default privileged p
 - Privileged: Only cluster admins should be able to use this policy
 - Restricted: For all other users of the cluster - humans and software
 
+( This is a [great article](https://medium.com/coryodaniel/kubernetes-assigning-pod-security-policies-with-rbac-2ad2e847c754) with examples on this topic.)
+
 Hence, for our above EKS cluster, we should do the following:
 
 - Create a new policy for the restricted set of users
@@ -550,6 +552,11 @@ Hence, for our above EKS cluster, we should do the following:
 - Create a new cluster role binding to use this policy instead for all `system:authenticated` users
 - Delete the previous cluster role binding and cluster role
 
+Create a new restricted policy:
+
+```
+
+```
 
 # Writing policy tests
 
