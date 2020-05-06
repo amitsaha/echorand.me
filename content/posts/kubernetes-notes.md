@@ -457,15 +457,17 @@ rules:
 ```
 # Pod security policies
 
-Pod security policies are [cluster level resources](https://kubernetes.io/docs/concepts/policy/pod-security-policy/). The 
-summarized version of how pod security policies work are:
+Pod security policies are [cluster level resources](https://kubernetes.io/docs/concepts/policy/pod-security-policy/).
+The Google cloud [docs](https://cloud.google.com/kubernetes-engine/docs/how-to/pod-security-policies) has some basic
+human friendly docs.  A `psp` is a way to enforce certain policies that `pod` needs to comply with before it's allowed 
+to be scheduled to be run on the cluster - create or an update operation (perhaps a restart of the pod?). Essentially,
+it is a type of a [validating admission controller](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/)
+
+The  summarized version of how pod security policies are enforced in practice is:
 
 - Create a policy (`psp`)
 - Create a cluster role allowing usage of the policy
 - Create a cluster role binding assigning subjects to the above role and hence allow usage of the policy
-
-A `psp` is a way to enforce certain policies that `pod` needs to comply with before it's allowed to be scheduled
-to be run on the cluster.
 
 On an AWS [EKS] cluster (https://docs.aws.amazon.com/eks/latest/userguide/pod-security-policy.html), we can see there 
 is an existing policy already defined:
@@ -533,7 +535,8 @@ eks.privileged
 ```
 
 Now, the reason we have the default pod security policy and the binding is that there *must* be a pod security policy 
-that is defined in your cluster to allow a pod to be scheduled for running. 
+that is defined in your cluster to allow a pod to be scheduled for running if you have the admission controller 
+enabled. If there was no default policy, no pod would be "admitted" by the cluster.
 
 So, let's say we want to make things better. Instead of one default privileged policy, we want to define two policies:
 
@@ -544,8 +547,6 @@ Hence, for our above EKS cluster, we should do the following:
 
 - Create a new policy for the restricted set of users
 - Update the cluster role binding to use this policy instead
-
-
 
 
 # Writing policy tests
