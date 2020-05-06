@@ -546,7 +546,9 @@ So, let's say we want to make things better. Instead of one default privileged p
 Hence, for our above EKS cluster, we should do the following:
 
 - Create a new policy for the restricted set of users
-- Update the cluster role binding to use this policy instead
+- Create a new cluster role to allow usage of the above policy
+- Create a new cluster role binding to use this policy instead for all `system:authenticated` users
+- Delete the previous cluster role binding and cluster role
 
 
 # Writing policy tests
