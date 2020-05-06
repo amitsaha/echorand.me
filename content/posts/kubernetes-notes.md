@@ -524,7 +524,29 @@ Subjects:
 
 The details are documented in the EKS documentation above, but essentially the above role binding allows all
 authenticated users (group: `system:authenticated`) to make use of the above policy - or, any authenticated user
-is allowed to run privileged pods with *no* policy enforced.
+is allowed to run privileged pods with *no* policy enforced. Now, if we see which policy *any* pod is running with, it
+will show that it is using the `eks.privileged` policy:
+
+```
+$ kubectl -n <my-ns> get pod xledger-api-79c745d7d7-ng2j2  -o jsonpath='{.metadata.annotations.kubernetes\.io\/psp}'
+eks.privileged
+```
+
+Now, the reason we have the default pod security policy and the binding is that there *must* be a pod security policy 
+that is defined in your cluster to allow a pod to be scheduled for running. 
+
+So, let's say we want to make things better. Instead of one default privileged policy, we want to define two policies:
+
+- Privileged: Only cluster admins should be able to use this policy
+- Restricted: For all other users of the cluster - humans and software
+
+Hence, for our above EKS cluster, we should do the following:
+
+- Create a new policy for the restricted set of users
+- Update the cluster role binding to use this policy instead
+
+
+
 
 # Writing policy tests
 
