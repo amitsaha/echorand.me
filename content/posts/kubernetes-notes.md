@@ -455,6 +455,76 @@ rules:
   resources: ["pods/exec", "pods/portforward"]
   verbs: ["create"]
 ```
+# Pod security policies
+
+Pod security policies are [cluster level resources](https://kubernetes.io/docs/concepts/policy/pod-security-policy/). The 
+summarized version of how pod security policies work are:
+
+- Create a policy (`psp`)
+- Create a cluster role allowing usage of the policy
+- Create a cluster role binding assigning subjects to the above role and hence allow usage of the policy
+
+A `psp` is a way to enforce certain policies that `pod` needs to comply with before it's allowed to be scheduled
+to be run on the cluster.
+
+On an AWS [EKS] cluster (https://docs.aws.amazon.com/eks/latest/userguide/pod-security-policy.html), we can see there 
+is an existing policy already defined:
+
+```
+$ kubectl describe psp
+Name:  eks.privileged
+
+Settings:
+  Allow Privileged:                       true
+  Allow Privilege Escalation:             true
+  Default Add Capabilities:               <none>
+  Required Drop Capabilities:             <none>
+  Allowed Capabilities:                   *
+  Allowed Volume Types:                   *
+  Allow Host Network:                     true
+  Allow Host Ports:                       0-65535
+  Allow Host PID:                         true
+  Allow Host IPC:                         true
+  Read Only Root Filesystem:              false
+  SELinux Context Strategy: RunAsAny      
+    User:                                 <none>
+    Role:                                 <none>
+    Type:                                 <none>
+    Level:                                <none>
+  Run As User Strategy: RunAsAny          
+    Ranges:                               <none>
+  FSGroup Strategy: RunAsAny              
+    Ranges:                               <none>
+  Supplemental Groups Strategy: RunAsAny  
+    Ranges:                               <none>
+
+```
+
+The granular permissions are documented [here](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#policy-reference), but the above policy essentially allows pods to be created with all the permissions available.
+
+We also have an associated cluster role binding:
+
+```
+$ kubectl describe clusterrolebinding eks:podsecuritypolicy:authenticated 
+Name:         eks:podsecuritypolicy:authenticated
+Labels:       eks.amazonaws.com/component=pod-security-policy
+              kubernetes.io/cluster-service=true
+Annotations:  kubectl.kubernetes.io/last-applied-configuration:
+                {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{"kubernetes.io/description":"Allow all...
+              kubernetes.io/description: Allow all authenticated users to create privileged pods.
+Role:
+  Kind:  ClusterRole
+  Name:  eks:podsecuritypolicy:privileged
+Subjects:
+  Kind   Name                  Namespace
+  ----   ----                  ---------
+  Group  system:authenticated  
+
+```
+
+The details are documented in the EKS documentation above, but essentially the above role binding allows all
+authenticated users (group: `system:authenticated`) to make use of the above policy - or, any authenticated user
+is allowed to run privileged pods with *no* policy enforced.
 
 # Writing policy tests
 
