@@ -455,6 +455,108 @@ rules:
   resources: ["pods/exec", "pods/portforward"]
   verbs: ["create"]
 ```
+# Pod security policies
+
+Pod security policies are [cluster level resources](https://kubernetes.io/docs/concepts/policy/pod-security-policy/).
+The Google cloud [docs](https://cloud.google.com/kubernetes-engine/docs/how-to/pod-security-policies) has some basic
+human friendly docs.  A `psp` is a way to enforce certain policies that `pod` needs to comply with before it's allowed 
+to be scheduled to be run on the cluster - create or an update operation (perhaps a restart of the pod?). Essentially,
+it is a type of a [validating admission controller](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/)
+
+The  summarized version of how pod security policies are enforced in practice is:
+
+- Create a policy (`psp`)
+- Create a cluster role allowing usage of the policy
+- Create a cluster role binding assigning subjects to the above role and hence allow usage of the policy
+
+On an AWS [EKS cluster](https://docs.aws.amazon.com/eks/latest/userguide/pod-security-policy.html), we can see there 
+is an existing policy already defined:
+
+```
+$ kubectl describe psp
+Name:  eks.privileged
+
+Settings:
+  Allow Privileged:                       true
+  Allow Privilege Escalation:             true
+  Default Add Capabilities:               <none>
+  Required Drop Capabilities:             <none>
+  Allowed Capabilities:                   *
+  Allowed Volume Types:                   *
+  Allow Host Network:                     true
+  Allow Host Ports:                       0-65535
+  Allow Host PID:                         true
+  Allow Host IPC:                         true
+  Read Only Root Filesystem:              false
+  SELinux Context Strategy: RunAsAny      
+    User:                                 <none>
+    Role:                                 <none>
+    Type:                                 <none>
+    Level:                                <none>
+  Run As User Strategy: RunAsAny          
+    Ranges:                               <none>
+  FSGroup Strategy: RunAsAny              
+    Ranges:                               <none>
+  Supplemental Groups Strategy: RunAsAny  
+    Ranges:                               <none>
+
+```
+
+The granular permissions are documented [here](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#policy-reference), but the above policy essentially allows pods to be created with all the permissions available.
+
+We also have an associated cluster role binding:
+
+```
+$ kubectl describe clusterrolebinding eks:podsecuritypolicy:authenticated 
+Name:         eks:podsecuritypolicy:authenticated
+Labels:       eks.amazonaws.com/component=pod-security-policy
+              kubernetes.io/cluster-service=true
+Annotations:  kubectl.kubernetes.io/last-applied-configuration:
+                {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"ClusterRoleBinding","metadata":{"annotations":{"kubernetes.io/description":"Allow all...
+              kubernetes.io/description: Allow all authenticated users to create privileged pods.
+Role:
+  Kind:  ClusterRole
+  Name:  eks:podsecuritypolicy:privileged
+Subjects:
+  Kind   Name                  Namespace
+  ----   ----                  ---------
+  Group  system:authenticated  
+
+```
+
+The details are documented in the EKS documentation above, but essentially the above role binding allows all
+authenticated users (group: `system:authenticated`) to make use of the above policy - or, any authenticated user
+is allowed to run privileged pods with *no* policy enforced. Now, if we see which policy *any* pod is running with, it
+will show that it is using the `eks.privileged` policy:
+
+```
+$ kubectl -n <my-ns> get pod xledger-api-79c745d7d7-ng2j2  -o jsonpath='{.metadata.annotations.kubernetes\.io\/psp}'
+eks.privileged
+```
+
+Now, the reason we have the default pod security policy and the binding is that there *must* be a pod security policy 
+that is defined in your cluster to allow a pod to be scheduled for running if you have the admission controller 
+enabled. If there was no default policy, no pod would be "admitted" by the cluster.
+
+So, let's say we want to make things better. Instead of one default privileged policy, we want to define two policies:
+
+- Privileged: Only cluster admins should be able to use this policy
+- Restricted: For all other users of the cluster - humans and software
+
+( This is a [great article](https://medium.com/coryodaniel/kubernetes-assigning-pod-security-policies-with-rbac-2ad2e847c754) with examples on this topic.)
+
+Hence, for our above EKS cluster, we should do the following:
+
+- Create a new policy for the restricted set of users
+- Create a new cluster role to allow usage of the above policy
+- Create a new cluster role binding to use this policy instead for all `system:authenticated` users
+- Delete the previous cluster role binding and cluster role
+
+Create a new restricted policy:
+
+```
+
+```
 
 # Writing policy tests
 
