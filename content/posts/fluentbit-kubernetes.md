@@ -551,7 +551,8 @@ The most important bits of the above specification are:
 
 We specify the Elasticsearch host and port via the `FLUENT_ELASTICSEARCH_HOST` and
 `FLUENT_ELASTICSEARCH_PORT` environment variables. These are referred to in the fluent bit
-output configuration (discussed later on).
+output configuration (discussed later on). If you are using an existing Elasticsearch cluster,
+this is where you would specify the DNS for it. 
 
 **Volume mounts**
 
