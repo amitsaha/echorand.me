@@ -5,6 +5,10 @@ categories:
 -  infrastructure
 ---
 
+# Metadata
+
+I have posted this article on [dev.to](https://dev.to/amitsaha/how-to-set-up-log-forwarding-in-a-kubernetes-cluster-using-fluent-bit-3bgk) where I welcome comments and discussions.
+
 
 # Introduction
 
