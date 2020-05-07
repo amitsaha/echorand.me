@@ -6,7 +6,7 @@ categories:
 ---
 
 
-## Introduction
+# Introduction
 
 Log forwarding is an essential ingredient of a production logging pipeline in any organization.
 As an application author, you don't want to be bothered with the responsibility of ensuring the
@@ -43,7 +43,7 @@ as per the configuration we specify and then forwarded to the configured output,
 setting up fluent bit, we will deploy a Python web application and demonstrate how the logs
 are automatically parsed, filtered and forwarded to be searched and analyzed.
 
-## Prerequisites
+# Prerequisites
 
 The article assumes that you have the following setup:
 
@@ -56,7 +56,7 @@ If you do not have an existing Elasticsearch cluster reachable from the Kubernet
 steps 1-3 of [this guide](https://www.digitalocean.com/community/tutorials/how-to-set-up-an-elasticsearch-fluentd-and-kibana-efk-logging-stack-on-kubernetes) to run your own Elasticsearch cluster in Kubernetes.
 
 
-## Step 0 - Checking Your Kibana and Elasticsearch Setup
+# Step 0 - Checking Your Kibana and Elasticsearch Setup
 
 If you are using an already available Elasticsearch cluster, you can skip this step.
 
@@ -98,7 +98,7 @@ We have successfully set up elasticsearch and kibana in the cluster. At this sta
 **Note**: Keep the above port forward running in a terminal session and use a new terminal session for
 running the commands in the the rest of the tutorial.
 
-## Step 1 — Setting Up Fluent Bit Service Account and Permissions
+# Step 1 — Setting Up Fluent Bit Service Account and Permissions
 
 In Kubernetes, it is considered a best practice to use dedicated [service account](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/)
 to run pods. Hence, we will setup a new service account for fluent bit daemonset:
@@ -251,7 +251,7 @@ to associate metadata to the logs such as pod labels and namespace a log is orig
 Next, we will create a `ConfigMap` resource to specify configuration for fluent bit.
 
 
-## Step 2 — Creating a ConfigMap for Fluent Bit
+# Step 2 — Creating a ConfigMap for Fluent Bit
 
 To configure fluent bit we will create a configmap specifying various configuration sections and attributes.
 parameters. When we create  the daemonset, Kubernetes will make this config map available as files to
@@ -468,7 +468,7 @@ In this step, we have created a `fluent-bit-config` config map in the `kube-logg
 where we want the logs to be read from, how we want to process it and where to send them off to after processing.
 We will use it to configure the fluent bit daemonset which we look at next.
 
-## Step 3 — Creating the Fluent Bit Daemonset
+# Step 3 — Creating the Fluent Bit Daemonset
 
 A Daemonset will be used to run one fluent bit pod per node of the cluster. Within the `logging/fluent-bit`
 directory create and open a `daemonset.yaml` file:
@@ -740,7 +740,7 @@ Next, we will deploy an web application inside the cluster which emits JSON form
 streams. We will see that fluent bit automatically forwards these logs to Elasticsearch without requiring any additional
 configuration either in fluent bit or on the application side.
 
-## Step 4 — Write and deploy a web application on kubernetes
+# Step 4 — Write and deploy a web application on kubernetes
 
 We will use the Python programming language to write a basic web application using [Flask](https://palletsprojects.com/p/flask/).
 To deploy the application in the kubernetes cluster, we will build a docker image containing the application
@@ -1172,7 +1172,7 @@ the specific pod a log is being emitted from. Let's see how we can do both.
 <$>[note] Note: Keep the above port forward running in a terminal session and use a new terminal session for running the commands in the the rest of the tutorial. <$>
 
 
-## Step 5 — Update fluent bit configuration to apply kubernetes filter
+# Step 5 — Update fluent bit configuration to apply kubernetes filter
 
 In fluent bit, a filter is used to alter the incoming log data in some way. The in-built
 [kubernetes filter](https://docs.fluentbit.io/manual/filter/kubernetes) enriches logs
@@ -1320,7 +1320,7 @@ searchable in Elasticsearch.
 
 In the next step, we see how we can forward system logs via fluent bit.
 
-## Step 6 — Update fluent bit configuration to forward system logs
+# Step 6 — Update fluent bit configuration to forward system logs
 
 In addition to application logs, it is a good idea to also forward logs from the system services. These logs
 are useful when we may want to debug the behavior of services such as `ssh` daemon, kubernetes node management
@@ -1507,7 +1507,7 @@ kibana query `systemd_unit: kubelet.service`:
 ![Example logs from kubelet.service](https://i.imgur.com/ikBPxvo.png)
 
 
-## Conclusion
+# Conclusion
 
 In this post we discussed how we can setup log fowarding in a Kubernetes cluster using fluent bit. We
 learned how we can read logs, parse them, modify them and forward them to an Elasticsearch cluster.
@@ -1519,7 +1519,7 @@ it supports.
 The [fluent bit](https://groups.google.com/forum/#!forum/fluent-bit) google group is a great forum for
 seeking help if you are stuck with something.
 
-## Cleaning up
+# Cleaning up
 
 If you want to delete all the resources we created as part of this article, you can delete the two namespaces
 we created:
