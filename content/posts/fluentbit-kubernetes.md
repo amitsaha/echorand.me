@@ -253,8 +253,8 @@ Next, we will create a `ConfigMap` resource to specify configuration for fluent 
 
 # Step 2 — Creating a ConfigMap for Fluent Bit
 
-To configure fluent bit we will create a configmap specifying various configuration sections and attributes.
-parameters. When we create  the daemonset, Kubernetes will make this config map available as files to
+To configure fluent bit we will create a configmap specifying various configuration sections, parameters 
+and attributes. When we create the daemonset, Kubernetes will make this config map available as files to
 fluent bit at startup. We will create three versions of this `ConfigMap` as we progress through this
 tutorial. We will create the first version now.
 
