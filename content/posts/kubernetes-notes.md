@@ -545,18 +545,15 @@ So, let's say we want to make things better. Instead of one default privileged p
 
 ( This is a [great article](https://medium.com/coryodaniel/kubernetes-assigning-pod-security-policies-with-rbac-2ad2e847c754) with examples on this topic.)
 
-Hence, for our above EKS cluster, we should do the following:
+To create a default policy for all authenticated users, we will do this:
 
 - Create a new policy for the restricted set of users
 - Create a new cluster role to allow usage of the above policy
 - Create a new cluster role binding to use this policy instead for all `system:authenticated` users
 - Delete the previous cluster role binding and cluster role
 
-Create a new restricted policy:
 
-```
 
-```
 
 # Writing policy tests
 
