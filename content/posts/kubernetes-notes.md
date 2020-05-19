@@ -534,24 +534,31 @@ $ kubectl -n <my-ns> get pod xledger-api-79c745d7d7-ng2j2  -o jsonpath='{.metada
 eks.privileged
 ```
 
+
 Now, the reason we have the default pod security policy and the binding is that there *must* be a pod security policy 
 that is defined in your cluster to allow a pod to be scheduled for running if you have the admission controller 
 enabled. If there was no default policy, no pod would be "admitted" by the cluster.
 
-So, let's say we want to make things better. Instead of one default privileged policy, we want to define two policies:
+## Enforcing policies
 
-- Privileged: Only cluster admins should be able to use this policy
-- Restricted: For all other users of the cluster - humans and software
+So, let's say we want to make things better. One way to do would be to define workload specific policies and a
+default restricted policy. The workload specific policies would have certain privileged access, but not all
+and they would be explicitly granted via making use of service accounts. The default would however be the default
+restricted policy.
 
-( This is a [great article](https://medium.com/coryodaniel/kubernetes-assigning-pod-security-policies-with-rbac-2ad2e847c754) with examples on this topic.)
+Even when you are starting from a cluster with none of *your* workloads, you will find existing workloads such as
+`kube-proxy`, `core-dns` and others. Hence, we will need to make sure that the custom policies we enforce account for
+the permissions that these pods need. [kube-psp-advisor](https://github.com/sysdiglabs/kube-psp-advisor) is an useful
+tool that helps us here. The `inspect` sub-command can examine your cluster and generate pod security policies
+as well as grants for those policies. Thus a starting point would be to examine each namespace of your cluster
+where you have workloads and run: 
 
-To create a default policy for all authenticated users, we will do this:
+```
+$ kubectl-advise-psp inspect --grant -n <your namespace>
+```
 
-- Create a new policy for the restricted set of users
-- Create a new cluster role to allow usage of the above policy
-- Create a new cluster role binding to use this policy instead for all `system:authenticated` users
-- Delete the previous cluster role binding and cluster role
-
+Once you have got all the policies you have for all the workloads, you will quickly see that there's a quite a bit of
+repitition that will happen. Hence, we can use something like `kustomize` base and overlays in the following manner:
 
 
 
