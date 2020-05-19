@@ -543,11 +543,55 @@ enabled. If there was no default policy, no pod would be "admitted" by the clust
 
 So, let's say we want to make things better. One way to do would be to define workload specific policies and a
 default restricted policy. The workload specific policies would have certain privileged access, but not all
-and they would be explicitly granted via making use of service accounts. The default would however be the default
-restricted policy.
+and they would be explicitly granted via making use of service accounts. The default would however be the 
+restricted policy. Let's first look at the restricted policy which will apply to all authenticated "users":
 
-Even when you are starting from a cluster with none of *your* workloads, you will find existing workloads such as
-`kube-proxy`, `core-dns` and others. Hence, we will need to make sure that the custom policies we enforce account for
+```yaml
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: default
+spec:
+  privileged: false
+  # Required to prevent escalations to root.
+  allowPrivilegeEscalation: false
+  # This is redundant with non-root + disallow privilege escalation,
+  # but we can provide it for defense in depth.
+  requiredDropCapabilities:
+    - ALL
+  # Allow core volume types.
+  volumes:
+    - 'configMap'
+    - 'emptyDir'
+    - 'projected'
+    - 'secret'
+    # Assume that persistentVolumes set up by the cluster admin are safe to use.
+    - 'persistentVolumeClaim'
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    rule: 'MustRunAsNonRoot'
+  seLinux:
+    # This policy assumes the nodes are using AppArmor rather than SELinux.
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'MustRunAs'
+    ranges:
+      # Forbid adding the root group.
+      - min: 1
+        max: 65535
+  fsGroup:
+    rule: 'MustRunAs'
+    ranges:
+      # Forbid adding the root group.
+      - min: 1
+        max: 65535
+  readOnlyRootFilesystem: false
+```
+
+To come up with the workload specific policies, we need to first figure out what kind of privileged access we need
+to allow them to have.  We will need to make sure that the custom policies we enforce account for
 the permissions that these pods need. [kube-psp-advisor](https://github.com/sysdiglabs/kube-psp-advisor) is an useful
 tool that helps us here. The `inspect` sub-command can examine your cluster and generate pod security policies
 as well as grants for those policies. Thus a starting point would be to examine each namespace of your cluster
@@ -558,8 +602,120 @@ $ kubectl-advise-psp inspect --grant -n <your namespace>
 ```
 
 Once you have got all the policies you have for all the workloads, you will quickly see that there's a quite a bit of
-repitition that will happen. Hence, we can use something like `kustomize` base and overlays in the following manner:
+repitition that will happen. 
 
+## Using `kustomize` to manage policies
+
+We can use `kustomize` base and overlays in the following manner to manage the various policies:
+
+```
+.
+├── base
+│   ├── kustomization.yaml
+│   ├── kustomizeconfig.yaml
+│   ├── psp.yaml
+│   ├── rolebinding.yaml
+│   └── role.yaml
+├── overlays
+│   ├── aws-node
+│   ├── calico-node
+│   ├── calico-typha-autoscaler
+│   ├── coredns
+│   ├── fluent-bit
+│   ├── ingress-controllers
+│   ├── restricted
+
+..
+```
+
+Let's look at the `base/psp.yaml`:
+
+```
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: default
+  annotations:
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default,runtime/default'
+    seccomp.security.alpha.kubernetes.io/defaultProfileName:  'runtime/default'
+  labels:
+    kubernetes.io/cluster-service: "true"
+
+```
+
+We don't define any policy at all here, but just define the resource.
+
+Let's look at `base/role.yaml`:
+
+```yaml
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: psp-default
+  labels:
+    kubernetes.io/cluster-service: "true"
+    eks.amazonaws.com/component: pod-security-policy
+rules:
+- apiGroups:
+  - policy
+  resourceNames:
+  - default
+  resources:
+  - podsecuritypolicies
+  verbs:
+  - use
+
+```
+
+The above `ClusterRole` allows using the `default` pod security policy.
+
+Tying the above `role` and `psp` resources is the `ClusterRoleBinding` as follows in `base/rolebinding.yaml`:
+
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: psp-default
+  labels:
+    kubernetes.io/cluster-service: "true"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: psp-default
+
+```
+
+The cluster role binding above doesn't specify any subjects.
+
+Before we look at the overlays, let's look at the `kustomization.yaml`:
+
+```
+resources:
+- psp.yaml
+- role.yaml
+- rolebinding.yaml
+configurations:
+- kustomizeconfig.yaml
+```
+
+The interesting bit here for our purpose is the `kustomizeconfig.yaml` file:
+
+```
+nameReference:
+- kind: PodSecurityPolicy
+  fieldSpecs:  
+  - path: rules/resourceNames
+    kind: ClusterRole
+```
+
+`nameReference` transformer which I originally learned about from this 
+[issue](https://github.com/kubernetes-sigs/kustomize/issues/1646) allows us to use the name of a resource in another
+resource. If you look at the base configuration above, you may have been thinking how do we refer to the pod
+security policy (`kind: PodSecurityPolicy`) we generated in a overlay in the cluster role (`kind: ClusterRole`) for
+the overlay. `nameReference` allows us to do just that. In plain terms, the above `nameReference` transformer 
+essentially substitutes reference to `rules/resourceNames` in `ClusterRole` to the name of `PodSecurityPolicy` 
+generated that specific overlay.
 
 
 # Writing policy tests
