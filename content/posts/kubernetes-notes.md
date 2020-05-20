@@ -879,6 +879,15 @@ subjects:
   kind: Group
   name: system:authenticated
 ```
+## Rolling the policy changes out
+
+Once we have written our policies and applied them to the cluster, they will not affect any of the currently running
+workloads. Hence, to "switch over" the current workloads to use the policies we created, we will need to do the following:
+
+- Remove the existing default `ClusterRoleBinding`
+- Restart the existing workloads - `kubectl rollout restart` really helps here
+
+
 
 # Writing policy tests
 
