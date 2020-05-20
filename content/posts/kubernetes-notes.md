@@ -882,10 +882,17 @@ subjects:
 ## Rolling the policy changes out
 
 Once we have written our policies and applied them to the cluster, they will not affect any of the currently running
-workloads. Hence, to "switch over" the current workloads to use the policies we created, we will need to do the following:
+workloads unless any of the pods has been killed and hence restarted, etc. 
+
+Hence, to "switch over" the current workloads to use the policies we created, we will need to do the following:
 
 - Remove the existing default `ClusterRoleBinding`
 - Restart the existing workloads - `kubectl rollout restart` really helps here
+
+This step is prone to cause interruptions if the policy has not been set correctly. Hence, exercise caution.
+In my experience `kube-psp-advisor` really helped here. One thing that is worth keeping in mind here is what happens
+when there are multiple matching policies for a pod. The kubernetes [documentation](https://v1-14.docs.kubernetes.io/docs/concepts/policy/pod-security-policy/#policy-order) on this topic has changed between releases, but illustrates a
+few more aspects of pod security policies. 
 
 
 
