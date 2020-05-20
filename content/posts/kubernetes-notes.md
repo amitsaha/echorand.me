@@ -461,7 +461,10 @@ Pod security policies are [cluster level resources](https://kubernetes.io/docs/c
 The Google cloud [docs](https://cloud.google.com/kubernetes-engine/docs/how-to/pod-security-policies) has some basic
 human friendly docs.  A `psp` is a way to enforce certain policies that `pod` needs to comply with before it's allowed 
 to be scheduled to be run on the cluster - create or an update operation (perhaps a restart of the pod?). Essentially,
-it is a type of a [validating admission controller](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/)
+it is a type of a [validating admission controller](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/). 
+
+I should mention that I found it (later on) to think about pod security policies as a way to "control" various
+attributes of a pod. Hence, the [pod spec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.14/#podspec-v1-core) is worth referring to simultaneously.
 
 The  summarized version of how pod security policies are enforced in practice is:
 
@@ -890,13 +893,22 @@ Hence, to "switch over" the current workloads to use the policies we created, we
 - Restart the existing workloads - `kubectl rollout restart` really helps here
 
 This step is prone to cause interruptions if the policy has not been set correctly. Hence, exercise caution.
-In my experience `kube-psp-advisor` really helped here. One thing that is worth keeping in mind here is what happens
-when there are multiple matching policies for a pod. The kubernetes [documentation](https://v1-14.docs.kubernetes.io/docs/concepts/policy/pod-security-policy/#policy-order) on this topic has changed between releases, but illustrates 
-another aspect of pod security policy - mutating and non-mutating. We have established that each pod *has* to have a 
-pod security policy enabled. Now, the pod security policy that matches  a pod doesn't need to specify all the various 
-fields. In that scenario, the fields not specified will be attached to the pod with their default values. Thus, this 
-is a "mutating" pod security policy. However, if the policy specified all fields, this would be attached as is to the pod
-and hence be a "non-mutating" pod security policy.
+In my experience `kube-psp-advisor` really helped here. 
+
+## Multiple matching policies
+
+To summarize how a pod creation operation and pod security policies admission controller interacts:
+
+1. Pod creation request is received
+2. An attempt is made to find a matching policy for the pod
+3. If a matching policy is found, is this policy allowed to be used by the pod is checked
+4. If the above check passes, the pod is "admitted", else "rejected".
+
+Now, what happens if we have multiple matching policies in step 2? The kubernetes [documentation](https://v1-14.docs.kubernetes.io/docs/concepts/policy/pod-security-policy/#policy-order) on this topic has changed 
+between releases, but illustrates another aspect of pod security policy - mutating and non-mutating. We have 
+established that each pod *has* to have a  pod security policy enabled. Now, the pod security policy that matches 
+a pod doesn't need to specify all the various fields. In that scenario, the fields not specified will be attached to 
+the pod with their default values. Thus, this is a "mutating" pod security policy. However, if the policy specified all fields, this would be attached as is to the pod and hence be a "non-mutating" pod security policy.
 
 
 # Writing policy tests
