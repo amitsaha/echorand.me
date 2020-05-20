@@ -892,8 +892,8 @@ Hence, to "switch over" the current workloads to use the policies we created, we
 - Remove the existing default `ClusterRoleBinding`
 - Restart the existing workloads - `kubectl rollout restart` really helps here
 
-This step is prone to cause interruptions if the policy has not been set correctly. Hence, exercise caution.
-In my experience `kube-psp-advisor` really helped here. 
+This step is prone to cause interruptions if the policy has not been set correctly or there are multiple
+matching policies (see next). Hence, exercise caution. In my experience `kube-psp-advisor` really helped here.
 
 ## Multiple matching policies
 
@@ -919,6 +919,17 @@ For kubernetes 1.14, this is what the documentation says will happen when there 
 3. Otherwise, if it is a pod update request, an error is returned, because pod mutations are 
 disallowed during update operation
 
+
+(1) above is really confusing and hence it has been fixed in the docs for a [while](https://github.com/kubernetes/website/commit/7f90c73a01664c42746b734b1911143c884741bb#diff-a5873cb014f885fa40ee16cfdccddd30) and is currently this:
+
+1. PodSecurityPolicies which allow the pod as-is, without changing defaults or mutating the pod, are preferred. 
+The order of these non-mutating PodSecurityPolicies doesn’t matter.
+2. If the pod must be defaulted or mutated, the first PodSecurityPolicy (ordered by name) to allow the pod is selected.
+
+Note: During update operations (during which mutations to pod specs are disallowed) only non-mutating PodSecurityPolicies are
+used to validate the pod.
+
+Example
 
 
 # Writing policy tests
