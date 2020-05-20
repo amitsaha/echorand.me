@@ -744,6 +744,8 @@ patches:
 - restricted.yaml
 ```
 
+The `namePrefix` here is used to somewhat indicate the specific workload we are generating the policy for. 
+
 The `restricted.yaml` file defines the overlay for the `PodSecurityPolicy` and the `ClusterRoleBinding`:
 
 ```yaml
@@ -797,8 +799,87 @@ subjects:
   - kind: Group
     apiGroup: rbac.authorization.k8s.io
     name: system:authenticated
-
 ```
+
+Note that we don't need to define the `ClusterRole` in the overlay at all. If we look at the `ClusterRole` definition
+in the `base/role.yaml` file above, we will see that it only needs reference to the `PodSecurityPolicy` name that
+will be generated. The `nameReference` transformer takes care of that.
+
+With the above overlay, when we run `kustomize build`, we get the following:
+
+```yaml
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  annotations:
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: docker/default,runtime/default
+    seccomp.security.alpha.kubernetes.io/defaultProfileName: runtime/default
+  labels:
+    kubernetes.io/cluster-service: "true"
+  name: restricted-default
+spec:
+  allowPrivilegeEscalation: false
+  fsGroup:
+    ranges:
+    - max: 65535
+      min: 1
+    rule: MustRunAs
+  hostIPC: false
+  hostNetwork: false
+  hostPID: false
+  privileged: false
+  readOnlyRootFilesystem: false
+  requiredDropCapabilities:
+  - ALL
+  runAsUser:
+    rule: MustRunAsNonRoot
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    ranges:
+    - max: 65535
+      min: 1
+    rule: MustRunAs
+  volumes:
+  - configMap
+  - emptyDir
+  - projected
+  - secret
+  - persistentVolumeClaim
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    eks.amazonaws.com/component: pod-security-policy
+    kubernetes.io/cluster-service: "true"
+  name: restricted-psp-default
+rules:
+- apiGroups:
+  - policy
+  resourceNames:
+  - restricted-default
+  resources:
+  - podsecuritypolicies
+  verbs:
+  - use
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    kubernetes.io/cluster-service: "true"
+  name: restricted-psp-default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: restricted-psp-default
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: system:authenticated
+```
+
 # Writing policy tests
 
 # Miscellaneous
