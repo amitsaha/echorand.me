@@ -91,7 +91,7 @@ Now, the reason we have the default pod security policy and the binding is that 
 that is defined in your cluster to allow a pod to be scheduled for running if you have the admission controller 
 enabled. If there was no default policy, no pod would be "admitted" by the cluster.
 
-## Enforcing policies
+# Enforcing policies
 
 So, let's say we want to make things better. One way to do would be to define workload specific policies and a
 default restricted policy. The workload specific policies would have certain privileged access, but not all
@@ -162,7 +162,7 @@ we will create a:
 
 Hence, to minimize duplication, we can make use of [kustomize](https://kustomize.io/).
 
-## Using `kustomize` to manage policies
+# Using `kustomize` to manage policies
 
 We can use `kustomize` base and overlays in the following manner to manage the various policies:
 
@@ -431,7 +431,7 @@ subjects:
   kind: Group
   name: system:authenticated
 ```
-## Rolling the policy changes out
+# Rolling the policy changes out
 
 Once we have written our policies and applied them to the cluster, they will not affect any of the currently running
 workloads unless any of the pods has been killed and hence restarted, etc. 
@@ -444,7 +444,7 @@ Hence, to "switch over" the current workloads to use the policies we created, we
 This step is prone to cause interruptions if the policy has not been set correctly or there are multiple
 matching policies (see next). Hence, exercise caution. In my experience `kube-psp-advisor` really helped here.
 
-## Multiple matching policies
+# Multiple matching policies
 
 To summarize how a pod creation operation and pod security policies admission controller interacts:
 
