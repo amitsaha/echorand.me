@@ -601,8 +601,14 @@ where you have workloads and run:
 $ kubectl-advise-psp inspect --grant -n <your namespace>
 ```
 
-Once you have got all the policies you have for all the workloads, you will quickly see that there's a quite a bit of
-repitition that will happen. 
+Once you have got all the policies you have for all the workloads, you will quickly see that for each workload,
+we will create a:
+
+- Pod Security Policy
+- Cluster Role
+- Cluster Role Binding
+
+Hence, to minimize duplication, we can make use of [kustomize](https://kustomize.io/).
 
 ## Using `kustomize` to manage policies
 
@@ -643,7 +649,7 @@ metadata:
 
 ```
 
-We don't define any policy at all here, but just define the resource.
+We don't define any policy at all here, but just define the `PodSecurityPolicy` resource.
 
 Let's look at `base/role.yaml`:
 
@@ -715,9 +721,84 @@ resource. If you look at the base configuration above, you may have been thinkin
 security policy (`kind: PodSecurityPolicy`) we generated in a overlay in the cluster role (`kind: ClusterRole`) for
 the overlay. `nameReference` allows us to do just that. In plain terms, the above `nameReference` transformer 
 essentially substitutes reference to `rules/resourceNames` in `ClusterRole` to the name of `PodSecurityPolicy` 
-generated that specific overlay.
+generated in that specific overlay.
 
+The result is that an overlay directory looks like this:
 
+```
+restricted
+├── kustomization.yaml
+└── restricted.yaml
+
+```
+
+The `kustomization.yaml` file has the following contents:
+
+```
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+- ../../base
+namePrefix: restricted-
+patches:
+- restricted.yaml
+```
+
+The `restricted.yaml` file defines the overlay for the `PodSecurityPolicy` and the `ClusterRoleBinding`:
+
+```
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: default
+spec:
+  privileged: false
+  # Required to prevent escalations to root.
+  allowPrivilegeEscalation: false
+  # This is redundant with non-root + disallow privilege escalation,
+  # but we can provide it for defense in depth.
+  requiredDropCapabilities:
+    - ALL
+  # Allow core volume types.
+  volumes:
+    - 'configMap'
+    - 'emptyDir'
+    - 'projected'
+    - 'secret'
+    # Assume that persistentVolumes set up by the cluster admin are safe to use.
+    - 'persistentVolumeClaim'
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    rule: 'MustRunAsNonRoot'
+  seLinux:
+    # This policy assumes the nodes are using AppArmor rather than SELinux.
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'MustRunAs'
+    ranges:
+      # Forbid adding the root group.
+      - min: 1
+        max: 65535
+  fsGroup:
+    rule: 'MustRunAs'
+    ranges:
+      # Forbid adding the root group.
+      - min: 1
+        max: 65535
+  readOnlyRootFilesystem: false
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: psp-default
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: system:authenticated
+
+```
 # Writing policy tests
 
 # Miscellaneous
