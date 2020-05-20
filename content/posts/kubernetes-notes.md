@@ -460,6 +460,89 @@ rules:
 I have written about this in a [separate blog post](https://echorand.me/posts/kubernetes-pod-security-policies/)
 
 
+# Exposing StatefulSets and Headless services
+
+Let's say we have a `StatefulSet`:
+
+```
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus
+      project: monitoring
+  serviceName: prometheus
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: prometheus
+        project: monitoring
+    spec:
+      containers:
+      - args:
+        - /bin/prometheus/prometheus
+        - --config.file=/etc/prometheus.yml
+        - --storage.tsdb.path=/data
+        env:
+        - name: ENVIRONMENT
+          value: non-production
+        image: <your image>
+        imagePullPolicy: Always
+       ..
+        name: prometheus-infra
+        ports:
+        - containerPort: 9090
+        ..
+---
+```
+
+It is exposed via a Headless service:
+
+```
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  clusterIP: None
+  ports:
+  - port: 9090
+  selector:
+    app.kubernetes.io/name: prometheus
+    project: monitoring
+---
+```
+To expose it via an ingress controller as an ingress object:
+
+```
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: <ingress class>
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: prometheus
+  namespace: monitoring
+spec:
+  rules:
+  - host: <your host name>
+    http:
+      paths:
+      - backend:
+          serviceName: prometheus
+          servicePort: 9090
+        path: /
+        
+        
+```
+
 # Writing policy tests
 
 # Miscellaneous
