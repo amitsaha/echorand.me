@@ -252,7 +252,7 @@ Topology aware: https://kubernetes.io/blog/2018/10/11/topology-aware-volume-prov
 
 The following specification enables Nginx ingress with SSL to your backend as well:
 
-```
+```yaml
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -283,7 +283,7 @@ However when trying to use the above with AWS ELB, I had to:
 - Follow the docs [here](https://kubernetes.github.io/ingress-nginx/deploy/) for AWS ELB L7
 - Update config map with the following:
 
-```
+```yaml
 kind: ConfigMap
 apiVersion: v1
 metadata:
@@ -304,7 +304,7 @@ data:
 The key parts that I struggled with was having to set `ssl-ciphers` and `ssl-protocols`. Without those, the connections
 from ALB was just hanging and eventually would give me a 408. For reference, here's a `service-l7.yaml` I used:
 
-```
+```yaml
 kind: Service
 apiVersion: v1
 metadata:
@@ -369,7 +369,7 @@ spec:
 
 Cron jobs are useful for running scheduled jobs:
 
-```
+```yaml
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
@@ -636,7 +636,7 @@ We can use `kustomize` base and overlays in the following manner to manage the v
 
 Let's look at the `base/psp.yaml`:
 
-```
+```yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -678,7 +678,7 @@ The above `ClusterRole` allows using the `default` pod security policy.
 
 Tying the above `role` and `psp` resources is the `ClusterRoleBinding` as follows in `base/rolebinding.yaml`:
 
-```
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -696,7 +696,7 @@ The cluster role binding above doesn't specify any subjects.
 
 Before we look at the overlays, let's look at the `kustomization.yaml`:
 
-```
+```yaml
 resources:
 - psp.yaml
 - role.yaml
@@ -707,7 +707,7 @@ configurations:
 
 The interesting bit here for our purpose is the `kustomizeconfig.yaml` file:
 
-```
+```yaml
 nameReference:
 - kind: PodSecurityPolicy
   fieldSpecs:  
@@ -734,7 +734,7 @@ restricted
 
 The `kustomization.yaml` file has the following contents:
 
-```
+```yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 bases:
@@ -746,7 +746,7 @@ patches:
 
 The `restricted.yaml` file defines the overlay for the `PodSecurityPolicy` and the `ClusterRoleBinding`:
 
-```
+```yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
