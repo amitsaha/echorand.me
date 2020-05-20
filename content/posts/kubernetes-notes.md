@@ -905,10 +905,20 @@ To summarize how a pod creation operation and pod security policies admission co
 4. If the above check passes, the pod is "admitted", else "rejected".
 
 Now, what happens if we have multiple matching policies in step 2? The kubernetes [documentation](https://v1-14.docs.kubernetes.io/docs/concepts/policy/pod-security-policy/#policy-order) on this topic has changed 
-between releases, but illustrates another aspect of pod security policy - mutating and non-mutating. We have 
-established that each pod *has* to have a  pod security policy enabled. Now, the pod security policy that matches 
-a pod doesn't need to specify all the various fields. In that scenario, the fields not specified will be attached to 
-the pod with their default values. Thus, this is a "mutating" pod security policy. However, if the policy specified all fields, this would be attached as is to the pod and hence be a "non-mutating" pod security policy.
+between [releases](https://kubernetes.io/docs/concepts/policy/pod-security-policy/) , but illustrates 
+another aspect of pod security policy - mutating and non-mutating. We have established that each pod *has* to 
+have a  pod security policy enabled. Now, the pod security policy that matches  a pod doesn't need to specify all 
+the various fields. In that scenario, the fields not specified will be attached to the pod with their default values. 
+Thus, this is a "mutating" pod security policy. However, if the policy specified all fields, this would be attached as 
+is to the pod and hence be a "non-mutating" pod security policy.
+
+For kubernetes 1.14, this is what the documentation says will happen when there are multiple matching policies:
+
+1. If any policies successfully validate the pod without altering it, they are used.
+2. If it is a pod creation request, then the first valid policy in alphabetical order is used.
+3. Otherwise, if it is a pod update request, an error is returned, because pod mutations are 
+disallowed during update operation
+
 
 
 # Writing policy tests
