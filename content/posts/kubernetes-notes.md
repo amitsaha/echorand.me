@@ -468,9 +468,9 @@ attributes of a pod. Hence, the [pod spec](https://kubernetes.io/docs/reference/
 
 The  summarized version of how pod security policies are enforced in practice is:
 
-- Create a policy (`psp`)
-- Create a cluster role allowing usage of the policy
-- Create a cluster role binding assigning subjects to the above role and hence allow usage of the policy
+- Cluster admin creates a policy (`psp`)
+- Cluster admin creates a cluster role allowing usage of the policy
+- CLuster admin creates a cluster role binding assigning subjects to the above role and hence allow usage of the policy
 
 On an AWS [EKS cluster](https://docs.aws.amazon.com/eks/latest/userguide/pod-security-policy.html), we can see there 
 is an existing policy already defined:
@@ -536,7 +536,6 @@ will show that it is using the `eks.privileged` policy:
 $ kubectl -n <my-ns> get pod xledger-api-79c745d7d7-ng2j2  -o jsonpath='{.metadata.annotations.kubernetes\.io\/psp}'
 eks.privileged
 ```
-
 
 Now, the reason we have the default pod security policy and the binding is that there *must* be a pod security policy 
 that is defined in your cluster to allow a pod to be scheduled for running if you have the admission controller 
@@ -929,7 +928,12 @@ The order of these non-mutating PodSecurityPolicies doesn’t matter.
 Note: During update operations (during which mutations to pod specs are disallowed) only non-mutating PodSecurityPolicies are
 used to validate the pod.
 
-Example
+The logic is implemented in the Kubernetes source code [here](https://github.com/kubernetes/kubernetes
+/blob/323f34858de18b862d43c40b2cced65ad8e24052/plugin/pkg/admission/security/podsecuritypolicy/admission.go#L209)
+
+I would like to add one more point to the above which matches the source code which is - even if there is a mutating
+pod security policy, it will prefer a non-mutating policy if it exists. This is still subject to the permission
+check which happens after a matching policy is found.
 
 
 # Writing policy tests
