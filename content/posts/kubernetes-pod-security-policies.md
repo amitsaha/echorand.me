@@ -1,5 +1,5 @@
 ---
-title:  A deep dive into kubernetes pod security policies
+title: Kubernetes pod security policies
 date: 2020-05-20
 categories:
 -  infrastructure
