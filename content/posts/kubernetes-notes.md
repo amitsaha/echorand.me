@@ -892,8 +892,11 @@ Hence, to "switch over" the current workloads to use the policies we created, we
 This step is prone to cause interruptions if the policy has not been set correctly. Hence, exercise caution.
 In my experience `kube-psp-advisor` really helped here. One thing that is worth keeping in mind here is what happens
 when there are multiple matching policies for a pod. The kubernetes [documentation](https://v1-14.docs.kubernetes.io/docs/concepts/policy/pod-security-policy/#policy-order) on this topic has changed between releases, but illustrates 
-another aspect of pod security policy - mutating and non-mutating.
-
+another aspect of pod security policy - mutating and non-mutating. We have established that each pod *has* to have a 
+pod security policy enabled. Now, the pod security policy that matches  a pod doesn't need to specify all the various 
+fields. In that scenario, the fields not specified will be attached to the pod with their default values. Thus, this 
+is a "mutating" pod security policy. However, if the policy specified all fields, this would be attached as is to the pod
+and hence be a "non-mutating" pod security policy.
 
 
 # Writing policy tests
