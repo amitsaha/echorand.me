@@ -545,6 +545,9 @@ spec:
 
 # Gatekeeper
 
+
+## Installation
+
 Install Gatekeeper as per instructions [here](https://github.com/open-policy-agent/gatekeeper#installation-instructions)
 
 The following resources are created:
@@ -597,6 +600,9 @@ ValidatingWebhookConfiguration:
 
 ```
 
+
+## Creating a constraint template
+
 Now that we have gatekeeper components installed, the first concept we need to learn is that of a 
 `ConstraintTemplate` - which lays down the schema of the data as well as the policy itself in the 
 [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) language.
@@ -647,6 +653,8 @@ k8srequiredlabels   99s
 ```
 
 
+## Creating a constraint
+
 Let's now define a constraint using the constraint template, `K8sRequiredLabels` (`kind: K8sRequiredLabels`):
 
 ```
@@ -677,6 +685,8 @@ $ kubectl get k8srequiredlabels.constraints.gatekeeper.sh
 NAME              AGE
 ns-must-have-gk   77s
 ```
+
+## Testing the constraint
 
 Let's now test this constraint by creating a namespace without the label:
 
