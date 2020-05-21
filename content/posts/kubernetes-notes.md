@@ -597,6 +597,12 @@ ValidatingWebhookConfiguration:
 
 ```
 
+Now that we have gatekeeper components installed, the first concept we need to learn is that of a 
+`ConstraintTemplate` - which lays down the schema of the data as well as the policy itself in the 
+[Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) language.
+
+The `ConstraintTemplate` kind is used to create a new constraint template with the name being `K8sRequiredLabels`:
+
 ```
 apiVersion: templates.gatekeeper.sh/v1beta1
 kind: ConstraintTemplate
@@ -632,6 +638,8 @@ spec:
 
 ```
 
+Once we create the above constraint template, we can list it using `kubectl`:
+
 ```
 $ kubectl get constrainttemplates.templates.gatekeeper.sh                                                            │
 NAME                AGE                                                                                                                      
@@ -639,7 +647,7 @@ k8srequiredlabels   99s
 ```
 
 
-Let's now define a constraint:
+Let's now define a constraint using the constraint template, `K8sRequiredLabels` (`kind: K8sRequiredLabels`):
 
 ```
 apiVersion: constraints.gatekeeper.sh/v1beta1
