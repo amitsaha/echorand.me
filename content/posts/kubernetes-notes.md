@@ -686,6 +686,87 @@ $ kubectl apply -f ns.yaml
 Error from server ([denied by ns-must-have-gk] you must provide labels: {"gatekeeper"}): error when creating "ns.yaml": admission webhook "validation.gatekeeper.sh" denied the request: [denied by ns-must-have-gk] you must provide labels: {"gatekeeper"}
 
 ```
+
+## Audit
+
+Gatekeeper by default has an auditing functionality via which it evaluates the constraints and stores the audit
+results on the constraint's `status` field. For this purpose, Gatekeeper will query the Kubernetes API for the
+resources that your constraint specifies and validate the resources against the constraints.
+
+Here's an example:
+
+```
+$ kubectl get k8srequiredlabels.constraints.gatekeeper.sh -o yaml                                                    
+apiVersion: v1
+items:
+- apiVersion: constraints.gatekeeper.sh/v1beta1
+  kind: K8sRequiredLabels
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"constraints.gatekeeper.sh/v1beta1","kind":"K8sRequiredLabels","metadata":{"annotations":{},"name":"ns-must-have-gk"},"spec":{"match":{"kinds":[{"apiGroups":[""],"kinds":["Namespace"]}]},"parameters":{"labels":["gatekeeper"]}}}
+    creationTimestamp: "2020-05-21T04:21:17Z"
+    generation: 1
+    name: ns-must-have-gk
+    resourceVersion: "1722780"
+    selfLink: /apis/constraints.gatekeeper.sh/v1beta1/k8srequiredlabels/ns-must-have-gk
+    uid: 640dee9f-8f3e-4f3a-9716-599f54cbd18b
+  spec:
+    match:
+      kinds:
+      - apiGroups:
+        - ""
+        kinds:
+        - Namespace
+    parameters:
+      labels:
+      - gatekeeper
+  status:
+    auditTimestamp: "2020-05-21T04:40:17Z"
+    byPod:
+    - enforced: true
+      id: gatekeeper-controller-manager-55bfb4d454-w6424
+      observedGeneration: 1
+    totalViolations: 7
+    violations:
+    - enforcementAction: deny
+      kind: Namespace
+      message: 'you must provide labels: {"gatekeeper"}'
+      name: default
+    - enforcementAction: deny
+      kind: Namespace
+      message: 'you must provide labels: {"gatekeeper"}'
+      name: gatekeeper-system
+    - enforcementAction: deny
+      kind: Namespace
+      message: 'you must provide labels: {"gatekeeper"}'
+      name: gitlab
+    - enforcementAction: deny
+      kind: Namespace
+      message: 'you must provide labels: {"gatekeeper"}'
+      name: kube-node-lease
+    - enforcementAction: deny
+      kind: Namespace
+      message: 'you must provide labels: {"gatekeeper"}'
+      name: kube-public
+    - enforcementAction: deny
+      kind: Namespace
+      message: 'you must provide labels: {"gatekeeper"}'
+      name: kube-system
+    - enforcementAction: deny
+      kind: Namespace
+      message: 'you must provide labels: {"gatekeeper"}'
+      name: logging
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+```
+
+The above shows us the audit results on all the existing namespaces. 
+
+
 # Miscellaneous
 
 ## Pods in pending state
