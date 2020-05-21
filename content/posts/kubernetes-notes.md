@@ -543,8 +543,149 @@ spec:
         
 ```
 
-# Writing policy tests
+# Gatekeeper
 
+Install Gatekeeper as per instructions [here](https://github.com/open-policy-agent/gatekeeper#installation-instructions)
+
+The following resources are created:
+
+```
+ClusterRole:
+
+        - gatekeeper-manager-role from gatekeeper.yaml
+
+ClusterRoleBinding:
+
+        - gatekeeper-manager-rolebinding from gatekeeper.yaml
+
+CustomResourceDefinition:
+
+        - configs.config.gatekeeper.sh from gatekeeper.yaml
+        - constrainttemplates.templates.gatekeeper.sh from gatekeeper.yaml
+
+Deployment:
+
+        - gatekeeper-controller-manager in gatekeeper-system from gatekeeper.yaml
+
+Namespace:
+
+        - gatekeeper-system from gatekeeper.yaml
+
+Role:
+
+        - gatekeeper-manager-role in gatekeeper-system from gatekeeper.yaml
+
+RoleBinding:
+
+        - gatekeeper-manager-rolebinding in gatekeeper-system from gatekeeper.yaml
+
+Secret:
+
+        - gatekeeper-webhook-server-cert in gatekeeper-system from gatekeeper.yaml
+
+Service:
+
+        - gatekeeper-webhook-service in gatekeeper-system from gatekeeper.yaml
+
+ServiceAccount:
+
+        - gatekeeper-admin in gatekeeper-system from gatekeeper.yaml
+
+ValidatingWebhookConfiguration:
+
+        - gatekeeper-validating-webhook-configuration from gatekeeper.yaml
+
+```
+
+```
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: k8srequiredlabels
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sRequiredLabels
+        listKind: K8sRequiredLabelsList
+        plural: k8srequiredlabels
+        singular: k8srequiredlabels
+      validation:
+        # Schema for the `parameters` field
+        openAPIV3Schema:
+          properties:
+            labels:
+              type: array
+              items: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8srequiredlabels
+
+        violation[{"msg": msg, "details": {"missing_labels": missing}}] {
+          provided := {label | input.review.object.metadata.labels[label]}
+          required := {label | label := input.parameters.labels[_]}
+          missing := required - provided
+          count(missing) > 0
+          msg := sprintf("you must provide labels: %v", [missing])
+        }
+
+```
+
+```
+$ kubectl get constrainttemplates.templates.gatekeeper.sh                                                            │
+NAME                AGE                                                                                                                      
+k8srequiredlabels   99s   
+```
+
+
+Let's now define a constraint:
+
+```
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredLabels
+metadata:
+  name: ns-must-have-gk
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Namespace"]
+  parameters:
+    labels: ["gatekeeper"]
+ ```
+
+Let's create the constraint:
+
+```
+$ kubectl apply -f required_labels.yaml 
+k8srequiredlabels.constraints.gatekeeper.sh/ns-must-have-gk created
+```
+
+We can use `kubectl get` to fetch constraints of this template type:
+
+```
+$ kubectl get k8srequiredlabels.constraints.gatekeeper.sh
+NAME              AGE
+ns-must-have-gk   77s
+```
+
+Let's now test this constraint by creating a namespace without the label:
+
+```
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test
+```
+
+If we now run `kubectl apply` on the above definition, we will get:
+
+```
+$ kubectl apply -f ns.yaml 
+Error from server ([denied by ns-must-have-gk] you must provide labels: {"gatekeeper"}): error when creating "ns.yaml": admission webhook "validation.gatekeeper.sh" denied the request: [denied by ns-must-have-gk] you must provide labels: {"gatekeeper"}
+
+```
 # Miscellaneous
 
 ## Pods in pending state
