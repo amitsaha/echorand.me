@@ -225,4 +225,6 @@ TBD
 # Golang plugins in the wild
 
 - [Tyk](https://tyk.io/docs/plugins/golang-plugins/golang-plugins/) can be configured by writing Golang plugins.
+- [Gosh](https://github.com/vladimirvivien/gosh) is a shell written in a way where you can write your own commands by
+making use of Golang plugins.
 
