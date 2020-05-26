@@ -220,11 +220,17 @@ $ ./golang-plugin-demo
 
 # Debrief
 
-TBD
+The idea of plugins in Golang using the `plugin` package seems to quite simple. Write your plugin, export
+certain symbols - functions and variables only and then use them in your driver program. A plugin must be 
+in the `main` package. You do not have access to any `type` information from the plugin in your driver program.
+Hence to have any kind of type inferencing which is a necessity, we can instead have a shared package
+for types (like we do above with `InData` and `OutData`). There doesn't seem to be a way to "return" data
+from a plugin to the driver. Hence, we make use of plugin symbol lookup to retrieve the "output" from the plugin.
 
 # Golang plugins in the wild
 
 - [Tyk](https://tyk.io/docs/plugins/golang-plugins/golang-plugins/) can be configured by writing Golang plugins.
 - [Gosh](https://github.com/vladimirvivien/gosh) is a shell written in a way where you can write your own commands by
 making use of Golang plugins.
+- [Discussion on Reddit](https://www.reddit.com/r/golang/comments/b6h8qq/is_anyone_actually_using_go_plugins/) about what folks are using plugins for
 
