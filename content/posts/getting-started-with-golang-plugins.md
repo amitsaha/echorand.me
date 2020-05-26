@@ -222,3 +222,7 @@ $ ./golang-plugin-demo
 
 TBD
 
+# Golang plugins in the wild
+
+- [Tyk](https://tyk.io/docs/plugins/golang-plugins/golang-plugins/) can be configured by writing Golang plugins.
+
