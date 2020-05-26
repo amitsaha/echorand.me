@@ -14,7 +14,7 @@ on it. The result of the first plugin is fed into the second plugin and finally 
 
 # Setup
 
-Golang plugins are only supported on Linux and Mac. I am using Golang 1.14 on Linux:
+Golang plugins are only supported on FreeBSD,Linux and Mac. I am using Golang 1.14 on Linux:
 
 ```
 go version go1.14.1 linux/amd64
