@@ -54,7 +54,7 @@ requests to GET the "/status/" resource - our second request. Before we see how 
 The error message is generated from the function below in `src/net/http/server.go` specifically the `NotFoundHandler()` 
 "handler" function:
 
-.. code::
+```
 
    // handler is the main implementation of Handler.
    // The path is known to be in canonical form, except for CONNECT methods.
@@ -75,14 +75,14 @@ The error message is generated from the function below in `src/net/http/server.g
    	return
    }
    
-    
+ ```  
 
 
 Now, let's roughly see how our GET request above reaches the above function. 
 
 Let us consider the function signature of the above handler function: `func (mux *ServeMux) handler(host, path string) (h Handler, pattern string)`. This function is a method belonging to the type `ServeMux`:
 
-.. code::
+```
 
    // ServeMux also takes care of sanitizing the URL request path,
    // redirecting any request containing . or .. elements or repeated slashes
@@ -107,12 +107,12 @@ Let us consider the function signature of the above handler function: `func (mux
    
    var defaultServeMux ServeMux
     
-
+```
 
 So, how does `DefaultServeMux` get set when the second argument to `ListenAndServe()` is `nil`? The following code 
 snippet has the answer:
 
-.. code::
+```
 
    func (sh serverHandler) ServeHTTP(rw ResponseWriter, req *Request) {
    	handler := sh.srv.Handler
@@ -124,12 +124,12 @@ snippet has the answer:
    	}
    	handler.ServeHTTP(rw, req)
    }
-    
+  ```  
 
 
 The above call to `ServeHTTP()` calls the following implementation of `ServeHTTP()`:
 
-.. code::
+```
 
    // ServeHTTP dispatches the request to the handler whose
    // pattern most closely matches the request URL.
@@ -144,11 +144,11 @@ The above call to `ServeHTTP()` calls the following implementation of `ServeHTTP
    	h, _ := mux.Handler(r)
    	h.ServeHTTP(w, r)
    }
-    
+ ```
 
 The call to `Handler()` function then calls the following implementation:
 
-.. code::
+```
 
    // If there is no registered handler that applies to the request,
    // Handler returns a ``page not found'' handler and an empty pattern.
@@ -184,14 +184,14 @@ The call to `Handler()` function then calls the following implementation:
    	return
    }
    
-    
+   ``` 
 
 
 Now, when we make a request to "/" or "/status/", no match is found by the `mux.match()` call above and hence the 
 handler returned is the `NotFoundHandler` whose `ServeHTTP()` function is then called to return the "404 page not found" 
 error message:
 
-.. code::
+```
 
    // NotFound replies to the request with an HTTP 404 not found error.
    func NotFound(w ResponseWriter, r *Request) { Error(w, "404 page not found", StatusNotFound) }
@@ -199,17 +199,16 @@ error message:
    // NotFoundHandler returns a simple request handler
    // that replies to each request with a ``404 page not found'' reply.
    func NotFoundHandler() Handler { return HandlerFunc(NotFound) }
-   
+  ``` 
     
 
 We will discuss how this "magic" happens in the next section.
 
-Registering handlers
-====================
+# Registering handlers
 
 Let's now update our server code to handle "/" and "/status/":
 
-.. code::
+```
 
    package main
    
@@ -236,24 +235,24 @@ Let's now update our server code to handle "/" and "/status/":
            
    	http.ListenAndServe(":8080", nil)
    }
-    
+```    
 
 If we run the server and send the two requests above, we will see the following responses:
 
-.. code::
+```
 
    $ curl localhost:8080
    Hello there from mytype 
 
    $ curl localhost:8080/status/
    OK
-
+```
 
 
 Let's now revisit how the right handler function gets called. In a code snippet above, we saw a call to the ``match()`` function which given a path returns the most appropriate registered handler for the path:
 
 
-.. code::
+```
 
    // Find a handler on a handler map given a path string
    // Most-specific (longest) pattern wins
@@ -271,17 +270,17 @@ Let's now revisit how the right handler function gets called. In a code snippet 
    	}
    	return
    }
-    
+ ```   
 
 ``mux.m`` is a a ``map`` data structure defined in the ``ServeMux`` structure (snippet earlier in the post) which stores a mapping of a path and the handler we have registered for it.
 
-**The HandleFunc() type**
+## The HandleFunc() type
 
 Let's go back to the idea of "converting" any function with the signature ``func aFunction(w http.ResponseWriter, r *http.Request)`` to the type "HandlerFunc". 
 
 Any type which has a ServeHTTP() method is said to implement the ``Handler`` interface:
 
-.. code::
+```
 
     type HandlerFunc func(ResponseWriter, *Request)
 
@@ -290,23 +289,24 @@ Any type which has a ServeHTTP() method is said to implement the ``Handler`` int
         f(w, req)
     }
 
+```
 
 Going back to the previous version of our server, we see how we do that:
 
 
-.. code::
+```
 
     type mytype struct{}
 
     func (t *mytype) ServeHTTP(w http.ResponseWriter, r *http.Request) {
         fmt.Fprintf(w, "Hello there from mytype")
     }
-
+```
 The ``ServeHTTP()`` method of a Handler is invoked when it has been registered as handling a particular path.
 
 Let's look at what the call to `Handle()` function does:
 
-.. code::
+```
 
    
    // Handle registers the handler for the given pattern
@@ -357,18 +357,16 @@ Let's look at what the call to `Handle()` function does:
    	}
    }
     
-
+```
 
 It can feel cumbersome to define a type implementing the ``Handler`` interface for every path we want to register a handler for. Hence, a convenience function, ``HandleFunc()`` is provided to register any function which has a specified signature as a Handler function. For example:
 
-.. code::
-
+```
     http.HandleFunc("/status/", StatusHandler)
-
+```
 Now, let's look at what the call to `HandleFunc()` function does:
 
-.. code::
-
+```
    
    // HandleFunc registers the handler function for the given pattern
    // in the DefaultServeMux.
@@ -393,7 +391,7 @@ Now, let's look at what the call to `HandleFunc()` function does:
    func (f HandlerFunc) ServeHTTP(w ResponseWriter, req *Request) {
        f(w, req)
    }
-   
+  ``` 
    
    
    
@@ -403,13 +401,13 @@ The call to the ``http.HandleFunc()`` function "converts" the provided function 
 
 
 
-Using your own Handler with ListenAndServe()
-============================================
+# Using your own Handler with ListenAndServe()
+
 
 Earlier in this post, we saw how passsing ``nil`` to ``ListenAndServe()`` function sets the handler to ``DefaultServeMux``. The handlers
 we register via ``Handle()`` and ``HandleFunc()`` are then added to this object. Hence, we could without changing any functionality rewrite our server as follows:
 
-.. code::
+```
 
    package main
    
@@ -436,15 +434,15 @@ we register via ``Handle()`` and ``HandleFunc()`` are then added to this object.
    
    	http.ListenAndServe(":8080", mux)
    }
-    
+```    
 
 We create an object of type ``ServeMux`` via ``mux := http.NewServeMux()``, register our handlers calling the same two functions, but those that are defined for the ``ServeMux`` object we created.
 
 The reason we may want to use our own Handler with ``ListenAndServe()`` is demonstrated in the next section.
 
 
-Writing Middleware
-==================
+# Writing Middleware
+
 
 In our latest version of the server, we have specified our own handler to ``ListenAndServe()``. One reason for doing so is when you want to execute some code for *every* request. That is:
 
@@ -456,8 +454,7 @@ In our latest version of the server, we have specified our own handler to ``List
 
 Either of steps 2 or 4 or both may occur and this is where "middleware" comes in. Our next version of the server demonstrates how we may implement this:
 
-
-.. code::
+```
 
    package main
    
@@ -500,29 +497,30 @@ Either of steps 2 or 4 or both may occur and this is where "middleware" comes in
    	WrappedMux := RunSomeCode(mux)
    	http.ListenAndServe(":8080", WrappedMux)
    }
-    
+  ```  
 
 When we run the server and send it a couple of requests as above, we will see:
 
-.. code::
+```
 
     2017/04/24 17:53:03 Got a GET request for: /
     2017/04/24 17:53:03 Handler finished processing request
     2017/04/24 17:53:05 Got a GET request for: /status
     2017/04/24 17:53:05 Handler finished processing request
+```
 
 What we are doing above is we are "wrapping" our actual handler in another function ``RunSomeCode(handler http.Handler) http.Handler`` which satisfies the ``Handler`` interface. In this function, we print a log message, then call the ``ServeHTTP()`` method of our original
 handler, ``mux``. Once it returns from there, we are then printing another log message.
 
 As part of this middleware writing exercise, I also wanted to be able to print the HTTP status of the response that we are sending but as the comment in the code states, there is no direct way to get the status via the ``ResponseWriter`` object. Our next server example will fix this.
 
-Rewrapping ``http.ResponseWriter``
-==================================
+# Rewrapping ``http.ResponseWriter``
+
 
 It took me a while to write the next version of the server, and after reading through some mailing list postings and example code, 
 i have a version which achieves what I wanted to be able to do via my middleware:
 
-.. code::
+```
 
    package main
    
@@ -574,22 +572,22 @@ i have a version which achieves what I wanted to be able to do via my middleware
    	log.Fatal(http.ListenAndServe(":8080", WrappedMux))
    }
     
-
+```
 
 In the example above, I define a new type ``MyResponseWriter`` which wraps the ``http.ResponseWriter`` type and adds
 a new field, `code` to store the HTTP status code and implements a ``WriteHeader()`` method. Then, in ``RunSomeCode()``, 
 instead of using the standard ``http.ResponseWriter()`` object that it was passed, I wrap it in a ``MyResponseWriter`` type as
 follows:
 
-.. code::
+```
     
     myrw := &MyResponseWriter{ResponseWriter: w, code: -1}
     handler.ServeHTTP(myrw, r)
-
+```
 
 Now, if we run the server, we will see log messages on the server as follows when we send it HTTP get requests:
 
-.. code::
+```
 
     2017/04/25 17:33:06 Got a GET request for: /status/
     2017/04/25 17:33:06 Response status:  200
@@ -597,7 +595,7 @@ Now, if we run the server, we will see log messages on the server as follows whe
     2017/04/25 17:33:07 Response status:  301
     2017/04/25 17:33:10 Got a GET request for: /
     2017/04/25 17:33:10 Response status:  200
-
+```
 
 I will end this post with a question and perhaps the possible explanation:
 
@@ -606,8 +604,8 @@ to the HTTP status that was being set. It looks like there may be a `way <https:
 to get the HTTP response status.
 
 
-References
-==========
+# References
+
 
 The following links helped me understand the above and write this post:
 
