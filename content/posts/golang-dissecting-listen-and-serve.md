@@ -7,6 +7,8 @@ aliases:
 - /dissecting-golangs-handlerfunc-handle-and-defaultservemux.html
 ---
 
+# Introduction
+
 My aim in this post is to discuss three "concepts" in Golang that I come across while writing HTTP servers. Through this
 post, my aim to get rid of my own lack of understanding (at least to a certain degree) about these. Hopefully, it will
 be of use to others too. The code references are from `src/net/http/server.go <https://golang.org/src/net/http/server.go>`__. 
@@ -14,8 +16,7 @@ be of use to others too. The code references are from `src/net/http/server.go <h
 The `http.ListenAndServe(..) <https://golang.org/pkg/net/http/#ListenAndServe>`__ function is the most straightforward 
 approach to start a HTTP 1.1 server. The following code does just that:
 
-.. code::
-
+``` 
    package main
    
    import (
@@ -26,24 +27,25 @@ approach to start a HTTP 1.1 server. The following code does just that:
    func main() {
    	log.Fatal(http.ListenAndServe(":8080", nil))
    }
-
+```
 
 What is the `nil` second argument above? The documentation states that the second argument to the function should be a 
 "handler" and if it is specified as `nil`, it defaults to `DefaultServeMux`.
 
 
-What is `DefaultServeMux`?
-==========================
+# What is `DefaultServeMux`?
+
 
 If we run our server above via ``go run server1.go``, and send a couple of HTTP GET requests, we will see the following:
 
-.. code::
+```
    
    $ curl localhost:8080
    404 page not found
    
    $ curl localhost:8080/status/
    404 page not found
+```
 
 This is because, we haven't specified how our server should handle requests to GET the root ("/") - our first request or 
 requests to GET the "/status/" resource - our second request. Before we see how we could fix that, let's understand 
