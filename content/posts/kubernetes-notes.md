@@ -931,7 +931,7 @@ violation[{"msg": msg, "details": {}}] {
 
 I wrote this version in a hurry and I don't know what I was expecting. Someone in open policy agent slack then pointed me 
 to the issue. Even then we can use the above wrong policy to understand a bit more about how policy evaluation works.
-Given the same input as the first policy, the policy evaulation will *stop* at the expression, `value == ""`. It evaluates
+Given the same input as the first policy, the policy evaluation will *stop* at the expression, `value == ""`. It evaluates
 to false and hence the above rule is not violated and hence we wouldn't see any violations. 
 
 In addition, consider the following input document:
@@ -958,6 +958,36 @@ In addition, consider the following input document:
 }
 ```
 
+When we evaluate the policy above with the above input document, the first comparison `(value == ""`) evaluates to `true`,
+but the second comparsion `(value == "default")` evaluates to false. Hence, the policy isn't violated - not what
+we wanted.
+
+As the last case, let's consider an input document with no `namespace` defined at all:
+
+```
+{
+    "kind": "AdmissionReview",
+    "parameters": {},
+    "review": {
+        "kind": {
+            "kind": "Pod",
+            "version": "v1"
+        },
+        "object": {
+            "metadata": {
+                "name": "myapp"                
+            },
+            "spec": {
+                "containers": []
+            }
+        }
+    }
+}
+```
+
+When given this input document, via some Rego magic, the policy is not evaluated at all. Perhaps it detects that
+the input object doesn't have the `namespace` field defined and hence decides not to evaluate and hence there is
+no violation of the policy.
 
 ### OR rules
 
