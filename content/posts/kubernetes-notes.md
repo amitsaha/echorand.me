@@ -868,7 +868,7 @@ Gatekeeper provides to the policy when evaluating it.
 
 Next, we check whether the value of this variable is "default" using `value == "default"`. Only if this condition
 evaluates to `true`, the policy will be violated. If we have more than one conditional statement, all the comparisons
-must evaluate to `true` for the policy to be evaluted.
+must evaluate to `true` for the policy to be evaluted (see next example below).
 
 In the final line of the policy, we use the `sprintf` function to construct an error message which is stored in the `msg`
 object and hence automatically "returned". 
@@ -912,6 +912,52 @@ The output you will see is:
     ]
 }
 ```
+### Policy with two conditions in a rule
+
+Let's now say that in addition to check if the `namespace` is default, we also want to check if the namespace
+is an empty string. In other words, we want the policy to be violated if either the namespace is empty or the
+namespace is default. Here's the first version of the policy which doesn't work as expected:
+
+```
+package k8svalidnamespace
+        
+violation[{"msg": msg, "details": {}}] {          
+  value := input.review.object.metadata.namespace          
+  value == ""
+  value == "default"
+  msg := sprintf("Namespace should not be default: %v", [value])
+}
+```
+
+I wrote this version in a hurry and I don't know what I was expecting. Someone in open policy agent slack then pointed me 
+to the issue. Even then we can use the above wrong policy to understand a bit more about how policy evaluation works.
+Given the same input as the first policy, the policy evaulation will *stop* at the expression, `value == ""`. It evaluates
+to false and hence the above rule is not violated and hence we wouldn't see any violations. 
+
+In addition, consider the following input document:
+
+```
+{
+    "kind": "AdmissionReview",
+    "parameters": {},
+    "review": {
+        "kind": {
+            "kind": "Pod",
+            "version": "v1"
+        },
+        "object": {
+            "metadata": {
+                "name": "myapp",
+                "namespace": ""
+            },
+            "spec": {
+                "containers": []
+            }
+        }
+    }
+}
+```
+
 
 ### OR rules
 
