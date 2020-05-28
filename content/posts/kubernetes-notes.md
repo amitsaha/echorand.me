@@ -991,19 +991,19 @@ no violation of the policy.
 
 ### OR rules
 
-Let's now write the correct version of the policy to cause a violation if either the namespace is empty or the
-namespace is default:
+Let's now write the correct version of the policy to cause a violation if either the namespace is undefined,
+empty string or `default`:
 
 ```
 package k8svalidnamespace
      
 violation[{"msg": msg, "details": {}}] {
-  not input.input.review.object.metadata.namespace
+  not input.review.object.metadata.namespace
   msg := "Namespace should not be unspecified"          
 }
         
 violation[{"msg": msg, "details": {}}] {
-  value := input.input.review.object.metadata.namespace
+  value := input.review.object.metadata.namespace
   count(value) == 0
   msg := sprintf("Namespace should not be empty: %v", [value])          
 }
@@ -1014,6 +1014,135 @@ violation[{"msg": msg, "details": {}}] {
   msg := sprintf("Namespace should not be default: %v", [value])          
 }
 ```
+
+We have three `violation` blocks in the above policy each containing one conditional expression. The entire policy
+will be violated if any of the violation blocks are true.
+
+**Invalid input - Unspecified namespace**
+
+Let's consider an input document with no namespace specified:
+
+```
+
+ {
+        "kind": "AdmissionReview",
+        "parameters": {},
+        "review": {
+            "kind": {
+                "kind": "Pod",
+                "version": "v1"
+            },
+            "object": {
+                "metadata": {
+                    "name": "myapp"
+                },
+                "spec": {
+                    "containers": []
+                }
+            }
+        }
+    }
+
+```
+
+When the above policy is evaluated given the above input document, the first rule evaluates to `true`
+and hence we have a violation. The other rules are not evaluated at all - not because the first rule
+evaluates to `true`, but because the object doesn't have the `namespace` field.
+
+**Invalid input - Empty namespace**
+
+Let's now consider the following input document:
+
+```
+
+ {
+        "kind": "AdmissionReview",
+        "parameters": {},
+        "review": {
+            "kind": {
+                "kind": "Pod",
+                "version": "v1"
+            },
+            "object": {
+                "metadata": {
+                    "name": "myapp",
+                    "namespace": ""
+                    
+                },
+                "spec": {
+                    "containers": []
+                }
+            }
+        }
+    }
+
+```
+
+For this policy, the first rule is not violated, but the second rule is, and the third rule is not violated
+either.
+
+
+**Invalid input - default namespace**
+
+Now, consider the input document as:
+
+```
+
+ {
+        "kind": "AdmissionReview",
+        "parameters": {},
+        "review": {
+            "kind": {
+                "kind": "Pod",
+                "version": "v1"
+            },
+            "object": {
+                "metadata": {
+                    "name": "myapp",
+                    "namespace": "default"
+                    
+                },
+                "spec": {
+                    "containers": []
+                }
+            }
+        }
+    }
+
+```
+
+For this input document, only the last rule is violated and we get a violation from the policy.
+
+**Valid Input**
+
+Now, consider the following input document:
+
+```
+
+ {
+        "kind": "AdmissionReview",
+        "parameters": {},
+        "review": {
+            "kind": {
+                "kind": "Pod",
+                "version": "v1"
+            },
+            "object": {
+                "metadata": {
+                    "name": "myapp",
+                    "namespace": "default1"
+                    
+                },
+                "spec": {
+                    "containers": []
+                }
+            }
+        }
+    }
+
+```
+
+For the above input, the policy will report no violations.
 
 
 
