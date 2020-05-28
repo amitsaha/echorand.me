@@ -786,6 +786,56 @@ The above shows us the audit results on all the existing namespaces.
 
 ## Rego playground and gatekeeper policies
 
+To test a gatekeeper policy on the [Rego playground](https://play.openpolicyagent.org/), copy the entire rego
+policy in the `rego` object above. Now, for the input, we need to have an object like this:
+
+```
+{
+  "kind": "AdmissionReview",
+  "parameters": {
+    "cpu": "300m",
+    "memory": "2Gi"
+  },
+  "review": {
+    "kind": {
+      "kind": "Pod",
+      "version": "v1"
+    },
+    "object": {
+      "spec": {
+        "containers": [
+          {
+            "image": "quay.io/calico/nginx",
+            "name": "nginx-frontend",
+            "resources": {
+              "limits": {
+                "cpu": "290m"
+                
+              }
+            }
+          },
+          {
+            "image": "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni",
+            "name": "mysql-backend",
+            "resources": {
+              "limits": {
+                "cpu": "400m",
+                "memory": "1Gi"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+
+
+
+```
+
+The above object is available to your rego code as `input`.
+
 ## Violation and deny
 
 ## OR rules
