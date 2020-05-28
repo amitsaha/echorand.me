@@ -991,6 +991,31 @@ no violation of the policy.
 
 ### OR rules
 
+Let's now write the correct version of the policy to cause a violation if either the namespace is empty or the
+namespace is default:
+
+```
+package k8svalidnamespace
+     
+violation[{"msg": msg, "details": {}}] {
+  not input.input.review.object.metadata.namespace
+  msg := "Namespace should not be unspecified"          
+}
+        
+violation[{"msg": msg, "details": {}}] {
+  value := input.input.review.object.metadata.namespace
+  count(value) == 0
+  msg := sprintf("Namespace should not be empty: %v", [value])          
+}
+        
+violation[{"msg": msg, "details": {}}] {
+  value := input.input.review.object.metadata.namespace
+  value == "default"
+  msg := sprintf("Namespace should not be default: %v", [value])          
+}
+```
+
+
 
 ## Learn more
 
