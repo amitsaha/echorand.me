@@ -5,10 +5,10 @@ categories:
 -  infrastructure
 ---
 
-## Introduction
+# Introduction
 
 
-## Our first policy from scratch
+# Our first policy from scratch
 
 One of the difficulties I have had is writing a policy from scratch. Let's look at a policy which will fail
 if the `namespace` of an object is `default`:
@@ -82,7 +82,7 @@ The output you will see is:
     ]
 }
 ```
-### Policy with two conditions in a rule
+## Policy with two conditions in a rule
 
 Let's now say that in addition to check if the `namespace` is default, we also want to check if the namespace
 is an empty string. In other words, we want the policy to be violated if either the namespace is empty or the
@@ -159,7 +159,7 @@ When given this input document, via some Rego magic, the policy is not evaluated
 the input object doesn't have the `namespace` field defined and hence decides not to evaluate and hence there is
 no violation of the policy.
 
-### OR rules
+## OR rules
 
 Let's now write the correct version of the policy to cause a violation if either the namespace is undefined,
 empty string or `default`:
@@ -188,7 +188,7 @@ violation[{"msg": msg, "details": {}}] {
 We have three `violation` blocks in the above policy each containing one conditional expression. The entire policy
 will be violated if any of the violation blocks are true.
 
-**Invalid input - Unspecified namespace**
+### Invalid input - Unspecified namespace
 
 Let's consider an input document with no namespace specified:
 
@@ -219,7 +219,7 @@ When the above policy is evaluated given the above input document, the first rul
 and hence we have a violation. The other rules are not evaluated at all - not because the first rule
 evaluates to `true`, but because the object doesn't have the `namespace` field.
 
-**Invalid input - Empty namespace**
+### Invalid input - Empty namespace
 
 Let's now consider the following input document:
 
@@ -252,7 +252,7 @@ For this policy, the first rule is not violated, but the second rule is, and the
 either.
 
 
-**Invalid input - default namespace**
+### Invalid input - default namespace
 
 Now, consider the input document as:
 
@@ -283,7 +283,7 @@ Now, consider the input document as:
 
 For this input document, only the last rule is violated and we get a violation from the policy.
 
-**Valid Input**
+### Valid Input
 
 Now, consider the following input document:
 
@@ -315,7 +315,7 @@ Now, consider the following input document:
 For the above input, the policy will report no violations.
 
 
-## Setting up Gatekeeper
+# Setting up Gatekeeper
 
 Install Gatekeeper as per instructions [here](https://github.com/open-policy-agent/gatekeeper#installation-instructions)
 
@@ -370,7 +370,7 @@ ValidatingWebhookConfiguration:
 ```
 
 
-## Creating a constraint template
+# Creating a constraint template
 
 Now that we have gatekeeper components installed, the first concept we need to learn is that of a 
 `ConstraintTemplate` - which lays down the schema of the data as well as the policy itself in the 
@@ -422,7 +422,7 @@ k8srequiredlabels   99s
 ```
 
 
-## Creating a constraint
+# Creating a constraint
 
 Let's now define a constraint using the constraint template, `K8sRequiredLabels` (`kind: K8sRequiredLabels`):
 
@@ -455,7 +455,7 @@ NAME              AGE
 ns-must-have-gk   77s
 ```
 
-## Testing the constraint
+# Testing the constraint
 
 Let's now test this constraint by creating a namespace without the label:
 
@@ -474,7 +474,7 @@ Error from server ([denied by ns-must-have-gk] you must provide labels: {"gateke
 
 ```
 
-## Audit
+# Audit
 
 Gatekeeper by default has an auditing functionality via which it evaluates the constraints and stores the audit
 results on the constraint's `status` field. For this purpose, Gatekeeper will query the Kubernetes API for the
@@ -553,7 +553,7 @@ metadata:
 
 The above shows us the audit results on all the existing namespaces. 
 
-## Rego playground and gatekeeper policies
+# Rego playground and gatekeeper policies
 
 To test a gatekeeper policy on the [Rego playground](https://play.openpolicyagent.org/), copy the entire rego
 policy in the `rego` object above. Now, for the input, we need to have an object like this:
@@ -606,7 +606,7 @@ policy in the `rego` object above. Now, for the input, we need to have an object
 The above object is available to your rego code as `input`.
 
 
-## Learn more
+# Learn more
 
 - https://github.com/open-policy-agent/frameworks/tree/master/constraint#opa-constraint-framework
 - https://www.stackrox.com/post/2020/05/custom-kubernetes-controls-with-open-policy-agent-opa-part-2/
