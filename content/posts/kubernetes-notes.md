@@ -836,7 +836,7 @@ policy in the `rego` object above. Now, for the input, we need to have an object
 
 The above object is available to your rego code as `input`.
 
-## Violation and deny and everything else.
+## Violation and deny and everything else
 
 ### Our first policy from scratch
 
@@ -858,7 +858,8 @@ The first line of this policy defines a namespace for the policy. Each policy mu
 Next, we define a `violation` *block* which "returns" two objects, "msg" and "details" to the calling framework.
 If you are coming to gatekepper from OPA documentation, you will notice that OPA has `deny` block, whereas
 `gatekeeper` has `violation` blocks. I am not sure why, but this was changed in 
-[gatekeeper](https://github.com/open-policy-agent/gatekeeper/issues/168) a while back.
+[gatekeeper](https://github.com/open-policy-agent/gatekeeper/issues/168) a while back. This is the "entrypoint" for
+a rule as per the [OPA constraint framework guide](https://github.com/open-policy-agent/frameworks/tree/master/constraint#opa-constraint-framework).
 
 The statements inside this block i.e. inside the `{}` are [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/#the-basics) expressions.
 
@@ -872,9 +873,53 @@ must evaluate to `true` for the policy to be evaluted.
 In the final line of the policy, we use the `sprintf` function to construct an error message which is stored in the `msg`
 object and hence automatically "returned". 
 
+Given the above policy and an input document, let's test it out in the [Rego playground](https://play.openpolicyagent.org/p/SI62cRuOEh).
+
+For reference, the input is:
+
+```
+{
+    "kind": "AdmissionReview",
+    "parameters": {},
+    "review": {
+        "kind": {
+            "kind": "Pod",
+            "version": "v1"
+        },
+        "object": {
+            "metadata": {
+                "name": "myapp",
+                "namespace": "default"
+            },
+            "spec": {
+                "containers": []
+            }
+        }
+    }
+}
+
+```
+
+The output you will see is:
+
+```
+{
+    "violation": [
+        {
+            "details": {},
+            "msg": "Namespace should not be default: default"
+        }
+    ]
+}
+```
 
 ### OR rules
 
+
+## Learn more
+
+- https://github.com/open-policy-agent/frameworks/tree/master/constraint#opa-constraint-framework
+- https://www.stackrox.com/post/2020/05/custom-kubernetes-controls-with-open-policy-agent-opa-part-2/
 
 
 
