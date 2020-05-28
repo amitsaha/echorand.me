@@ -784,6 +784,14 @@ metadata:
 
 The above shows us the audit results on all the existing namespaces. 
 
+## Rego playground and gatekeeper policies
+
+## Violation and deny
+
+## OR rules
+
+
+
 
 # Miscellaneous
 
