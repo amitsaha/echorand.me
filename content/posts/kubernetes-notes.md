@@ -836,9 +836,44 @@ policy in the `rego` object above. Now, for the input, we need to have an object
 
 The above object is available to your rego code as `input`.
 
-## Violation and deny
+## Violation and deny and everything else.
 
-## OR rules
+### Our first policy from scratch
+
+One of the difficulties I have had is writing a policy from scratch. Let's look at a policy which will fail
+if the `namespace` of an object is `default`:
+
+```
+package k8svalidnamespace
+        
+violation[{"msg": msg, "details": {}}] {
+  value := input.review.object.metadata.namespace
+  value == "default"
+  msg := sprintf("Namespace should not be default: %v", [value])
+}
+```
+
+The first line of this policy defines a namespace for the policy. Each policy must reside in a package. 
+
+Next, we define a `violation` *block* which "returns" two objects, "msg" and "details" to the calling framework.
+If you are coming to gatekepper from OPA documentation, you will notice that OPA has `deny` block, whereas
+`gatekeeper` has `violation` blocks. I am not sure why, but this was changed in 
+[gatekeeper](https://github.com/open-policy-agent/gatekeeper/issues/168) a while back.
+
+The statements inside this block i.e. inside the `{}` are [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/#the-basics) expressions.
+
+The expression `value := input.review.object.metadata.namespace` assigns the value of `input.review.object.metadata.namespace` to the variable `value`. The `input` object contains the entire JSON object that
+Gatekeeper provides to the policy when evaluating it.
+
+Next, we check whether the value of this variable is "default" using `value == "default"`. Only if this condition
+evaluates to `true`, the policy will be violated. If we have more than one conditional statement, all the comparisons
+must evaluate to `true` for the policy to be evaluted.
+
+In the final line of the policy, we use the `sprintf` function to construct an error message which is stored in the `msg`
+object and hence automatically "returned". 
+
+
+### OR rules
 
 
 
