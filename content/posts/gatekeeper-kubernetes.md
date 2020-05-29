@@ -362,7 +362,7 @@ The above line is an example of [comprehension](https://www.openpolicyagent.org/
 ```
 For each repo in the list of allowed repos
   For each container in the list of container objects
-    is container.image starts with the list of allowed repos?
+    Is container.image starting with any of the repos in the list of allowed repos?
     If so, append "true" to the array "satisfied", else append "false"
   End For
   # Evalute the rule not any(satisfied) and report violation if any
