@@ -1,21 +1,21 @@
 ---
-title:  Vim
-date:  2018-01-05 10
+title:  Notes on Vim
+date:  2018-01-05
 category: software
 ---
 
 
-**Modes**
+# Modes
 
 - Insert Normal mode: In insert mode, press `Ctrl-o` to quickly execute a command and come back to insert mode
 
-**Files**
+# Files
 
 - Save current buffer as `file.txt`: `:sav file.text`. If you use `:w` to write the current buffer contents into a new file, post-write, you will still be editing the current buffer
 
 
 
-**vim opening commands**
+# Opening commands
 
 - `+NUM`: File will be opened and cursor positioned on line, NUM
 - `+/{pattern}`: File will be opened and cursor positioned on first occurence of `pattern`
@@ -23,7 +23,7 @@ category: software
 
 
 
-**Cursor movement**
+# Cursor movement
 
 - Move to the line below: `j`
 - Move the line above: `k`
@@ -37,12 +37,12 @@ category: software
 - Jump the end of a line: `$`
 
 
-**Line search**
+# Line search
 
 `f<c>` to go the next occurence of `c`, `;` to repeat this search, `,` to repeat the search in backward direction
 `F<c>` to go the previous occurence of `c`, `;` to repeat this search, `,` to repeat the search in forward direction
 
-**Replacing a word in a block**
+# Replacing a word in a block
 
 - Go the beginning of a word in the block
 - Press `Ctrl+v`, select the word
@@ -50,13 +50,13 @@ category: software
 - `c`, type in the new word, `esc`
 
 
-**Changing a word at n positions**
+# Changing a word at n positions
 
 - Search for the word
 - `cgn` - change it
 - Press the `.` key to change the next, `n` to skip it
 
-**Recording and playing macros**
+# Recording and playing macros
 
 - Start macro recording: `q<key>` where key is the register you want to store the macro in
 - `<perform actions>`. One point to note here is to make your steps so that you start from the beginning of a line.
@@ -67,28 +67,28 @@ category: software
   - `:'<,'> normal @<key>`
 
 
-**Swap two characters**
+# Swap two characters
 
 - Place cursor on the first character
 - `xp` 
 - Learn more: https://stackoverflow.com/questions/1529414/vim-how-do-i-swap-two-characters
 
-**Switch case**
+# Switch case
 
 - Select the character, word
 - Press `~`.
 
-**Replace character**
+# Replace character
 
 - Select
 - `Shift+R`
 
-**Move block of text**
+# Move block of text
 
 - Left: `<<`
 - Right: `>>`
 
-**Delete**
+# Delete
 
 - Delete till a character on the current line: `dt<character>` 
 - Delete current word: `diw`
@@ -98,17 +98,17 @@ category: software
 - Delete entire file contents: `:%d`
 - Delete current work and enter insert mode: `cw`
 
-**Search**
+# Search
 
 - `*` searches forward for the word under cursor, `#` searches backward for the word under cursor.
 - `ggn` - go to the top of the file and find next occurence
 - Search history: `/` and type `Ctrl+r`, `ctrl+w` to search in reverse and forward
 
-**Folds**
+# Folds
 
 - `set foldmethod=indent`
 
-Movements:
+## Movements
 
 ```
 zo Open current fold under the cursor.
@@ -123,7 +123,7 @@ zE Delete all folds the current buffer
 :fold In Visual mode: fold selected lines
 ```
 
-**Powerless verbs**
+# Powerless verbs
 
 - x - delete character under the cursor to the right
 - X - delete character under the cursor to the left
@@ -131,7 +131,7 @@ zE Delete all folds the current buffer
 - s- delete character under the cursor and enter the Insert mode
 
 
-**Miscellaneous movements**
+# Miscellaneous movements
 
 - `zz` to center the current line to the center
 - `G` to go the last line of the document
@@ -146,7 +146,7 @@ zE Delete all folds the current buffer
 - Go to line at 50% of file: `50%`
 - In Insert mode, `shift+right/left arrow` to jump forward/backward by words
 
-## External Resources
+# External Resources
 
 - [vim tips and tricks](https://www.rosehosting.com/blog/vim-tips-and-tricks/)
 - [vi/vim cheat sheet](http://www.viemu.com/vi-vim-cheat-sheet.gif)
