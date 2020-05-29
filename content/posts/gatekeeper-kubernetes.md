@@ -736,6 +736,13 @@ In a [previous post](https://echorand.me/posts/kubernetes-pod-security-policies/
 using pod security policies to enforce compliance and restrictions in a cluster. We can do the same
 making use of Gatekeeper constraints. The repository has a few examples [here](https://echorand.me/posts/kubernetes-pod-security-policies/).
 
+# Dry run mode
+
+TBD
+
+# Monitoring
+
+TBD
 
 # Learn more
 
