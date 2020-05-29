@@ -12,7 +12,8 @@ to implement policies for ensuring compliance and best practices in their cluste
 Open Policy Agent (OPA) and is a [validating admission controller](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
 The policies are written in the [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) language.
 Gatekeeper embraces Kubernetes native concepts such as Custom Resource Definitions (CRDs) and hence the policies are managed
-as kubernetes resources. 
+as kubernetes resources.  The [GKE docs](https://cloud.google.com/anthos-config-management/docs/concepts/policy-controller) on
+this topic are a good place to learn more.
 
 Before we dive deep into Gatekeeper itself, let's first familiarize
 ourselves with the Rego language. One point worth nothing is Rego and OPA can be used for policy
@@ -326,7 +327,8 @@ For the above input, the policy will report no violations.
 
 # A more complicated policy
 
-Let's consider the following policy:
+Let's now write a policy to ensure that only containers from certain repositories
+should be allowed to run on the cluster:
 
 ```
 package k8sallowedrepos
@@ -338,6 +340,95 @@ violation[{"msg": msg}] {
   msg := sprintf("container <%v> has an invalid image repo <%v>, allowed repos are %v", [container.name, container.image, input.parameters.repos])
 }
 ```
+
+The first line of the `violation` block is:
+
+```
+container := input.review.object.spec.containers[_]
+```
+
+The above expression essentially boils down to the `container` variable containing
+a list of all elements in input the `containers` object. To learn more about
+the special `_` index, see the [documentation](https://www.openpolicyagent.org/docs/latest/policy-language/#variable-keys).
+
+The second line of the `violation` block is:
+
+```
+satisfied := [good | repo = input.parameters.repos[_] ; good = startswith(container.image, repo)]
+```
+
+The above line is an example of [comprehension](https://www.openpolicyagent.org/docs/latest/policy-language/#comprehensions) and it essentially executes the following pseudocode:
+
+```
+For each repo in the list of allowed repos
+  For each container in the list of container objects
+    is container.image starts with the list of allowed repos?
+    If so, append "true" to the array "satisfied", else append "false"
+  End For
+  # Evalute the rule not any(satisfied) and report violation if any
+End For
+```
+
+The result of the above is an array `satisfied` with the same number of elements
+as the number of allowed repos in the `input.parameters.repos` object, with each value being `true`
+or `false`.
+
+The third line of the violation block is our condition, `not any(satisfied)`. `any(satisfied)`
+evaluates to `true` if any of the values in the `satisfied` list is `true` and `false` otherwise.
+It's really important to note here that lines 2-4 in the violation block are "executed" for
+each item in the `container` array. 
+
+Hence, given the following input document:
+
+```json
+{
+  "kind": "AdmissionReview",
+  "parameters": {
+    "repos": [      
+      "quay.io/calico",      
+      "k8s.gcr.io",
+      "602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni"
+    ]
+  },
+  "review": {
+    "kind": {
+      "kind": "Pod",
+      "version": "v1"
+    },
+    "object": {
+      "spec": {
+        "containers": [
+          {
+            "image": "amazon-k8s-cni",
+            "name": "mysql-backend"
+          },
+          {
+            "image": "nginx",
+            "name": "nginx-frontend"
+          }          
+        ]
+      }
+    }
+  }
+}
+```
+
+We will see the following as the output: ([Rego playground link](https://play.openpolicyagent.org/p/7zMy2YH8Pu))
+
+```
+{
+    "violation": [
+        {
+            "msg": "container <mysql-backend> has an invalid image repo <amazon-k8s-cni>, allowed repos are [\"277433404353.dkr.ecr.eu-central-1.amazonaws.com\", \"quay.io/open-policy-agent\", \"quay.io/calico\", \"quay.io/kubernetes-ingress-controller\", \"k8s.gcr.io\", \"602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni\"], satisfied: [false, false, false, false, false, false]"
+        },
+        {
+            "msg": "container <nginx-frontend> has an invalid image repo <nginx>, allowed repos are [\"277433404353.dkr.ecr.eu-central-1.amazonaws.com\", \"quay.io/open-policy-agent\", \"quay.io/calico\", \"quay.io/kubernetes-ingress-controller\", \"k8s.gcr.io\", \"602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon-k8s-cni\"], satisfied: [false, false, false, false, false, false]"
+        }
+    ]
+}
+```
+  
+  
 
 
 # Setting up Gatekeeper
