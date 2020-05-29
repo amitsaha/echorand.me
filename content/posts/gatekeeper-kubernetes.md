@@ -7,11 +7,20 @@ categories:
 
 # Introduction
 
+[Gatekeeper](https://github.com/open-policy-agent/gatekeeper/) allows a Kubernetes administrator
+to implement policies for ensuring compliance and best practices in their cluster. It makes use of
+Open Policy Agent (OPA) and is a [validating admission controller](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
+The policies are written in the [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) language.
+Gatekeeper embraces Kubernetes native concepts such as Custom Resource Definitions (CRDs) and hence the policies are managed
+as kubernetes resources. 
 
-# Our first policy from scratch
+Before we dive deep into Gatekeeper itself, let's first familiarize
+ourselves with the Rego language. One point worth nothing is Rego and OPA can be used for policy
+enforcement beyond Kubernetes, however, we are going to focus on Kubernetes *objects*.
 
-One of the difficulties I have had is writing a policy from scratch. Let's look at a policy which will fail
-if the `namespace` of an object is `default`:
+# Writing our first policy
+
+Let's look at a policy which will fail if the `namespace` of an object is `default`:
 
 ```
 package k8svalidnamespace
@@ -23,7 +32,7 @@ violation[{"msg": msg, "details": {}}] {
 }
 ```
 
-The first line of this policy defines a namespace for the policy. Each policy must reside in a package. 
+The first line of this policy defines a namespace  or package for the policy. Each policy must reside in a package. 
 
 Next, we define a `violation` *block* which "returns" two objects, "msg" and "details" to the calling framework.
 If you are coming to gatekepper from OPA documentation, you will notice that OPA has `deny` block, whereas
@@ -33,8 +42,9 @@ a rule as per the [OPA constraint framework guide](https://github.com/open-polic
 
 The statements inside this block i.e. inside the `{}` are [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/#the-basics) expressions.
 
-The expression `value := input.review.object.metadata.namespace` assigns the value of `input.review.object.metadata.namespace` to the variable `value`. The `input` object contains the entire JSON object that
-Gatekeeper provides to the policy when evaluating it.
+The expression `value := input.review.object.metadata.namespace` assigns the value of `input.review.object.metadata.namespace` 
+to the variable `value`. The `input` object contains the entire JSON object that Gatekeeper provides to the policy when evaluating
+it.
 
 Next, we check whether the value of this variable is "default" using `value == "default"`. Only if this condition
 evaluates to `true`, the policy will be violated. If we have more than one conditional statement, all the comparisons
@@ -313,6 +323,21 @@ Now, consider the following input document:
 ```
 
 For the above input, the policy will report no violations.
+
+# A more complicated policy
+
+Let's consider the following policy:
+
+```
+package k8sallowedrepos
+
+violation[{"msg": msg}] {
+  container := input.review.object.spec.containers[_]
+  satisfied := [good | repo = input.parameters.repos[_] ; good = startswith(container.image, repo)]
+  not any(satisfied)
+  msg := sprintf("container <%v> has an invalid image repo <%v>, allowed repos are %v", [container.name, container.image, input.parameters.repos])
+}
+```
 
 
 # Setting up Gatekeeper
@@ -604,6 +629,8 @@ policy in the `rego` object above. Now, for the input, we need to have an object
 ```
 
 The above object is available to your rego code as `input`.
+
+# Pod security policies
 
 
 # Learn more
