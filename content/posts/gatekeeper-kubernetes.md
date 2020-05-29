@@ -428,14 +428,17 @@ We will see the following as the output: ([Rego playground link](https://play.op
 }
 ```
   
-  
+# Rego Unanswered Questions
+
+I am still trying to get my head around Rego. Here's some questions I have:
+
+1. Difference between "=" and ":="
+2. Lot more than I can write here, hopefully will be updated.
 
 
 # Setting up Gatekeeper
 
-Install Gatekeeper as per instructions [here](https://github.com/open-policy-agent/gatekeeper#installation-instructions)
-
-The following resources are created:
+Install Gatekeeper as per instructions [here](https://github.com/open-policy-agent/gatekeeper#installation-instructions). The following resources are created:
 
 ```
 ClusterRole:
@@ -485,6 +488,7 @@ ValidatingWebhookConfiguration:
 
 ```
 
+In addition, you may need to create sync configuration for [replicating data](https://github.com/open-policy-agent/gatekeeper/#replicating-data).
 
 # Creating a constraint template
 
@@ -719,12 +723,22 @@ policy in the `rego` object above. Now, for the input, we need to have an object
 
 ```
 
-The above object is available to your rego code as `input`.
+The above object is available to your rego code as `input` object.
+
+# Gatekeeper constraint library
+
+The gatekeeper [library](https://github.com/open-policy-agent/gatekeeper/tree/master/library/general) contains
+a few examples of constraint templates and constraints to enforce in your cluster.
 
 # Pod security policies
+
+In a [previous post](https://echorand.me/posts/kubernetes-pod-security-policies/), I discussed
+using pod security policies to enforce compliance and restrictions in a cluster. We can do the same
+making use of Gatekeeper constraints. The repository has a few examples [here](https://echorand.me/posts/kubernetes-pod-security-policies/).
 
 
 # Learn more
 
-- https://github.com/open-policy-agent/frameworks/tree/master/constraint#opa-constraint-framework
-- https://www.stackrox.com/post/2020/05/custom-kubernetes-controls-with-open-policy-agent-opa-part-2/
+- [Open Policy Agent documentation](https://www.openpolicyagent.org/docs/latest/)
+- [OPA constraint framework](https://github.com/open-policy-agent/frameworks/tree/master/constraint#opa-constraint-framework)
+- [Introductory article on OPA and Gatekeeper](https://www.stackrox.com/post/2020/05/custom-kubernetes-controls-with-open-policy-agent-opa-part-2/)
