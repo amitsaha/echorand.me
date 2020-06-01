@@ -1,5 +1,5 @@
 ---
-title:  Dissecting golang's HandlerFunc, Handle and DefaultServeMux
+title:  HandlerFunc, Handle and DefaultServeMux in Golang
 date: 2017-04-26
 categories:
 -  golang
