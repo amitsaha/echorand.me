@@ -13,7 +13,7 @@ My aim in this post is to discuss three "concepts" in Golang that I come across 
 post, my aim to get rid of my own lack of understanding (at least to a certain degree) about these. Hopefully, it will
 be of use to others too. The code references are from `src/net/http/server.go <https://golang.org/src/net/http/server.go>`__. 
 
-The `http.ListenAndServe(..) <https://golang.org/pkg/net/http/#ListenAndServe>`__ function is the most straightforward 
+The [http.ListenAndServe(..)](https://golang.org/pkg/net/http/#ListenAndServe>) function is the most straightforward 
 approach to start a HTTP 1.1 server. The following code does just that:
 
 ``` 
@@ -397,15 +397,17 @@ Now, let's look at what the call to `HandleFunc()` function does:
    
     
 
-The call to the ``http.HandleFunc()`` function "converts" the provided function to the ``HandleFunc()`` type and then calls the ``(mux *ServeMux) Handle()`` function similar to what happens when we call the ``Handle()`` function. The idea of this conversion is explained in the `Effective Go guide <https://golang.org/doc/effective_go.html#interface_methods>`__ and this `blog post <http://jordanorelli.com/post/42369331748/function-types-in-go-golang>`__.
+The call to the ``http.HandleFunc()`` function "converts" the provided function to the ``HandleFunc()`` type and then calls the ``(mux *ServeMux) Handle()`` function similar to what happens when we call the ``Handle()`` function. The idea of this conversion is explained in the [Effective Go guide](https://golang.org/doc/effective_go.html#interface_methods) and 
+this [blog post](http://jordanorelli.com/post/42369331748/function-types-in-go-golang).
 
 
 
 # Using your own Handler with ListenAndServe()
 
 
-Earlier in this post, we saw how passsing ``nil`` to ``ListenAndServe()`` function sets the handler to ``DefaultServeMux``. The handlers
-we register via ``Handle()`` and ``HandleFunc()`` are then added to this object. Hence, we could without changing any functionality rewrite our server as follows:
+Earlier in this post, we saw how passsing ``nil`` to ``ListenAndServe()`` function sets the handler to 
+``DefaultServeMux``. The handlers we register via ``Handle()`` and ``HandleFunc()`` are then added to this 
+object. Hence, we could without changing any functionality rewrite our server as follows:
 
 ```
 
@@ -600,7 +602,7 @@ Now, if we run the server, we will see log messages on the server as follows whe
 I will end this post with a question and perhaps the possible explanation:
 
 As I write above, it took me a while to figure out how to wrap ``http.ResponseWriter`` correctly so that I could get access
-to the HTTP status that was being set. It looks like there may be a `way <https://github.com/golang/go/issues/18997>`__ 
+to the HTTP status that was being set. It looks like there may be a [way](https://github.com/golang/go/issues/18997)
 to get the HTTP response status.
 
 
