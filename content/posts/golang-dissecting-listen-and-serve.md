@@ -11,7 +11,7 @@ aliases:
 
 My aim in this post is to discuss three "concepts" in Golang that I come across while writing HTTP servers. Through this
 post, my aim to get rid of my own lack of understanding (at least to a certain degree) about these. Hopefully, it will
-be of use to others too. The code references are from `src/net/http/server.go <https://golang.org/src/net/http/server.go>`__. 
+be of use to others too. The code references are from [src/net/http/server.go](https://golang.org/src/net/http/server.go).
 
 The [http.ListenAndServe(..)](https://golang.org/pkg/net/http/#ListenAndServe>) function is the most straightforward 
 approach to start a HTTP 1.1 server. The following code does just that:
