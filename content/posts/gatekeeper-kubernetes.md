@@ -826,9 +826,50 @@ Events:                  <none>
 
 The `Violations` section above results all the violations of the constraint that were found.
 
-# Monitoring
+# Monitoring and Alerting
 
-TBD
+Gatekeeper exports several prometheus metrics covering various aspects of the behavior. If you have an existing
+prometheus setup in your cluster, all you need to do is add the following annotations to Gatekeeper's `controller-manager`
+deployment:
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gatekeeper-controller-manager
+  namespace: gatekeeper-system
+spec:
+  ..
+  template:
+    metadata:
+      annotations:
+        prometheus.io/port: "8888"
+        prometheus.io/scrape: "true"
+        ..
+```
+
+Some of the key counter metrics to monitor are:
+
+- gatekeeper_constraints: Total number of constraints
+- gatekeeper_constraint_templates: Total number of constraint templates
+- gatekeeper_violations: Total number of constraint violations
+- request_count: Total number of requests to gatekeeper
+
+The `enforcement_action` label is available for the `gatekeeper_constraints` and `gatekeeper_violations`  constraints
+and can have a value of `dryrun`, `active` and `error`.
+
+The `status` label is available for the `gatekeeper_constraint_templates` metric and can take the value of `active`
+and `error`.
+
+The `request_count` metric has a label, `admission_status` which is useful for understanding the distribution of
+`allow` and `deny` requests.
+
+All the available metrics are documented [here](https://github.com/open-policy-agent/gatekeeper/blob/master/docs/Metrics.md).
+
+Some useful prometheus alerts can be:
+
+- Alert when we have a spike of active constraints violated
+- Alert when the last audit run was X minutes back
 
 # Learn more
 
