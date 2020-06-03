@@ -864,6 +864,8 @@ and `error`.
 The `request_count` metric has a label, `admission_status` which is useful for understanding the distribution of
 `allow` and `deny` requests.
 
+Metrics related to the sync/replicating data are available in the v3.1.0-beta.9 release.
+
 All the available metrics are documented [here](https://github.com/open-policy-agent/gatekeeper/blob/master/docs/Metrics.md).
 
 Some useful prometheus alerts can be:
