@@ -738,7 +738,22 @@ making use of Gatekeeper constraints. The repository has a few examples [here](h
 
 # Dry run mode
 
-TBD
+For any constraint, we can add the `enforcementAction: dryrun` to the spec to enforce it in a audit mode for
+existing and new resources. This will not disallow non-conformant resoures. This can be especially useful when 
+rolling out constraints to an environment with existing workloads.
+
+Example constraint spec:
+
+```
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sValidNamespace
+metadata:
+  name: namespace-must-be-valid
+spec:
+  enforcementAction: dryrun
+  ..
+
+```
 
 # Monitoring
 
