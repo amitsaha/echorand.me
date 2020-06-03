@@ -755,7 +755,7 @@ spec:
 
 ```
 
-For constraints created with the enforcement action as `dryrun`, we can then find out the `audit` results in
+For constraints created with the enforcement action as `dryrun`, we can then find out the audit results in
 the output of `kubectel get`, like so:
 
 ```
@@ -823,6 +823,8 @@ Status:
     Namespace:           default
 Events:                  <none>
 ```
+
+The `Violations` section above results all the violations of the constraint that were found.
 
 # Monitoring
 
