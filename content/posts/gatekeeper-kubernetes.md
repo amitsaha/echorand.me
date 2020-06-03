@@ -755,6 +755,75 @@ spec:
 
 ```
 
+For constraints created with the enforcement action as `dryrun`, we can then find out the `audit` results in
+the output of `kubectel get`, like so:
+
+```
+kubectl describe k8svalidnamespace.constraints.gatekeeper.sh namespace-must-be-valid
+Name:         namespace-must-be-valid
+Namespace:    
+Labels:       <none>
+Annotations:  kubectl.kubernetes.io/last-applied-configuration:
+                {"apiVersion":"constraints.gatekeeper.sh/v1beta1","kind":"K8sValidNamespace","metadata":{"annotations":{},"name":"namespace-must-be-valid"...
+API Version:  constraints.gatekeeper.sh/v1beta1
+Kind:         K8sValidNamespace
+Metadata:
+  Creation Timestamp:  2020-06-03T01:49:24Z
+  Generation:          1
+  Resource Version:    3421798
+  Self Link:           /apis/constraints.gatekeeper.sh/v1beta1/k8svalidnamespace/namespace-must-be-valid
+  UID:                 d9c171b2-9451-4a45-98c7-24a2d4e8a3e4
+Spec:
+  Enforcement Action:  dryrun
+  Match:
+    Kinds:
+      API Groups:
+        
+      Kinds:
+        ConfigMap
+        CronJob
+        DaemonSet
+        Deployment
+        Job
+        NetworkPolicy
+        PodDisruptionBudget
+        Role
+        RoleBinding
+        StatefulSet
+        Service
+        Secret
+        ServiceAccount
+      API Groups:
+        extensions
+        networking.k8s.io
+      Kinds:
+        Ingress
+Status:
+  Audit Timestamp:  2020-06-03T04:05:45Z
+  By Pod:
+    Enforced:             true
+    Id:                   gatekeeper-controller-manager-ff7c87585-h7cjh
+    Observed Generation:  1
+  Total Violations:       3
+  Violations:
+    Enforcement Action:  dryrun
+    Kind:                Secret
+    Message:             Namespace should not be default: default
+    Name:                default-token-9xvts
+    Namespace:           default
+    Enforcement Action:  dryrun
+    Kind:                ServiceAccount
+    Message:             Namespace should not be default: default
+    Name:                default
+    Namespace:           default
+    Enforcement Action:  dryrun
+    Kind:                Service
+    Message:             Namespace should not be default: default
+    Name:                kubernetes
+    Namespace:           default
+Events:                  <none>
+```
+
 # Monitoring
 
 TBD
