@@ -10,8 +10,10 @@ aliases:
 # Introduction
 
 My aim in this post is to discuss three "concepts" in Golang that I come across while writing HTTP servers. Through this
-post, my aim to get rid of my own lack of understanding (at least to a certain degree) about these. Hopefully, it will
-be of use to others too. The code references are from [src/net/http/server.go](https://golang.org/src/net/http/server.go).
+post, my aim to get rid of my own lack of understanding (at least to a certain degree) about these. ~~Hopefully, it will
+be of use to others too.~~. The understanding will help you write better unit tests for your handlers as well as shown
+in this [blog post](https://www.digitalflapjack.com/blog/2018/4/10/better-testing-for-golang-http-handlers). 
+The code references are from [src/net/http/server.go](https://golang.org/src/net/http/server.go).
 
 The [http.ListenAndServe(..)](https://golang.org/pkg/net/http/#ListenAndServe>) function is the most straightforward 
 approach to start a HTTP 1.1 server. The following code does just that:
