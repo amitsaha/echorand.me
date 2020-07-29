@@ -38,7 +38,7 @@ Over the years, I have contributed code/docs to various projects in various prog
 
 # Contact me
 
-You can contact me via [email](mailto:amit.saha@protonmail.com), [Twitter](http://twitter.com/echorand)
+You can contact me via [email](mailto:amitsaha.in@gmail.com), [Twitter](http://twitter.com/echorand)
 and on [LinkedIn](https://au.linkedin.com/in/echorand). I welcome any queries/questions you may have.
 
 If you would like to get an email everytime I write something new, please subscribe to my 
