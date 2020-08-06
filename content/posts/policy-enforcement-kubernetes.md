@@ -1,6 +1,6 @@
 ---
 title: Static and dynamic checks for your Kubernetes workloads
-date: 2020-27-07
+date: 2020-07-27
 categories:
 -  infrastructure
 ---
