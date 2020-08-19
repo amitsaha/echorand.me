@@ -1,5 +1,5 @@
 ---
-title:  AWS Network ACLs and ephermal port ranges
+title:  AWS Network ACLs and ephemeral port ranges
 date: 2018-08-14
 categories:
 -  infrastructure
@@ -8,7 +8,7 @@ aliases:
 ---
 
 In this post, I discuss a problem (and its solution) I encountered while working with AWS (Amazon Web Services) 
-Network ACLs, docker containers and ephermal port ranges.
+Network ACLs, docker containers and ephemeral port ranges.
 # Infrastructure setup
 
 A Linux EC2 instance with `docker` engine running in a VPC with inbound and outbound traffic controlled by Network ACLs.
@@ -32,9 +32,9 @@ So..what is going on?
 Communication over IP network sockets involves two parties - usually referred to as a client and a server with
 each end happening over a `socket`. A socket is composed of a pair - IP address and a port. The port for the
 server side is fixed - either one of the [well known port numbers](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers#Well-known_ports) or an internally chosen port number for your services. What about the client side port? The client side port
-is chosen `dynamically` at run time and are referred to as [ephermal port](https://en.wikipedia.org/wiki/Ephemeral_port).
+is chosen `dynamically` at run time and are referred to as [ephemeral port](https://en.wikipedia.org/wiki/Ephemeral_port).
 
-Operating systems set a configurable range from which this ephermal port will be chosen. This brings us to AWS Network ACLs.
+Operating systems set a configurable range from which this ephemeral port will be chosen. This brings us to AWS Network ACLs.
 
 # AWS Network ACLs
 
@@ -42,7 +42,7 @@ Operating systems set a configurable range from which this ephermal port will be
 flow to and from subnets. Our topic of interest is the outbound rules via which we can specify source ports for our
 allow/deny rules.
 
-In other words, if our docker container above is selecting a ephermal port which is not in the allowed list of the outbound rules,
+In other words, if our docker container above is selecting a ephemeral port which is not in the allowed list of the outbound rules,
 the request is not going to go through. This can happen when the Network ACLs range is different from the default range of your
 operating system.
 
@@ -58,7 +58,7 @@ ubuntu@ip-172-34-59-184:~$ sudo tcpdump -i eth0 port 10001
 ..
 ```
 
-`ip-172-34-59-184.51990` is the source hostname and `51990` is the ephermal port that has been chosen to talk to my
+`ip-172-34-59-184.51990` is the source hostname and `51990` is the ephemeral port that has been chosen to talk to my
 service which is running on port `10001`.
 
 # Problem
@@ -71,9 +71,9 @@ one in the list of allowed ranges in the Network ACL. This port was not in the l
 
 # Solution
 
-The solution is to basically set the ephermal range so that it matches the one allowed in the network ACL.
+The solution is to basically set the ephemeral range so that it matches the one allowed in the network ACL.
 
-# Set the ephermal port range on a Linux VM
+# Set the ephemeral port range on a Linux VM
 
 We will add an entry to `sysctl.conf`:
 
@@ -84,7 +84,7 @@ $ echo 'net.ipv4.ip_local_port_range=49152 65535' | sudo tee --append /etc/sysct
 To effect the above change on a running system, `$sudo sysctl -p`.
 
 
-# Set the ephermal port range in a Linux docker container
+# Set the ephemeral port range in a Linux docker container
 
 Pass it at `docker run` time:
 
@@ -94,7 +94,7 @@ $ docker run --sysctl net.ipv4.ip_local_port_range="49152 65535" ...
 
 Learn more about [sysctl for docker](https://docs.docker.com/engine/reference/commandline/run/#configure-namespaced-kernel-parameters-sysctls-at-runtime).
 
-#  Set the ephermal port range on Windows
+#  Set the ephemeral port range on Windows
 
 Use the `netsh` command:
 
@@ -125,7 +125,7 @@ So, I imagine, we will need do it either an entry point of the container or duri
 
 This problem may come up when working with Network ACLs in a hybrid Operating System enviorment as it did for me. 
 I can't help but feel thankful to the problem as it allowed me to dig into some networking basics. Who would have
-thought ephermal ports can have any impact on your life?
+thought ephemeral ports can have any impact on your life?
 
 
 # Learn more
