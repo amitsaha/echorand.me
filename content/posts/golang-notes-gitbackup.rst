@@ -1,5 +1,5 @@
 ---
-title:  Notes on using Golang to write gitbackup
+title:  Notes on using Go to write gitbackup
 date: 2017-03-26
 categories:
 -  golang
@@ -7,9 +7,9 @@ aliases:
 - /notes-on-using-golang-to-write-gitbackup.html
 ---
 
-`gitbackup <https://github.com/amitsaha/gitbackup>`__ is a tool to backup your git repositories from GitHub and GitLab. I wrote the `initial version <https://github.com/amitsaha/gitbackup/releases/tag/lj-0.1>`__ as a project for a golang article which is in review for publication in a Linux magazine. It supports GitHub enterprise installations and custom GitLab installations in addition to repositories on github.com and gitlab.com. It's written in Golang, and built upon `go-github <https://github.com/google/go-github>`__ and `go-gitlab <https://github.com/xanzy/go-gitlab>`__ and other third party golang packages.
+`gitbackup <https://github.com/amitsaha/gitbackup>`__ is a tool to backup your git repositories from GitHub and GitLab. I wrote the `initial version <https://github.com/amitsaha/gitbackup/releases/tag/lj-0.1>`__ as a project for a go article which is in review for publication in a Linux magazine. It supports GitHub enterprise installations and custom GitLab installations in addition to repositories on github.com and gitlab.com. It's written in Golang, and built upon `go-github <https://github.com/google/go-github>`__ and `go-gitlab <https://github.com/xanzy/go-gitlab>`__ and other third party golang packages.
 
-Since the initial version, the project's code has seen number of changes which has been a learning experience for me since I am still fairly new to Golang. In the rest of this post, I describe these and some personal notes about the experience.
+Since the initial version, the project's code has seen number of changes which has been a learning experience for me since I am still fairly new to Go. In the rest of this post, I describe these and some personal notes about the experience.
 
 Using afero for filesystem operations
 =====================================
@@ -133,7 +133,7 @@ We similarly test the operation of a repository's backup being updated via ``git
 Switching from ``gb`` to standard go tooling
 ============================================
 
-When I was started to write ``gitbackup``, I was still in two minds about whether I like the idea of the standard ``go`` tools' requirements of having every Golang project in ``$GOPATH``. Hence, I decided to go with `gb <https://getgb.io>`__ because it removed that requirement, as well as allowed me to have a easy way to vendor the third party dependencies and manage them.
+When I was started to write ``gitbackup``, I was still in two minds about whether I like the idea of the standard ``go`` tools' requirements of having every Go project in ``$GOPATH``. Hence, I decided to go with `gb <https://getgb.io>`__ because it removed that requirement, as well as allowed me to have a easy way to vendor the third party dependencies and manage them.
 
 However, as I worked on ``gitbackup`` and was finally close to having release binaries, I decided to move away from using ``gb`` and also try out `go dep <https://github.com/golang/dep>`__ for dependency management.
 
