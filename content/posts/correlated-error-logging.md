@@ -5,7 +5,8 @@ categories:
 -  software
 ---
 
-_Please note this document is currently in progress._
+_Please note this document is currently in progress._ You may read this other post instead which illustrates
+what I wanted to discuss in this [post](https://filipnikolovski.com/posts/correlating-logs/) with an implementation in Go.
 
 ## Introduction
 
