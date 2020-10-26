@@ -6,9 +6,18 @@ googleAnalytics = "UA-108901610-1"
 enableGitInfo = true
 lastmod = ["lastmod", ":fileModTime", ":default"]
 
+[params]
+
+  homeSubtitle = "echo $RANDOM"
+
 [taxonomies]
   category = "categories"
   tag = "tags"
+
+[[menu.main]]
+    name = "Posts"
+    url = "/posts"
+    weight = 1
 
 [[menu.main]]
     name = "About"
