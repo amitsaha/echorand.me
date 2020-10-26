@@ -1,7 +1,7 @@
 baseURL = "https://echorand.me"
 languageCode = "en-us"
 title = "Exploring Software"
-theme = "hugo-classic"
+theme = "hello-friend-ng"
 googleAnalytics = "UA-108901610-1"
 enableGitInfo = true
 lastmod = ["lastmod", ":fileModTime", ":default"]

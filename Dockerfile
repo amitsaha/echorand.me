@@ -1,5 +1,4 @@
 # Original Dockerfile copied from https://reyes.im/post/docker-hugo-image/
-
 FROM alpine:3.5
 
 ENV HUGO_VERSION 0.55.6
