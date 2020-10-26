@@ -7,8 +7,8 @@ enableGitInfo = true
 lastmod = ["lastmod", ":fileModTime", ":default"]
 
 [params]
-
   homeSubtitle = "echo $RANDOM"
+  defaultTheme = "light"
 
 [taxonomies]
   category = "categories"
