@@ -1,7 +1,7 @@
 # Original Dockerfile copied from https://reyes.im/post/docker-hugo-image/
 FROM alpine:3.5
 
-ENV HUGO_VERSION 0.55.6
+ENV HUGO_VERSION 0.76.5
 ENV HUGO_BINARY hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
 
 # Install Hugo
