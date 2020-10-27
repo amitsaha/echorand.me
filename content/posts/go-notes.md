@@ -1,8 +1,8 @@
 ---
-title:  Notes on Golang
+title:  Notes on Go
 date:  2019-08-07
 categories:
--  golang
+-  go
 ---
 
 
