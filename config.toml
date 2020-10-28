@@ -9,6 +9,7 @@ lastmod = ["lastmod", ":fileModTime", ":default"]
 [params]
   homeSubtitle = "echo $RANDOM"
   defaultTheme = "light"
+  paginate = 20
 
 [taxonomies]
   category = "categories"
