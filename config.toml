@@ -1,15 +1,32 @@
 baseURL = "https://echorand.me"
 languageCode = "en-us"
 title = "Exploring Software"
-theme = "hello-friend-ng"
+theme = "cactus"
 googleAnalytics = "UA-108901610-1"
 enableGitInfo = true
 lastmod = ["lastmod", ":fileModTime", ":default"]
 
 [params]
-  homeSubtitle = "echo $RANDOM"
-  defaultTheme = "light"
-  paginate = 20
+
+  description = "echo $RANDOM. Exploring Software and writing about it."
+  mainSection = "posts"
+  showAllPostsOnHomePage = false
+  postsOnHomePage = 10 
+  tagsOverview = false
+  showProjectsList = false
+  rss = true
+
+[[params.social]]
+  name = "github"
+  link = "https://github.com/amitsaha"
+
+[[params.social]]
+  name = "email"
+  link = "amitsaha.in@gmail.com" # no need for "mailto:" at the start
+
+[[params.social]]
+  name = "linkedin"
+  link = "https://www.linkedin.com/in/echorand/"
 
 [taxonomies]
   category = "categories"

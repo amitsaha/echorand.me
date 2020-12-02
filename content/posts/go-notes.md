@@ -6,13 +6,13 @@ categories:
 ---
 
 
-# Repeating the same argument to Printf
+## Repeating the same argument to Printf
 
 If we wanted to repeat the same argument to a call to `fmt.Printf()`, we can make use of "indexed" arguments.
 That is, instead of writing `fmt.Printf("%s %s", "Hello", "Hello")`, we can write `fmt.Printf("%[1]s %[1]s", "Hello")`.
 Learn about it in the [docs](https://golang.org/pkg/fmt/).
 
-# Multi-line strings
+## Multi-line strings
 
 Things are hassle free on the multi-line strings front:
 
@@ -35,7 +35,7 @@ and 'single quotes'`
 ```
 
 
-# Maps with values as maps
+## Maps with values as maps
 
 First, we define the map:
 
@@ -60,7 +60,7 @@ We can then modify the map defined as the value, like so:
 clusters[1]["a"] = 5
 ```
 
-# Check if a key is present in a map
+## Check if a key is present in a map
 
 Here we can make use of the multiple return value from the map query statement:
 
@@ -75,7 +75,7 @@ if _, ok := flatMap[tblName]; !ok {
 ```
 
 
-# Reading data from a database into structs
+## Reading data from a database into structs
 
 The following snippet can be used to read the rows of a table from a SQL db into structure variables:
 
@@ -114,7 +114,7 @@ func main() {
 
 ```
 
-# Check if a string starts with another string
+## Check if a string starts with another string
 
 ```
 // Does the value in `variable` start with "prefix"
@@ -122,20 +122,20 @@ strings.HasPrefix(variable, "prefix")
 ```
 
 
-# Genearate a random integer in [0,n)
+## Genearate a random integer in [0,n)
 
 ```
 fmt.Printf("Random integer between 0-100: %v\n", rand.Intn(100))
 ```
 
-# Quotient and Modulus
+## Quotient and Modulus
 
 ```
 fmt.Printf("1/2 - Modulus: %v Quotient: %v", 1%2, 1/2)
 ```
 
 
-# Walking a directory tree
+## Walking a directory tree
 
 Let's say we want to walk a directory tree and only list/perform operation on files of a certain extension:
 
@@ -176,7 +176,7 @@ func main() {
 
 ```
 
-# Reading structure tags
+## Reading structure tags
 
 ```
 package main
