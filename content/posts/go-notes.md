@@ -213,3 +213,18 @@ func main() {
 }
 
 ```
+
+
+## Dot imports in Go
+
+When you import a package as `import . "path/to/pkg"`, you don't have to use
+`pkg.ExportedSymbol` to refer to the `ExportedSymbol` in `pkg` any more. You
+can just use `ExportedSymbol`.
+
+Learn more about it
+[here](https://stackoverflow.com/questions/6478962/what-does-the-dot-or-period-in-a-go-import-statement-do).
+Of course, it is not a feature that's well liked by everyone in the community
+and there is a proposal to remove it from [Go
+2](https://stackoverflow.com/questions/6478962/what-does-the-dot-or-period-in-a-go-import-statement-do).
+
+I first learned about it in this [podcast](https://changelog.com/gotime/155).
