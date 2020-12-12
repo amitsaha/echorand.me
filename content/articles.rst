@@ -6,9 +6,8 @@ aliases:
 
 *Software publications*
 
-A lot of my articles (besides this blog) were written for various print and online magazines which
-are subscriber only. However, here's some recent ones that are online:
-
+Here's some recent ones that are available online:
+- `Authentication between microservices using Kubernetes identities <https://learnk8s.io/microservices-authentication-kubernetes>`__
 - `Enforcing policies and governance for Kubernetes workloads <https://learnk8s.io/kubernetes-policies>`__
 - `Validating Kubernetes YAML for best practice and policies <https://learnk8s.io/validating-kubernetes-yaml>`__
 - `Deploying Docker Containers to AWS using CloudBees CodeShip, CodeDeploy and Chef <https://rollout.io/blog/deploying-docker-containers-to-aws-using-cloudbees-codeship-codedeploy-and-chef/>`__
@@ -19,7 +18,7 @@ are subscriber only. However, here's some recent ones that are online:
 - `Monitoring Your Asynchronous Python Web Applications Using Prometheus <https://rollout.io/blog/monitoring-your-asynchronous-python-web-applications-using-prometheus>`__
 
 
-Some old articles are available from previous writings page: https://amitksaha.wordpress.com/writings/
+Old articles are available from previous writings page: https://amitksaha.wordpress.com/writings/
 
 *Research publications*
 
