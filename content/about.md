@@ -6,13 +6,12 @@ date: 2019-06-16T10:53:16+10:00
 
 # This blog
 
-This blog is generated using [Hugo](https://gohugo.io) and hosted on GitHub pages.
+This blog is generated using [Hugo](https://gohugo.io) and hosted on 
+[GitHub pages](https://github.com/amitsaha/amitsaha.github.io) powered via [GitHub actions](./github/workflows/main.yaml).
 
 # About me
 
-Hello, My name is Amit Saha (or, @echorand). 
-
-I work as a software engineer and I [explore software](https://github.com/amitsaha)
+Hello, My name is Amit Saha. I work as a software engineer and I [explore software](https://github.com/amitsaha)
 via programming, writing [articles](../articles) and [books](../books) and giving [talks](../talks).
 
 # Open source contributions
@@ -33,6 +32,3 @@ Over the years, I have contributed code/docs to various projects in various prog
 
 You can contact me via [email](mailto:amitsaha.in@gmail.com), [Twitter](http://twitter.com/echorand)
 and on [LinkedIn](https://au.linkedin.com/in/echorand). I welcome any queries/questions you may have.
-
-If you would like to get an email everytime I write something new, please subscribe to my 
-[newsletter](https://buttondown.email/echorand.me).
