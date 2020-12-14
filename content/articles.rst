@@ -7,6 +7,7 @@ aliases:
 *Software publications*
 
 Here's some recent ones that are available online:
+
 - `Authentication between microservices using Kubernetes identities <https://learnk8s.io/microservices-authentication-kubernetes>`__
 - `Enforcing policies and governance for Kubernetes workloads <https://learnk8s.io/kubernetes-policies>`__
 - `Validating Kubernetes YAML for best practice and policies <https://learnk8s.io/validating-kubernetes-yaml>`__
