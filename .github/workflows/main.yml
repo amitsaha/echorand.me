@@ -6,10 +6,9 @@ on:
     - master
 
 jobs:
-  build:
+  build-and-deploy:
 
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v1
     - name: Build docker image
@@ -17,3 +16,11 @@ jobs:
     - name: Build site
       run: |
         docker run -v `pwd`:/site -t amitsaha/echorandme-publisher
+    - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+          REPOSITORY_NAME: amitsaha/amitsaha.github.io
+          BRANCH: master
+          FOLDER: public
+          CLEAN: true 
