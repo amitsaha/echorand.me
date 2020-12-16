@@ -75,9 +75,9 @@
       {{ if isset .Site.Params "postsonhomepage" }}
         {{ .Scratch.Set "count" .Site.Params.postsOnHomePage }}
       {{ end }}
-      {{ range (first (.Scratch.Get "count") (sort .Site.RegularPages "Date" "desc")) }}
+      {{ range (first (.Scratch.Get "count") (sort .Site.RegularPages.ByLastmod.Reverse "Date" "desc")) }}
         <li class="post-item">
-          <div class="meta"><time datetime="{{ time .Date }}" itemprop="datePublished">{{ .Date.Format $dataFormat }}</time></div>
+          <div class="meta"><time datetime="{{ time .LastMod }}" itemprop="dateModified">{{ .Date.Format $dataFormat }}</time></div>
           <span><a href="{{ .Permalink }}">{{ if .Title }} {{- .Title -}} {{ else }} {{- print "Untitled" -}}{{ end }}</a></span>
         </li>
       {{ end }}
