@@ -77,7 +77,7 @@
       {{ end }}
       {{ range (first (.Scratch.Get "count") (sort .Site.RegularPages.ByLastmod.Reverse "Date" "desc")) }}
         <li class="post-item">
-          <div class="meta"><time datetime="{{ time .LastMod }}" itemprop="dateModified">{{ .Date.Format $dataFormat }}</time></div>
+          <div class="meta"><time datetime="{{ time .Date }}" itemprop="dateModified">{{ .Date.Format $dataFormat }}</time></div>
           <span><a href="{{ .Permalink }}">{{ if .Title }} {{- .Title -}} {{ else }} {{- print "Untitled" -}}{{ end }}</a></span>
         </li>
       {{ end }}
