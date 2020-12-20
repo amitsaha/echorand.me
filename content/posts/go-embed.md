@@ -1,5 +1,5 @@
 ---
-title:  Embedding files in Go using "embed"
+title:  Embedding files in Go using the "embed" package
 date: 2020-12-20
 categories:
 - go
@@ -90,7 +90,7 @@ You can see the working demo [here](https://github.com/amitsaha/go-embed).
 
 ## Notes
 
-If you don't like the `embed` package being imported for it's side-effects,
+If you don't like the `embed` package being imported for its side-effects,
 this may change before the final release. See
 [here](https://github.com/golang/go/issues/43217#issuecomment-748438637) for
 the details.
