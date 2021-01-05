@@ -34,7 +34,7 @@ engineering.
 
 ## Tooling
 
-- **My favorite tools so far**: `iptables, `tc`, `strace`, `tcpkill`
+- **My favorite tools so far**: `iptables`, `tc`, `strace`, `tcpkill`
 - [Awesome Chaos Engineering](https://github.com/dastergon/awesome-chaos-engineering)
 
 ## Community
