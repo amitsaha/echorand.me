@@ -1,5 +1,5 @@
 ---
-title:  Notes on Mutual TLS Authentication in Kubernetes
+title:  Mutual TLS Authentication in Kubernetes
 date: 2021-01-15
 categories:
 -  infrastructure
@@ -38,5 +38,10 @@ to read on this topic to learn just enough.
 
 ## Mutual TLS in Kubernetes
 
+The primary bit of information we should know when discussing about mutual TLS in Kubernetes is the
+presence of the [cluster root certificate authority](https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/)
+which is used by all the cluster components to communicate with the master.
+
+This also means that you can generate your own certificates as the same document shows.
 
 
