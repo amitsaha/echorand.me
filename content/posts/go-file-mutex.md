@@ -1,5 +1,5 @@
 ---
-title: sync.Mutex and Files in Go
+title: Concurrency safe file access in Go
 date: 2021-01-19
 categories:
 -  go
