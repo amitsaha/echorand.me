@@ -16,7 +16,7 @@ in the form of a standard library package is great news.
 Let's see how we can use it. I will keep this post updated as the 1.16 release
 evolves.
 
-## Getting Go 1.16 Beta 1
+# Getting Go 1.16 Beta 1
 
 If you have Go installed already, run:
 
@@ -40,7 +40,7 @@ go version go1.16beta1 darwin/amd64
 ```
 
 
-## Demo - Embedding a template
+# Demo - Embedding a template
 
 As an example of a file that we want to embed, let's consider a Go template
 which generates Go source code:
@@ -88,7 +88,7 @@ tmpl, err := tmpl.Parse(string(tmplMainGo))
 
 You can see the working demo [here](https://github.com/amitsaha/go-embed).
 
-## Notes
+# Notes
 
 If you don't like the `embed` package being imported for its side-effects,
 this may change before the final release. See

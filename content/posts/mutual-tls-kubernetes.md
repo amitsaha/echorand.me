@@ -3,7 +3,6 @@ title:  Mutual TLS Authentication in Kubernetes
 date: 2021-01-15
 categories:
 -  infrastructure
-draft: true
 ---
 
 I watched this presentation titled [Achieving Mutual TLS: Secure Pod-to-Pod Communication Without the Hassle](https://www.usenix.org/conference/srecon20americas/presentation/hahn)
@@ -12,7 +11,7 @@ references I came across that helped me learn more.
 
 I will be using a cluster provisioned via [minikube](https://github.com/kubernetes/minikube)
 
-## What is Mutual TLS Authentication?
+# What is Mutual TLS Authentication?
 
 Okay, so first up what is it that we are trying to solve?
 
@@ -38,13 +37,13 @@ When the client communicates with the server, there is a two-way verification:
 This [article](https://medium.com/sitewards/the-magic-of-tls-x509-and-mutual-authentication-explained-b2162dec4401) is a good post
 to learn just enough about mutual TLS.
 
-## Mutual TLS in Kubernetes
+# Mutual TLS in Kubernetes
 
 The primary bit of information we should know when discussing about mutual TLS in Kubernetes is the
 presence of the [cluster root certificate authority](https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/)
 which is used by all the cluster components to communicate with the master.
 
-### Poking around
+## Poking around
 
 
 

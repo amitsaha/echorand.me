@@ -1,6 +1,6 @@
 ---
 title: Concurrency safe file access in Go
-date: 2021-01-19
+date: 2021-01-18
 categories:
 -  go
 ---
