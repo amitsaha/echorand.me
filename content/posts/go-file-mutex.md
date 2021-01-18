@@ -12,7 +12,7 @@ when you just want to run a single copy of your application.
 
 Let's see a pattern for implementing concurrency safe file access in Go using `sync.Mutex`. 
 
-# Our data structure
+## Our data structure
 
 Let's consider the following `struct` type:
 
@@ -38,7 +38,7 @@ You have already realized that I am going to be persisting the `map` object as a
 Of course, you could choose any other object type to persist, any other encoding mechanism instead of JSON, or
 a combination of the two. The implementation will vary then, but hopefully the ideas are transferable.
 
-# A reference implementation
+## A reference implementation
 
 We will create a new package to encapsulate all the file operations:
 
@@ -104,7 +104,7 @@ type myDataType struct {
 
 This type will encapsulate a single data item we may want to read or write from the map, `Store`.
 
-## Writing to the file
+### Writing to the file
 
 The `Write()` function is called with an object of `myDataType` which contains
 both the key and value to store in the map and looks like this:
@@ -157,7 +157,7 @@ If we have another goroutine attempting to get a lock to write to the file, it w
 till the previous goroutine has released the lock.
 
 
-## Reading from file
+### Reading from file
 
 The `Read()` function accepts a key, `id` whose value we are interested in. Recall that our key object here
 is a `map[string]string`
@@ -201,14 +201,13 @@ func (j fileStore) ReadFromFile() error {
 }
 ```
 
-# Notes
+## Notes
 
 It's worth noting though that in the `WriteToFile()` function, truncation operation removes the old file before creating
 the new one. Hence if the application is killed in the window between the removal and the creation, we have lost
 all the data. So we can improve upon this by using a `rename()` operation instead.
 
-
-# Learn more
+## Learn more
 
 - An introduction to [sync.Mutex](https://tour.golang.org/concurrency/9)
 - [Tailscale - An unlikely database migration](https://tailscale.com/blog/an-unlikely-database-migration/)
