@@ -206,10 +206,10 @@ func (j fileStore) ReadFromFile() error {
 It's worth noting though that in the `WriteToFile()` function, truncation operation removes the old file before creating
 the new one. Hence if the application is killed in the window between the removal and the creation, we have lost
 all the data. So we can improve upon this by using a `rename()` operation instead.
-This was pointed out in this [reddit discussion](https://www.reddit.com/r/golang/comments/2pa2rf/using_a_json_file_as_a_database_safely_in_go/)
+
 
 # Learn more
 
 - An introduction to [sync.Mutex](https://tour.golang.org/concurrency/9)
 - [Tailscale - An unlikely database migration](https://tailscale.com/blog/an-unlikely-database-migration/)
-- For an alternative to using `sync.Mutex`, see [https://blog.gopheracademy.com/advent-2014/safe-json-file-db-in-go/](https://blog.gopheracademy.com/advent-2014/safe-json-file-db-in-go/)
+- For an alternative to using `sync.Mutex`, see [this post](https://blog.gopheracademy.com/advent-2014/safe-json-file-db-in-go/)
