@@ -38,18 +38,51 @@ When the client communicates with the server, there is a two-way verification:
 This [article](https://medium.com/sitewards/the-magic-of-tls-x509-and-mutual-authentication-explained-b2162dec4401) is a good post
 to learn just enough about mutual TLS.
 
-## What are those certificates in my pod?
+Before we dive into looking into the state of mutual TLS in Kubernetes, let's familiarize ourselves with the the
+cluster root certificate authority
+
+## Cluster root certificate authority
 
 The primary bit of information we should know when discussing about mutual TLS in Kubernetes is the
 presence of the [cluster root certificate authority](https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/)
 which is used by all the cluster components to communicate with the master. This also means that 
 
-### Poking around
 
-You will 
+curl https://kubernetes.default
+curl: (60) SSL certificate problem: unable to get local issuer certificate
+More details here: https://curl.haxx.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the web page mentioned above.
 
 
-Let's now deploy an application - a HTTP server which listens on port 8080. I
 
+$ curl --cacert ./ca.crt https://kubernetes.default
+{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {
+    
+  },
+  "status": "Failure",
+  "message": "forbidden: User \"system:anonymous\" cannot get path \"/\"",
+  "reason": "Forbidden",
+  "details": {
+    
+  },
+  "code": 403
+}
+
+/var/run/secrets/kubernetes.io/serviceaccount
+
+
+## Create a server certificate signed by the root CA
+
+https://github.com/cloudflare/cfssl
+
+## Create a client certificate signed by the root CA
+
+## ..
 
 
