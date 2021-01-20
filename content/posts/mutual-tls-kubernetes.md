@@ -77,14 +77,18 @@ $ curl --cacert ./ca.crt https://kubernetes.default
 /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 
 
-## Create a server certificate signed by the root CA
+### Create a server certificate signed by the root CA
 
 https://github.com/cloudflare/cfssl
 
-## Create a client certificate signed by the root CA
+### Create a client certificate signed by the root CA
 
 ## Client and server using different CAs
 
 https://hemantkumar.net/kubernetes-mutual-auth-with-diffferent-cas.html
 
+
+## Service mesh and mutual TLS
+
+https://istio.io/latest/docs/tasks/security/authentication/mtls-migration/
 
