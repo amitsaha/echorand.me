@@ -7,10 +7,10 @@ draft: true
 ---
 
 I watched this presentation titled [Achieving Mutual TLS: Secure Pod-to-Pod Communication Without the Hassle](https://www.usenix.org/conference/srecon20americas/presentation/hahn)
-and that led me to explore a bit more on the state of Mutual TLS in Kubernetes. Here are some notes with explorations and
-references I came across that helped me learn more.
+and that led me to explore a bit more on the state of Mutual TLS in Kubernetes.
 
-I will be using a cluster provisioned via [minikube](https://github.com/kubernetes/minikube)
+I will be using a cluster provisioned via [minikube](https://github.com/kubernetes/minikube) on OS X
+and `kubectl` configured to communicate with the cluster.
 
 ## What is Mutual TLS Authentication?
 
@@ -74,7 +74,7 @@ $ curl --cacert ./ca.crt https://kubernetes.default
   "code": 403
 }
 
-/var/run/secrets/kubernetes.io/serviceaccount
+/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
 
 
 ## Create a server certificate signed by the root CA
@@ -83,6 +83,8 @@ https://github.com/cloudflare/cfssl
 
 ## Create a client certificate signed by the root CA
 
-## ..
+## Client and server using different CAs
+
+https://hemantkumar.net/kubernetes-mutual-auth-with-diffferent-cas.html
 
 
