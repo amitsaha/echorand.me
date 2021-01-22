@@ -9,7 +9,7 @@ aliases:
 
 In an earlier article, [Monitoring Your Synchronous Python Web Applications Using Prometheus](https://blog.codeship.com/monitoring-your-synchronous-python-web-applications-using-prometheus/), I discussed a limitation of using the Python client for prometheus. 
 
-#  Limitation of native prometheus exporting
+##  Limitation of native prometheus exporting
 
 [prometheus](https://prometheus.io) was built with single process multi-threaded applications in mind.
 I use the term multi-threaded here to also include coroutine based concurrent applications such as
@@ -34,7 +34,7 @@ metric rather worker level. (Aside: this is each worker behaving in [WYSIATI](ht
 
 What can we do? We have a few options.
 
-# Option #1 - Add a unique label to each metric
+## Option #1 - Add a unique label to each metric
 
 To work around this problem, you can add a unique `worker_id` as a label such that each metric as scraped
 by prometheus is unique for one application instance (by virtue of having different value for the 
@@ -54,7 +54,7 @@ metrics per application instance.
 
 A demo of this approach can be found [here](https://github.com/amitsaha/python-prometheus-demo/tree/master/flask_app_prometheus_worker_id).
 
-# Option #2: Multi-process mode
+## Option #2: Multi-process mode
 
 The prometheus [Python Client](https://github.com/prometheus/client_python)
 has a multi-processing mode which essentially creates a shared prometheus registry and shares
@@ -66,20 +66,20 @@ the worker responding.
 
 A demo of this approach can be found [here](https://github.com/amitsaha/python-prometheus-demo/tree/master/flask_app_prometheus_multiprocessing).
 
-# Option #3: The Django way
+## Option #3: The Django way
 
 The Django prometheus client adopts an approach where you basically have each [worker listening](https://github.com/korfuri/django-prometheus/blob/master/documentation/exports.md) on a unique
 port for prometheus's scraping requests. Thus, to prometheus, each of these workers are different targets
 as if they were running on different instances of the application.
 
-# Option #4: StatsD exporter
+## Option #4: StatsD exporter
 
 I discussed this solution in [Monitoring Your Synchronous Python Web Applications Using Prometheus](https://blog.codeship.com/monitoring-your-synchronous-python-web-applications-using-prometheus/). Essentially, instead of exporting native prometheus metrics from your
 application and prometheus scraping our application, we push our metrics to a locally running [statsd exporter](https://github.com/prometheus/statsd_exporter) instance. Then, we setup prometheus to scrape the statsd exporter instance.
 
 For Django, we can use a similar approach as well.
 
-# Exporting metrics for non-HTTP applications
+## Exporting metrics for non-HTTP applications
 
 For non-HTTP applications (such as Thrift or gRPC servers), we have two options as far as I see it.
 
@@ -91,7 +91,7 @@ the limitation that Python HTTP applications (in this context) suffer.
 The second option is to push the metrics to the statsd exporter. This is simpler since we don't have
 to have a HTTP server running.
 
-# Conclusion
+## Conclusion
 
 Option #4 (using the `statsd exporter`) seems to be the best option to me especially when we have to manage/work with
 both WSGI and non-HTTP multi-process applications. Combined with the [dogstatsd-py](https://github.com/DataDog/datadogpy)
@@ -106,13 +106,13 @@ This option  becomes even more attractive if we are migrating from using `statsd
 
 If I am wrong in my thinking here, please let me know.
 
-# Learn more
+## Learn more
 
 - [Monitoring Your Synchronous Python Web Applications Using Prometheus](https://blog.codeship.com/monitoring-your-synchronous-python-web-applications-using-prometheus/)
 - [Python prometheus client](https://github.com/prometheus/client_python)
 - [Common query patterns in PromQL](https://www.robustperception.io/common-query-patterns-in-promql/)
 
-# Acknowledgements
+## Acknowledgements
 
 Thanks to Hynek Schlawack for a private email discussion on Python + prometheus. On their suggestion
 I tried using the `worker_id` approach and took another look at the multiprocessing support in
