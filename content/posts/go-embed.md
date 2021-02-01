@@ -16,7 +16,7 @@ in the form of a standard library package is great news.
 Let's see how we can use it. I will keep this post updated as the 1.16 release
 evolves.
 
-# Getting Go 1.16 RC 1
+## Getting Go 1.16 RC 1
 
 If you have Go installed already, run:
 
@@ -40,7 +40,7 @@ go version go1.16rc1 darwin/amd64
 ```
 
 
-# Demo - Embedding a template
+## Demo - Embedding a template
 
 As an example of a file that we want to embed, let's consider a Go template
 which generates Go source code:
@@ -105,7 +105,7 @@ func main() {
 
 ```
 
-# Notes
+## Notes
 
 The `embed` package also currently supports embedding an file system tree via
 the `embed.FS` type. See the package docs for the
