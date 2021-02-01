@@ -5,7 +5,7 @@ categories:
 - go
 ---
 
-Go 1.16 Beta 1 was [announced](https://groups.google.com/g/golang-nuts/c/Jhs9l-mrR20) recently and the most
+Go 1.16 Release Candidate 1 was [announced](https://groups.google.com/g/golang-announce/c/U_FUHY4wuSc/m/3_Vw3oqpAgAJ) recently and the most
 exciting feature for me in this release is the new "embed" package which allows you to embed a file contents
 as part of the Go application binary. 
 
@@ -16,16 +16,16 @@ in the form of a standard library package is great news.
 Let's see how we can use it. I will keep this post updated as the 1.16 release
 evolves.
 
-# Getting Go 1.16 Beta 1
+# Getting Go 1.16 RC 1
 
 If you have Go installed already, run:
 
 ```go
-$ go get golang.org/dl/go1.16beta1 
+$ go get golang.org/dl/go1.16rc1
 
 # Substitute ~/go/bin with your GOBIN path if you have
 # one set explicitly
-$ ~/go/bin/go1.16beta1 download
+$ ~/go/bin/go1.16rc1 download 
 ...
 
 ```
@@ -34,9 +34,9 @@ After the above command finishes execution, you will now be able to access the 1
 
 ```
 # Substitute ~/go/bin with your GOBIN path if you have
-# one set explicitly
-$ ~/go/bin/go1.16beta1 version
-go version go1.16beta1 darwin/amd64
+# one set explicitly or GOBIN is not in your PATH
+$ ~/go/bin/go1.16rc1 version
+go version go1.16rc1 darwin/amd64
 ```
 
 
@@ -86,14 +86,26 @@ tmpl, err := tmpl.Parse(string(tmplMainGo))
 ...
 ```
 
-You can see the working demo [here](https://github.com/amitsaha/go-embed).
+You can see the working demo [here](https://github.com/amitsaha/go-embed). Clone the repository and run the following steps:
+
+```
+# Substitute ~/go/bin with your GOBIN path if you have
+# one set explicitly or GOBIN is not in your PATH
+
+$ ~/go/bin/go1.16rc1 build
+
+$ ./go-embed 
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Printf("Hello World - Welcome to Jane's World")
+}
+
+```
 
 # Notes
-
-If you don't like the `embed` package being imported for its side-effects,
-this may change before the final release. See
-[here](https://github.com/golang/go/issues/43217#issuecomment-748438637) for
-the details.
 
 The `embed` package also currently supports embedding an file system tree via
 the `embed.FS` type. See the package docs for the
