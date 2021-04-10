@@ -16,7 +16,7 @@ lastmod = ["lastmod", ":fileModTime", ":default"]
   showProjectsList = false
   show_updated = true
   rss = true
-  dark = auto
+  dark = "auto"
 
 [[params.social]]
   name = "github"
