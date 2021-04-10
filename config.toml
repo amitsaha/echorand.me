@@ -1,7 +1,7 @@
 baseURL = "https://echorand.me"
 languageCode = "en-us"
 title = "Exploring Software"
-theme = "cactus"
+theme = "etch"
 googleAnalytics = "UA-108901610-1"
 enableGitInfo = true
 lastmod = ["lastmod", ":fileModTime", ":default"]
@@ -16,6 +16,7 @@ lastmod = ["lastmod", ":fileModTime", ":default"]
   showProjectsList = false
   show_updated = true
   rss = true
+  dark = auto
 
 [[params.social]]
   name = "github"
