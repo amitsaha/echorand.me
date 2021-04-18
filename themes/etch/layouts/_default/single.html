@@ -8,4 +8,7 @@
     </header>
     {{- .Content -}}
 </article>
+<footer id="footer">
+  Last update [commit](https://github.com/amitsaha/echorand.me/commit/{{.GitInfo.Hash}}).
+</footer>
 {{ end }}
