@@ -9,6 +9,8 @@
     {{- .Content -}}
 </article>
 <footer id="footer">
-  Last update [commit](https://github.com/amitsaha/echorand.me/commit/{{.GitInfo.Hash}}).
+  <a href="https://github.com/amitsaha/echorand.me/commit/{{.GitInfo.Hash}}">Last Update</a>
+  | <a href="https://github.com/amitsaha/echorand.me/edit/master/content/{{.File.Path}}">Edit post</a>
+  
 </footer>
 {{ end }}
