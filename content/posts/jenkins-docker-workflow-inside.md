@@ -1,5 +1,5 @@
 ---
-title:  Jenkins Docker Workflow plugin - A look inside `inside()`
+title:  Jenkins Docker Workflow plugin - A look at inside()
 date: 2019-11-26
 categories:
 -  infrastructure
