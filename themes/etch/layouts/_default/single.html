@@ -9,8 +9,10 @@
     {{- .Content -}}
 </article>
 <footer id="footer">
-  <a href="https://github.com/amitsaha/echorand.me/commit/{{.GitInfo.Hash}}">Last Update</a>
+    Post managed in a <a href="https://github.com/amitsaha/echorand.me">git repo</a> | <a href="https://github.com/amitsaha/echorand.me/commit/{{.GitInfo.Hash}}">Last Commit on this post </a>
   | <a href="https://github.com/amitsaha/echorand.me/edit/master/content/{{.File.Path}}">Edit post</a>
-  
+    <p>
+    Blog managed via <a href="https://gohugo.io/">Hugo</a> and using a modified version of the <a href="https://themes.gohugo.io/etch/">Etch</a> theme.
+    </p>  
 </footer>
 {{ end }}
