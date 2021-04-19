@@ -1,8 +1,8 @@
 ---
-title: Getting started with Golang plugins
+title: Getting started with Go plugin package
 date: 2020-05-26
 categories:
--  golang
+-  go
 ---
 
 # Introduction
