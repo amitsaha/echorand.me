@@ -2,7 +2,7 @@
 title:  Notes on using Go to write gitbackup
 date: 2017-03-26
 categories:
--  golang
+-  go
 aliases:
 - /notes-on-using-golang-to-write-gitbackup.html
 ---
