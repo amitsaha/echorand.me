@@ -1,8 +1,8 @@
 ---
-title:  Quick and dirty debian packages for your Golang application 
+title:  Quick and dirty debian packages for your Go application 
 date: 2018-01-25
 categories:
--  golang
+-  go
 aliases:
 - /quick-and-dirty-debian-packages-for-your-golang-application.html
 ---
