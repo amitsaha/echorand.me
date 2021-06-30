@@ -8,9 +8,9 @@ aliases:
 You Have Written A Web Application, Now What? - Python Web Conference, March 2021
 ---------------------------------------------------------------------------------
 
-Details `here <https://2021.pythonwebconf.com/presentations/you-have-written-a-web-application-now-what>`__. Videos and slides
+Details `here <https://2021.pythonwebconf.com/presentations/you-have-written-a-web-application-now-what>`__. 
+[Video](https://t.co/lL1ehzPdjM?amp=1) and [slides](https://raw.githubusercontent.com/amitsaha/python-web-conf-2021/main/python-web-conf-2021(2).pdf)
 will be coming up later on.
-
 
 Golang for Ops Automation - Sydney Golang/Infracoders/Women Who Go meetup, September, 2019
 ------------------------------------------------------------------------------------------
