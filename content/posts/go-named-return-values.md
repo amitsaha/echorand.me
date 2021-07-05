@@ -1,5 +1,5 @@
 ---
-title:  defer() and named return values in Go
+title:  Named return values in Go
 date: 2021-07-05
 categories:
 -  go
@@ -39,14 +39,30 @@ The updated function signature essentially does two things:
 2. Declares two variables - `i` of type `int` and `e` of type `error`
 
 Now, when a `return` statement is encountered, the latest value stored in `i`
-and `e` are the returned values from this function.
+and `e` are the returned values from this function. The above is meant
+to be a demonstration of using named values, but let's consider for a moment
+if there is any reason to prefer this over the "non-named" version.
+
+I will list the pros first:
+
+1. I do like declaring the variables along with the function signature, automatically giving the variables a function scope
+2. Returning from the function is, simply writing `return`
+
+And the cons are:
+
+1. `return` is also valid in a function when it returns no values, so code reading can be an ambiguous exercise
+2. What if i mistakenly used one of the variables that i want to return for some temporary calculation forgetting that
+its value will be returned
+3. I have also got used to writing "explicit" return statements, so it helps my code readability
+
+(They aren't very well defined, as I am still sort of thinking about it)
+
+So, as of this post, i have only found one reason to use named return values - primarily because it's the only way.
 
 ## Why would I use Named return values?
 
-Till today, i hadn't quite understood why i may need to use named return values
-and so never used them in any of my code. However, today I was writing gRPC interceptors
-for my book and i had to use `recover()` to handle `panic()` in a deferred function call.
-I came across the usefulness of named return values while going through some 
+Today I was writing gRPC interceptors for my book and i wanted to use `recover()` to "handle" `panic()` 
+in a deferred function call. I came across the usefulness of named return values while going through some 
 [examples](https://github.com/grpc-ecosystem/go-grpc-middleware). 
 
 This technique is well described in the [Defer, Panic, and Recover](https://blog.golang.org/defer-panic-and-recover) blog
@@ -133,6 +149,6 @@ Err: <nil>
 In the second case, the values returned are the `nil` values of the `int` and `error` types - `0`
 and `nil` respectively. 
 
-The way I see it, named return values give the application authors chance to set desired 
-safe/default values that are eventually returned from the function that encountered the 
+The way I see it, for this use-case named return values give the application authors chance to set 
+desired safe/default values that are eventually returned from the function that encountered the 
 panic.
