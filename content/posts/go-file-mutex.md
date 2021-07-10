@@ -18,7 +18,7 @@ Let's consider the following `struct` type:
 
 ```
 type fileStore struct {
-	Mu    *sync.Mutex
+	Mu    sync.Mutex
 	Store map[string]string `json:"store"`
 }
 ```
@@ -28,7 +28,7 @@ At any point of time our application is running, the `Store` object must be stro
 the file. Of course, the application may be killed or crash between updating the map and writing to file which doesn't
 help with our consistency goal, but let's ignore that for now.
 
-The `sync.Mutex` object, `Mu` is our guardrail here. It is our mechanism here to ensure that:
+The `sync.Mutex` object, `Mu` is our guard rail here. It is our mechanism here to ensure that:
 
 1. Only one goroutine is ever reading or writing to `Store` object
 2. Only one goroutine is ever populating the `Store` object from the file
@@ -51,7 +51,7 @@ package filestore
 // Our data structure that we will persist is guarded with
 // a Mutex object
 type fileStore struct {
-	Mu    *sync.Mutex
+	Mu    sync.Mutex
 	Store map[string]string `json:"store"`
 }
 
@@ -79,7 +79,7 @@ func Init(dataFileName string) error {
 			return err
 		}
 	}
-	FileStoreConfig.Fs = fileStore{Mu: &sync.Mutex{}, Store: make(map[string]string)}
+	FileStoreConfig.Fs = fileStore{Mu: sync.Mutex{}, Store: make(map[string]string)}
 	FileStoreConfig.DataFileName = dataFileName
 	return nil
 }
@@ -110,7 +110,7 @@ The `Write()` function is called with an object of `myDataType` which contains
 both the key and value to store in the map and looks like this:
 
 ```
-func (j fileStore) Write(data myDataType) error {
+func (j *fileStore) Write(data myDataType) error {
 	j.Mu.Lock()
 	defer j.Mu.Unlock()
 
@@ -127,7 +127,7 @@ The `Write()` function updates the `Store` map object and then uses a helper fun
 which looks like this:
 
 ```
-func (j fileStore) WriteToFile() error {
+func (j *fileStore) WriteToFile() error {
 	var f *os.File
 	jsonData, err := json.Marshal(j.Store)
 	if err != nil {
@@ -163,7 +163,7 @@ The `Read()` function accepts a key, `id` whose value we are interested in. Reca
 is a `map[string]string`
 
 ```
-func (j fileStore) Read(id string) (string, error) {
+func (j *fileStore) Read(id string) (string, error) {
 	j.Mu.Lock()
 	defer j.Mu.Unlock()
 
@@ -184,7 +184,7 @@ The helper function, `ReadFromFile()`, like its counterpart, `WriteToFile()` rea
 and overwrites the current `Store` object in memory:
 
 ```
-func (j fileStore) ReadFromFile() error {
+func (j *fileStore) ReadFromFile() error {
 
 	f, err := os.Open(FileStoreConfig.DataFileName)
 	if err != nil {
@@ -211,4 +211,5 @@ all the data. So we can improve upon this by using a `rename()` operation instea
 
 - An introduction to [sync.Mutex](https://tour.golang.org/concurrency/9)
 - [Tailscale - An unlikely database migration](https://tailscale.com/blog/an-unlikely-database-migration/)
+- [Beware of copying mutexes in Go](https://eli.thegreenplace.net/2018/beware-of-copying-mutexes-in-go/)
 - For an alternative to using `sync.Mutex`, see [this post](https://blog.gopheracademy.com/advent-2014/safe-json-file-db-in-go/)
