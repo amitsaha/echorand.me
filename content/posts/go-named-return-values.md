@@ -153,4 +153,5 @@ The way I see it, for this use-case named return values give the application aut
 desired safe/default values that are eventually returned from the function that encountered the 
 panic.
 
-Her's a link to a [discussion(https://stackoverflow.com/questions/15089726/why-should-return-parameters-be-named) on this topic.
+Her's a link to a [discussion](
+https://stackoverflow.com/questions/15089726/why-should-return-parameters-be-named) on this topic.
