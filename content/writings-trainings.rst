@@ -1,8 +1,20 @@
 ---
-title: Articles
+title: Writings and Trainings
 aliases:
 - /pages/articles.html
 ---
+
+
+*Books*
+
+- `Doing Math with Python <http://doingmathwithpython.github.io>`__
+- `Write Your First Program <http://phindia.com/saha/>`__
+
+
+*Manning Live Projects*
+
+- `Create a Secrets Sharing Application and Client in Go <https://www.manning.com/bundles/secrets-sharing-ser>`__
+- `https://www.manning.com/liveproject/create-a-web-application-scaffold-generator-in-go <https://www.manning.com/liveproject/create-a-web-application-scaffold-generator-in-go>`__
 
 *Software publications*
 
