@@ -44,13 +44,8 @@ lastmod = ["lastmod", ":fileModTime", ":default"]
     weight = 1
 
 [[menu.main]]
-    name = "Books"
-    url = "/books"
-    weight = 1
-
-[[menu.main]]
-    name = "Articles"
-    url = "/articles"
+    name = "Writings and Trainings"
+    url = "/writings-trainings"
     weight = 1
 
 [[menu.main]]
