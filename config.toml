@@ -55,7 +55,7 @@ lastmod = ["lastmod", ":fileModTime", ":default"]
 
 [[menu.main]]
     name = "Categories"
-    url = "/categories/"
+    url = "/categories"
     weight = 2
 
 [[menu.feed]]
