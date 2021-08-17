@@ -1,15 +1,15 @@
 ---
-title:  HandlerFunc, Handle and DefaultServeMux in Golang
+title:  HandlerFunc, Handle and DefaultServeMux in Go
 date: 2017-04-26
 categories:
--  golang
+-  go
 aliases:
 - /dissecting-golangs-handlerfunc-handle-and-defaultservemux.html
 ---
 
 # Introduction
 
-My aim in this post is to discuss three "concepts" in Golang that I come across while writing HTTP servers. Through this
+My aim in this post is to discuss three "concepts" in Go that I come across while writing HTTP servers. Through this
 post, my aim to get rid of my own lack of understanding (at least to a certain degree) about these. ~~Hopefully, it will
 be of use to others too.~~. The understanding will help you write better unit tests for your handlers as well as shown
 in this [blog post](https://www.digitalflapjack.com/blog/2018/4/10/better-testing-for-golang-http-handlers). 

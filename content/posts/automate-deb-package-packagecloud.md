@@ -1,14 +1,14 @@
 ---
-title:  Automatic building and publishing DEB packages for Golang applications 
+title:  Automatic building and publishing DEB packages for Go applications 
 date: 2018-02-24
 categories:
--  golang
+-  go
 aliases:
 - /automatic-building-and-publishing-deb-packages-for-golang-applications.html
 ---
 
-In my earlier post, [Quick and dirty debian packages for your Golang application](http://echorand.me/quick-and-dirty-debian-packages-for-your-golang-application.html)
-I shared a recipe building DEB packages for Golang applications. We are going to see the following things in this post building
+In my earlier post, [Quick and dirty debian packages for your Go application](http://echorand.me/quick-and-dirty-debian-packages-for-your-golang-application.html)
+I shared a recipe building DEB packages for Go applications. We are going to see the following things in this post building
 upon our recipe in that post:
 
 - Building the DEB packages in [Travis CI](https://travis-ci.org/amitsaha/golang-packaging-demo)
@@ -146,7 +146,7 @@ INFO[0000] I love logrus!
 # References
 
 - [Get started with Travis CI](https://docs.travis-ci.com/user/getting-started)
-- [Quick and dirty debian packages for your Golang application
+- [Quick and dirty debian packages for your Go application
 ](http://echorand.me/quick-and-dirty-debian-packages-for-your-golang-application.html)
 - [Example repo](https://github.com/amitsaha/golang-packaging-demo)
 

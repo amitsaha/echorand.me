@@ -1,8 +1,8 @@
 ---
-title:  Setup Golang 1.8 and gb on Fedora (and other Linux distributions)
+title:  Setup Go 1.8 and gb on Fedora (and other Linux distributions)
 date: 2017-03-01
 categories:
--  golang
+-  go
 aliases:
 - /setup-golang-18-and-gb-on-fedora-and-other-linux-distributions.html
 ---

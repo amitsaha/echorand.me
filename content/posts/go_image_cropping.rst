@@ -2,7 +2,7 @@
 title:  New article Write an Image Cropping program with Go
 date: 2016-04-17
 categories:
--  golang 
+-  go
 aliases:
 - /new-article-write-an-image-cropping-program-with-go.html
 ---

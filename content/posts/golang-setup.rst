@@ -1,8 +1,8 @@
 ---
-title:  Setup Golang on Fedora 24 (and other Linux distributions)
+title:  Setup Go on Fedora 24 (and other Linux distributions)
 date: 2016-06-23
 categories:
--  golang
+-  go
 aliases:
 - /setup-golang-on-fedora-24-and-other-linux-distributions.html
 ---

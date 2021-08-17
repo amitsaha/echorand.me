@@ -1,14 +1,14 @@
 ---
-title:  Examples of consuming data in Golang templates
+title:  Examples of consuming data in Go templates
 date: 2018-09-18
 categories:
--  golang
+-  go
 aliases:
 - /examples-of-consuming-data-in-golang-templates.html
 ---
 
-While working on creating a template file for a Golang project, I wanted to better understand how to work
-with data in Golang templates as available via the `html/template` package. In this post, I discuss
+While working on creating a template file for a Go project, I wanted to better understand how to work
+with data in Go templates as available via the `html/template` package. In this post, I discuss
 a few use cases that may arise.
 
 # Accessing a variable
@@ -226,7 +226,7 @@ Here, we invoke the in-built `len` function to calculate the length of `Name` an
 
 # Controlling output using template strings
 
-My first encounter with Golang templates was when working with [docker](https://docs.docker.com/config/formatting/) output
+My first encounter with Go templates was when working with [docker](https://docs.docker.com/config/formatting/) output
 formatting which allowed controlling what I get as output. Let's see how we can implement something like that
 for our program. The entire program is [here](https://github.com/amitsaha/golang-templates-demo/blob/master/format-output/test.go). 
 
@@ -330,7 +330,7 @@ but it seems like a hit and trial thing!
 # Accessing a map object
 
 Complete example [here](https://play.golang.org/p/4kz3Ji_56s9). You will see that by default `range .` iterates
-over the map's values, rather than keys (opposite of what we see in the Golang language).
+over the map's values, rather than keys (opposite of what we see in the Go language).
 
 
 # Explore
