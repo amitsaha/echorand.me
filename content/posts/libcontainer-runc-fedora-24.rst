@@ -2,7 +2,7 @@
 title:  runC and libcontainer on Fedora 23/24
 date: 2016-04-27
 categories:
--  golang
+-  go
 aliases:
 - /runc-and-libcontainer-on-fedora-2324.html
 ---
