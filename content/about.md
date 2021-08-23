@@ -8,9 +8,11 @@ date: 2019-06-16T10:53:16+10:00
 Hello, My name is Amit Saha. I work as a software engineer. I
 live in Sydney, Australia. 
 
-You may be interested in learning more about my [articles](../articles), [books](../books), 
-and software on [GitHub](https://github.com/amitsaha) profile. I also try and share things 
-I learn via [presenting](../talks) at various conferences and meetups.
+You may be interested in learning more about [articles, books and other training material](../writings-trainings/),
+I have created. I also try and share things I learn via [presenting](../talks/) at various conferences and meetups.
+
+You may find something useful on my [GitHub](https://github.com/amitsaha) (a software repository host)
+profile. 
 
 # Open source contributions
 
