@@ -3,6 +3,28 @@ title: "About"
 date: 2019-06-16T10:53:16+10:00
 ---
 
+# About me
+
+Hello, My name is Amit Saha. I work as a software engineer. I
+live in Sydney, Australia. 
+
+You may be interested in learning more about my [articles](../articles), [books](../books), 
+and software on [GitHub](https://github.com/amitsaha) profile. I also try and share things 
+I learn via [presenting](../talks) at various conferences and meetups.
+
+# Open source contributions
+
+Over the years, I have contributed code/docs to various projects:
+
+- NetBeans IDE (Java)
+- SymPy (Python)
+- CPython (Python)
+- NLog (C sharp)
+- Statsd exporter (Go)
+- Vector (Rust)
+- Inspec (Ruby)
+
+(My email address for these commits would be amitsaha.in@gmail.com or amitksaha@netbeans.org)
 
 # This blog
 
@@ -17,26 +39,8 @@ Basically the publishing flow for me looks like this:
 1. The image is then run to generate the website source
 1. The generated website source is then pushed to [amitsaha.github.io](https://github.com/amitsaha/amitsaha.github.io)
 
-# About me
-
-Hello, My name is Amit Saha. I work as a software engineer and I [explore software](https://github.com/amitsaha)
-via programming, writing [articles](../articles) and [books](../books) and giving [talks](../talks).
-
-# Open source contributions
-
-Over the years, I have contributed code/docs to various projects in various programming languages:
-
-- NetBeans IDE (Java)
-- SymPy (Python)
-- CPython (Python)
-- NLog (C sharp)
-- Statsd exporter (Golang)
-- Vector (Rust)
-- Inspec (Ruby)
-
-(My email address for these commits would be amitsaha.in@gmail.com or amitksaha@netbeans.org)
 
 # Contact me
 
 You can contact me via [email](mailto:amitsaha.in@gmail.com), [Twitter](http://twitter.com/echorand)
-and on [LinkedIn](https://au.linkedin.com/in/echorand). I welcome any queries/questions you may have.
+and on [LinkedIn](https://au.linkedin.com/in/echorand).
