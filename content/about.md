@@ -44,5 +44,5 @@ Basically the publishing flow for me looks like this:
 
 # Contact me
 
-You can contact me via [email](mailto:amitsaha.in@gmail.com), [Twitter](http://twitter.com/echorand)
+You can contact me via [email](mailto:mail@echorand.me), [Twitter](http://twitter.com/echorand)
 and on [LinkedIn](https://au.linkedin.com/in/echorand).
