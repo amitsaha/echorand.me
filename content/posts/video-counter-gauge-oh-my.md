@@ -7,11 +7,7 @@ aliases:
 - /video-pycon-us-2018-talk-counter-gauge-oh-my.html
 ---
 
-The video for my PyCon talk - "Counter, Gauge, Oh My!" is up:
-
-<div class="youtube youtube-16x9">
-<iframe src="https://www.youtube.com/embed/R4kMwckrUlg" allowfullscreen seamless frameBorder="0"></iframe>
-</div>
+The video for my PyCon talk - "Counter, Gauge, Oh My!" is [available now](https://www.youtube.com/watch?v=R4kMwckrUlg).
 
 The accompanying git repository is [here](https://github.com/amitsaha/python-monitoring-talk#slides) and has
 the demos, links to some of my related articles and other resources.
