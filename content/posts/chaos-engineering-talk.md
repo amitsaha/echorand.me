@@ -1,5 +1,5 @@
 ---
-title:  Talk: Planning for Failure using Chaos Engineering
+title:  PyCon AU 2021 Talk - Planning for Failure using Chaos Engineering
 date: 2021-09-13
 categories:
 -  infrastructure
