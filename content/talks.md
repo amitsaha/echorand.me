@@ -6,7 +6,7 @@ aliases:
 
 Please find below details/resources related to the talks I have given so far with the most recent talk listed first.
 
-## Planning for Failure using Chaos Engineering
+#### Planning for Failure using Chaos Engineering
 
 - Conference: Pycon Australia, September, 2021
 - [Talk details](https://pretalx.com/pycon-au-2021/talk/QBWRZJ/)
@@ -15,7 +15,7 @@ Please find below details/resources related to the talks I have given so far wit
 - [Code for Demos](https://github.com/amitsaha/pycon-au-2021)
 
 
-## You Have Written A Web Application, Now What?
+#### You Have Written A Web Application, Now What?
 
 - Conference: Python Web Conference, March 2021
 - [Talk details](https://2021.pythonwebconf.com/presentations/you-have-written-a-web-application-now-what)
@@ -23,19 +23,19 @@ Please find below details/resources related to the talks I have given so far wit
 - [Slides](https://raw.githubusercontent.com/amitsaha/python-web-conf-2021/main/python-web-conf-2021(2).pdf)
 - [Code for Demos](https://github.com/amitsaha/python-web-conf-2021)
 
-## Golang for Ops Automation 
+#### Golang for Ops Automation 
 
 - Meetup: Sydney Golang/Infracoders/Women Who Go meetup, September, 2019
 - [Video](https://youtu.be/5nqO_1yKhZE?t=383)
 - [Slides](https://bit.ly/2mJCEnn)
 
-## Python's Django Framework + Prometheus 
+#### Python's Django Framework + Prometheus 
 
 - Meetup: Sydney Django Meetup, August, 2019
 - [Slides](https://github.com/amitsaha/python-monitoring-talk/blob/master/slides/Django-monitoring-with-prometheus.pdf)
 - [Code for Demos](https://github.com/amitsaha/python-monitoring-talk)
 
-## Counter, Gauge, Upper 90 - Oh My!
+#### Counter, Gauge, Upper 90 - Oh My!
 
 - Conference: PyCon US, June, 2018
 - [Talk details](https://us.pycon.org/2018/schedule/presentation/133/)
@@ -43,20 +43,20 @@ Please find below details/resources related to the talks I have given so far wit
 - [Slides](https://github.com/amitsaha/python-monitoring-talk/blob/master/slides/pycon-2018.pdf)
 - [Code for Demos](https://github.com/amitsaha/python-monitoring-talk)
 
-## Counter, Gauge, Upper 90 - Oh My! 
+#### Counter, Gauge, Upper 90 - Oh My! 
 
 - Meetup: Sydney Python Meetup, May, 2018
 - [Slides](https://github.com/amitsaha/python-monitoring-talk/blob/master/slides/sypy.pdf)
 - [Code for Demos](https://github.com/amitsaha/python-monitoring-talk)
 
-## Setting up AWS Assume Role with Terraform 
+#### Setting up AWS Assume Role with Terraform 
 
 - Meetup: Sydney Infrastructure Coders Meetup, April 2018
 - [Slides](https://github.com/amitsaha/aws-assume-role-demo/blob/master/AWS%20EC2%20Assume%20Role%20with%20Terraform.pdf)
 - [Code for Demos](https://github.com/amitsaha/aws-assume-role-demo)
 
 
-## Doing Math with Python
+#### Doing Math with Python
 
 - Conference: PyCon Australia Education Seminar, 2016
 - [Talk Details](https://2016.pycon-au.org/schedule/83/view_talk?day=friday)
@@ -64,13 +64,13 @@ Please find below details/resources related to the talks I have given so far wit
 - [Slides](https://github.com/doingmathwithpython/pycon-au-2016/blob/master/slides.pdf)
 - [Code for Demos](https://github.com/doingmathwithpython/pycon-au-2016)
 
-## Doing Math with Python 
+#### Doing Math with Python 
 
 - Conference: PyCon US Education Seminar, 2016
 - [Slides](https://doingmathwithpython.github.io/pycon-us-2016/#/)
 - [Code for Demos](https://github.com/doingmathwithpython/pycon-us-2016)
 
-## PiCloud 
+#### PiCloud 
 
 - Conference: PyCon Australia, 2012
 - [Slides](https://github.com/amitsaha/picloud-preso/blob/master/slides.pdf)
