@@ -1,6 +1,5 @@
 ---
-title: "Echorand.me Admin"
-date: 2021-09-16
+title: Admin
 ---
 
 <!doctype html>
