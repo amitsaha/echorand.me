@@ -59,6 +59,6 @@ lastmod = ["lastmod", ":fileModTime", ":default"]
     weight = 2
 
 [[menu.main]]
-    name = "Subscribe"
+    name = "Subscribe (RSS)"
     url = "/index.xml" 
     
