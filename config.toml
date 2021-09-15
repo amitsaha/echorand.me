@@ -58,6 +58,11 @@ lastmod = ["lastmod", ":fileModTime", ":default"]
     url = "/categories"
     weight = 2
 
-[[menu.feed]]
+[[menu.main]]
     name = "Subscribe"
     url = "/index.xml"
+    
+[[menu.main]]
+    name = "Admin"
+    url = "/admin" 
+    
