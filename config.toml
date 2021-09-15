@@ -60,9 +60,5 @@ lastmod = ["lastmod", ":fileModTime", ":default"]
 
 [[menu.main]]
     name = "Subscribe"
-    url = "/index.xml"
-    
-[[menu.main]]
-    name = "Admin"
-    url = "/admin" 
+    url = "/index.xml" 
     
