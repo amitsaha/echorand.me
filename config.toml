@@ -6,6 +6,9 @@ googleAnalytics = "UA-108901610-1"
 enableGitInfo = true
 lastmod = ["lastmod", ":fileModTime", ":default"]
 
+[markup.goldmark.renderer]
+unsafe= true
+
 [params]
   description = "echo $RANDOM. Exploring Software and writing about it."
   mainSection = "posts"
