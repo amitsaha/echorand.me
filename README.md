@@ -1,4 +1,4 @@
-# Hugo source for https://echorand.me
+# Source for https://echorand.me
 
 ![CI](https://github.com/amitsaha/echorand.me/workflows/CI/badge.svg?branch=master)
 
