@@ -9,7 +9,7 @@ lastmod = ["lastmod", ":fileModTime", ":default"]
 [params]
   description = "echo $RANDOM. Exploring Software and writing about it."
   mainSection = "posts"
-  showAllPostsOnHomePage = false
+  showAllPostsOnHomePage = true
   postsOnHomePage = 20 
   tagsOverview = true
   showProjectsList = false
