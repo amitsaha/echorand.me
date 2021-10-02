@@ -43,5 +43,5 @@ Basically the publishing flow for me looks like this:
 
 # Contact me
 
-You can contact me via [email](mailto:mail@echorand.me) [80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B](https://keys.openpgp.org/search?q=mail%40echorand.me), 
+You can contact me via [email](mailto:mail@echorand.me) (GPG key: [80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B](https://keys.openpgp.org/search?q=mail%40echorand.me)), 
 [Twitter](http://twitter.com/echorand) and on [LinkedIn](https://au.linkedin.com/in/echorand).
