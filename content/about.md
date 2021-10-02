@@ -46,7 +46,7 @@ Basically the publishing flow for me looks like this:
 You can contact me via [email](mailto:mail@echorand.me) (GPG key: [80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B](https://keys.openpgp.org/search?q=mail%40echorand.me)).
 
 # Web properties
-
+- Internet Domains: practicalgobook.net, echorand.me
 - [GitHub](https://github.com/amitsaha)
 - [Twitter](http://twitter.com/echorand) 
 - [LinkedIn](https://au.linkedin.com/in/echorand)
