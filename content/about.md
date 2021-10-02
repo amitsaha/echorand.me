@@ -5,8 +5,7 @@ date: 2019-06-16T10:53:16+10:00
 
 # About me
 
-Hello, My name is Amit Saha. I work as a software engineer. I
-live in Sydney, Australia. 
+Hello, My name is Amit Saha. I work as a software engineer. I live in Sydney, Australia. 
 
 You may be interested in learning more about [articles, books and other training material](../writings-trainings/),
 I have created. I also try and share things I learn via [presenting](../talks/) at various conferences and meetups.
@@ -44,5 +43,5 @@ Basically the publishing flow for me looks like this:
 
 # Contact me
 
-You can contact me via [email](mailto:mail@echorand.me), [Twitter](http://twitter.com/echorand)
-and on [LinkedIn](https://au.linkedin.com/in/echorand).
+You can contact me via [email](mailto:mail@echorand.me) [80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B](https://keys.openpgp.org/search?q=mail%40echorand.me), 
+[Twitter](http://twitter.com/echorand) and on [LinkedIn](https://au.linkedin.com/in/echorand).
