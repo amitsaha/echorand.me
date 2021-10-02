@@ -41,7 +41,12 @@ Basically the publishing flow for me looks like this:
 1. The generated website source is then pushed to [amitsaha.github.io](https://github.com/amitsaha/amitsaha.github.io)
 
 
-# Contact me
+# Contact
 
-You can contact me via [email](mailto:mail@echorand.me) (GPG key: [80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B](https://keys.openpgp.org/search?q=mail%40echorand.me)), 
-[Twitter](http://twitter.com/echorand) and on [LinkedIn](https://au.linkedin.com/in/echorand).
+You can contact me via [email](mailto:mail@echorand.me) (GPG key: [80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B](https://keys.openpgp.org/search?q=mail%40echorand.me)).
+
+# Social
+
+- [Twitter](http://twitter.com/echorand) 
+- [LinkedIn](https://au.linkedin.com/in/echorand)
+- [Keybase](https://keybase.io/amitsaha)
