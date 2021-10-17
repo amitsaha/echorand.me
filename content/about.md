@@ -5,7 +5,9 @@ date: 2019-06-16T10:53:16+10:00
 
 # About me
 
-Hello, My name is Amit Saha. I work as a software engineer. I live in Sydney, Australia. 
+Hello, My name is Amit Saha. I work as a software engineer and I write books on computer programming. 
+
+I live in Sydney, Australia. 
 
 You may be interested in learning more about [articles, books and other training material](../writings-trainings/),
 I have created. I also try and share things I learn via [presenting](../talks/) at various conferences and meetups.
@@ -51,3 +53,7 @@ You can contact me via [email](mailto:mail@echorand.me) (GPG key: [80B8B7E1857DC
 - [Twitter](http://twitter.com/echorand) 
 - [LinkedIn](https://au.linkedin.com/in/echorand)
 - [Keybase](https://keybase.io/amitsaha)
+
+# Subscribe
+
+You can subscribe to blog posts via [RSS](https://echorand.me/index.xml) and/or also sign up to my [newsletter](https://buttondown.email/echorand.me).
