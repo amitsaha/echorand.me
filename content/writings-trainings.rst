@@ -7,6 +7,7 @@ aliases:
 
 *Books*
 
+- `Practical Go - Building Scalable Network and Non-Network Applications <https://practicalgobook.net/>`__ (Will be published in December, 2021)
 - `Doing Math with Python <http://doingmathwithpython.github.io>`__
 - `Write Your First Program <http://phindia.com/saha/>`__
 
@@ -15,6 +16,7 @@ aliases:
 
 - `Create a Secrets Sharing Application and Client in Go <https://www.manning.com/bundles/secrets-sharing-ser>`__
 - `Create a Web Application Scaffold Generator in Go <https://www.manning.com/liveproject/create-a-web-application-scaffold-generator-in-go>`__
+- `Twitch stream covering various things in Go, October 2021 <https://www.twitch.tv/videos/1182246197>`__
 
 *Software publications*
 
