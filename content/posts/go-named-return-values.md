@@ -155,3 +155,7 @@ panic.
 
 Her's a link to a [discussion](
 https://stackoverflow.com/questions/15089726/why-should-return-parameters-be-named) on this topic.
+
+## Also check these out
+
+- [Demystifying 'defer'](https://bitfieldconsulting.com/golang/defer)
