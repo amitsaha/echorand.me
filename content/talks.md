@@ -4,7 +4,7 @@ aliases:
 - /pages/talks.html
 ---
 
-Please find below details/resources related to the talks I have given so far with the most recent talk listed first.
+Please find below details/resources related to the conference/meetup talks I have given so far with the most recent talk listed first.
 
 #### Planning for Failure using Chaos Engineering
 
