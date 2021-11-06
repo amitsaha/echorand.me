@@ -63,9 +63,10 @@ So, I posted my findings to the [golang-nuts google group](https://groups.google
 
 ## Why does it not wait?
 
-As you can see from the reply, the reason the test doesn't wait for the interactive input is the Stdin of the process
+As you will see from the reply to my query, the reason the test doesn't wait for the interactive input is the Stdin of the process
 that's executed (our test binary), is set to the operating system's null input device (`/dev/null` on [Unix](https://cs.opensource.google/go/go/+/refs/tags/go1.17.3:src/os/file_unix.go;l=202)
-and `NUL` on [Windows](https://cs.opensource.google/go/go/+/refs/tags/go1.17.3:src/os/file_windows.go;l=98)).
+and `NUL` on [Windows](https://cs.opensource.google/go/go/+/refs/tags/go1.17.3:src/os/file_windows.go;l=98)). This
+is desribed in the [documentation of the `Cmd` struct](https://github.com/golang/go/blob/c7f2f51fed15b410dea5f608420858b401887d0a/src/os/exec/exec.go#L98).
 
 The top reason I was confused by this is if I had tried something similar in Python, it would have exhibited the expected behavior, i.e. 
 the executed program (for e.g. via `subprocess.check_output()`) would have waited for the input. That is because, by default, the
