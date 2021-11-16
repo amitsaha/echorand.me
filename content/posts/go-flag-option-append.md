@@ -1,6 +1,6 @@
 ---
 title: Go - Append behavior in option values using flag package
-date: 2021-11-06
+date: 2021-11-13
 categories:
 -  go
 ---
