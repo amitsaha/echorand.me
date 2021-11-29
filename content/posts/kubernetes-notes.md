@@ -11,6 +11,8 @@ This in-progress page lists some of my findings while working with [Kubernetes](
 
 # EKS cluster setup
 
+*You may also find [this guide from spacelift.io](https://spacelift.io/blog/how-to-provision-aws-eks-kubernetes-cluster-with-terraform) useful.*
+
 This section will have findings that are relevant when working with an AWS EKS cluster.
 
 ## Terraform configuration for master
