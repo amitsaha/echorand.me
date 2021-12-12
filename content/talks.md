@@ -9,7 +9,7 @@ Please find below details/resources related to the conference/meetup talks I hav
 #### Lightning talk - static website + go:embed => ./website
 
 - Conference: GopherCon 2021, December, 2021
-- [Video](https://www.youtube.com/watch?v=XnPHI6cCL7E)
+- [Video](https://youtu.be/XnPHI6cCL7E?t=10224)
 - [Slides](https://github.com/amitsaha/website2bin/tree/main/presentation)
 - [Code for Pass 2](https://github.com/amitsaha/website2bin)
 
