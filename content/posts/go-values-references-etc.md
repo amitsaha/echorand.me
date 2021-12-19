@@ -183,17 +183,21 @@ which were defined in `main()` are not affected. On the other hand, when calling
 along the *memory addresses* of the variables called in `main()` function. Hence, any updations to the values
 of those variables, affected the original variables, since they are manipulating the same memory address.
 
-Thus, the summary is that when it comes to the basic types, numbers and strings, it is always *deep copy*.
+
+### Summary
+
+When it comes to the basic types, numbers and strings, it is always *deep copy*.
+
 There is no *shallow copy* when it comes to these types. Another way of saying that is that, when we want
 a *shallow copy*, use *memory addresses* for basic data types.
 
-Next, let's explore slices and arrays.
+Next, let's explore what happens when we have basic data types as elements in a slice.
 
-## Arrays and Slices
+## Slice of integers and strings
 
-Slices:
+Consider the following program: ([Link to playground](https://go.dev/play/p/Wd490w3WJpU))
 
-[Play](https://play.golang.org/p/3yZpUgUlpHB)
+
 ```go
 package main
 
@@ -209,35 +213,73 @@ func main() {
 	// slice of integers
 	n2 := n1
 	fmt.Printf("n1(%p)=%v n2(%p)=%v\n", &n1, n1, &n2, n2)
+
+	fmt.Println("Update n2[0]")
 	n2[0] = n2[0] * 10
 	fmt.Printf("n1(%p)=%v n2(%p)=%v\n", &n1, n1, &n2, n2)
+
+	fmt.Println("Assign new slice to n2")
 	n2 = []int{100, 110, 120}
 	fmt.Printf("n1(%p)=%v n2(%p)=%v\n", &n1, n1, &n2, n2)
 
 	// strings
 	s2 := s1
 	fmt.Printf("s1(%p)=%v s2(%p)=%v\n", &s1, s1, &s2, s2)
+
+	fmt.Println("Update s2[0]")
 	s2[0] = strings.ToUpper(s2[0])
 	fmt.Printf("s1(%p)=%v s2(%p)=%v\n", &s1, s1, &s2, s2)
+
+	fmt.Println("Assign new slice to s2")
 	s2 = []string{"Hi", "go play ground"}
 	fmt.Printf("s1(%p)=%v s2(%p)=%v\n", &s1, s1, &s2, s2)
 }
-
 ```
 
 
-Output:
+We define a slice, `n1` containing integers. We create a new slice, `n2` using the statement, `n2 := n1`.
+
+We then, update the value of the first element of `n2` using `n2[0] = n2[0]*10`. 
+
+At this stage when we print the two slices, we see that the first element of *both* the slices, `n1` and `n2`
+has been updated. This is because when we created a copy of `n1`, it performed a *shallow copy*. Hence, even
+though the memory addresses of `n1` and `n2` are different, as you will soon see in the output, the elements
+they contain were pointing to the same underlying *memory addresses*.
+
+Then, when we create a new slice and assign it to `n2`, we have now overwritten the elements of the slice,
+`n2`. Hence, the slice, `n1` is not affected.
+
+The same behavior is seen for the slice of strings, `s1` and `s2`.
+
+When we run the program, you will see the following output:
 
 ```
-n1(0xc0000ac018)=[1 2 3] n2(0xc0000ac048)=[1 2 3]
-n1(0xc0000ac018)=[10 2 3] n2(0xc0000ac048)=[10 2 3]
-n1(0xc0000ac018)=[10 2 3] n2(0xc0000ac048)=[100 110 120]
-s1(0xc0000ac030)=[hello world] s2(0xc0000ac0f0)=[hello world]
-s1(0xc0000ac030)=[HELLO world] s2(0xc0000ac0f0)=[HELLO world]
-s1(0xc0000ac030)=[HELLO world] s2(0xc0000ac0f0)=[Hi go play ground]
+n1(0xc00000c030)=[1 2 3] n2(0xc00000c060)=[1 2 3]
+Update n2[0]
+n1(0xc00000c030)=[10 2 3] n2(0xc00000c060)=[10 2 3]
+Assign new slice to n2
+n1(0xc00000c030)=[10 2 3] n2(0xc00000c060)=[100 110 120]
+s1(0xc00000c048)=[hello world] s2(0xc00000c108)=[hello world]
+Update s2[0]
+s1(0xc00000c048)=[HELLO world] s2(0xc00000c108)=[HELLO world]
+Assign new slice to s2
+s1(0xc00000c048)=[HELLO world] s2(0xc00000c108)=[Hi go play ground]
 ```
 
-Arrays:
+How does the above translate to passing slices as function arguments?
+
+### Call by Value and Call by reference
+
+When it comes to a slice, we are always working with shallow copies. Hence, there is no need for a call by reference
+when it comes to slices. Simply passing the slice is a call by reference. [This playground link](https://go.dev/play/p/xJElc3RhI9f)
+has an example.
+
+### Summary
+
+Thus, when it comes to a slice of basic data types, we are always working with *shallow copy*. 
+
+
+## Arrays of strings and integers
 
 [Play](https://play.golang.org/p/7UPwSyR6628)
 
@@ -285,54 +327,7 @@ s1(0xc000054020)=[hello world] s2(0xc000054040)=[HELLO world]
 s1(0xc000054020)=[hello world] s2(0xc000054040)=[Hi go play ground]
 ```
 
-### Shallow and Deep Copy
 
-### Call by Value and Call by reference
-
-Slice:
-
-[Play](https://play.golang.org/p/xJElc3RhI9f)
-```go
-package main
-
-import (
-	"fmt"
-	"log"
-)
-
-func callByValue(n1, n2 []int, s1, s2 []string) {
-	n1[0] = 3
-	n2[0] = 7
-	fmt.Printf("n1(%p)=%v n2(%p)=%v\n", &n1, n1, &n2, n2)
-
-	s1[0] = "world"
-	s2[0] = "universe"
-
-	fmt.Printf("s1(%p)=%v s2(%p)=%v\n", &s1, s1, &s2, s2)
-}
-
-func main() {
-	var n1 []int = []int{1, 2, 3}
-	var s1 []string = []string{"hello", "world"}
-
-	// slice of integers
-	n2 := n1
-	fmt.Printf("n1(%p)=%v n2(%p)=%v\n", &n1, n1, &n2, n2)
-
-	// strings
-	s2 := s1
-
-	fmt.Printf("s1(%p)=%v s2(%p)=%v\n", &s1, s1, &s2, s2)
-
-	log.Println("Calling function callByValue")
-	callByValue(n1, n2, s1, s2)
-
-	log.Println("Back to main()")
-	fmt.Printf("n1(%p)=%v n2(%p)=%v\n", &n1, n1, &n2, n2)
-	fmt.Printf("s1(%p)=%v s2(%p)=%v\n", &s1, s1, &s2, s2)
-
-}
-```
 
 ## Maps and Structs
 
