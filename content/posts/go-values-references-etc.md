@@ -197,7 +197,6 @@ Next, let's explore what happens when we have basic data types as elements in a 
 
 Consider the following program: ([Link to playground](https://go.dev/play/p/Wd490w3WJpU))
 
-
 ```go
 package main
 
@@ -276,11 +275,19 @@ has an example.
 
 ### Summary
 
-Thus, when it comes to a slice of basic data types, we are always working with *shallow copy*. 
+When it comes to a slice of basic data types, we are by default working with a *shallow copy*. If you want to create
+a *deep copy*, you will find the [copy()](https://pkg.go.dev/builtin#copy) function useful. See [here](https://stackoverflow.com/a/27056295)
+for an example of creating a deep copy of a slice.
 
+Why do we have the default behavior as a shallow copy? The Effective Go guide has the [answer](https://go.dev/doc/effective_go#slices):
+
+> Slices hold references to an underlying array, and if you assign one slice to another, both refer to the same array. If a function takes a slice argument, changes it makes to the elements of the slice will be visible to the caller, analogous to passing a pointer to the underlying array.
+
+So, we should expect the behavior to be different when it comes to Arrays then? Let's find out.
 
 ## Arrays of strings and integers
 
+In Go, a slice of elements
 [Play](https://play.golang.org/p/7UPwSyR6628)
 
 
