@@ -1,16 +1,31 @@
 ---
-title:  Go - Shallow copy, Deep copy, Values and references
+title: Shallow copy and Deep copy in Go
 date: 2021-11-21
 categories:
 -  go
 draft: true
 ---
 
-## Numbers and Strings
+A **shallow copy** of an variable/object is a copy of an object, usually a container - for example, an array or
+a struct type such that the elements in both the copy and the original object are occupying the same 
+*memory addresses*.
 
-Basic types
+(PS: I am not sure, but perhaps, [Rust](https://hashrust.com/blog/moves-copies-and-clones-in-rust/) does this differently
+where moving a basic data type is a shallow copy? I may be completely wrong).
 
-[Play](https://play.golang.org/p/2HJ82Qx8prp)
+A **deep copy** of an variable/object is a copy of an object such that the copy and the original object
+occupy different *memory addresses*.
+
+This post is about *shallow* and *deep copy* in Go as it applies to various data types.  As it turns out,
+for certain data types, a deep copy is the default, while as for others shallow copy is the default.
+
+Let's go exploring!
+
+## Basic types
+
+Let's consder two of the basic types - `int` and `string`.
+
+Consider the following program: ([Link to Playground](https://play.golang.org/p/2HJ82Qx8prp))
 
 ```go
 package main
@@ -43,7 +58,14 @@ func main() {
 
 ```
 
-Output:
+We declare `n1` and `s1` as an integer and a string, respectively with each having an initial value.
+When we write the statement, `n2 := n1`, we are creating a new integer variable, `n2`. 
+Similarly, `s2 := s1` creates a new string variable. When we create these variables, their
+values are the same as that referred to by `n1` and `s1`, respectively. Then, when we update the values,
+the changes remain confined to the variables we are updating - i.e. updating the value of `n2` doesn't
+affect the value of `n1` and vice-versa.
+
+Hence, when we run the above code, you will see an output as follows:
 
 ```
 n1(0xc0000b8000)=1 n2(0xc0000b8008)=1
@@ -52,11 +74,15 @@ s1(0xc00009e210)=hello s2(0xc00009e220)=hello
 s1(0xc00009e210)=world s2(0xc00009e220)=universe
 ```
 
+The values of the form `0x` are the *memory address* of a variable, `n1` obtained by the statement, `&n1`
+and printed using the `%p` verb.
+
+Next, let's update the code above to understand what happens when we call functions passing integers and strings
+as arguments.
 
 ### Call by Value and Call by reference
 
-[Play](https://play.golang.org/p/HgtLzXfqD-7)
-
+Consider the following program ([Link to Playground](https://play.golang.org/p/HgtLzXfqD-7)):
 
 ```go
 package main
@@ -119,25 +145,49 @@ func main() {
 }
 ```
 
-Output:
+We define two functions, `callByValue()` and `callByReference()`. Both the functions accept two integers
+and two strings as parameters. In each function, we then proceed to update the values of the variables
+that the functions were called with. The difference is that the first function accepts the values of existing
+integer and string variables, and the second function accepts the *memory address* or pointer to variables
+containing integer and string values.
+
+When we run the program, we will see the following output:
 
 ```go
 n1(0xc000018030)=1 n2(0xc000018038)=1
 s1(0xc000010230)=hello s2(0xc000010240)=hello
+
 2009/11/10 23:00:00 Calling function callByValue
 n1(0xc000018098)=3 n2(0xc0000180b0)=7
 s1(0xc000010270)=world s2(0xc000010280)=universe
+
 2009/11/10 23:00:00 Back to main()
 n1(0xc000018030)=1 n2(0xc000018038)=1
 s1(0xc000010230)=hello s2(0xc000010240)=hello
+
 2009/11/10 23:00:00 Calling function callByReference
 n1(0xc000018030)=3 n2(0xc000018038)=7
 s1(0xc000010230)=world s2(0xc000010240)=universe
+
 2009/11/10 23:00:00 Back to main()
 n1(0xc000018030)=3 n2(0xc000018038)=7
 s1(0xc000010230)=world s2(0xc000010240)=universe
 ```
 
+The changes made in the `callByValue()` function are not visible in the `main()` function. However, 
+the changes made inside the second function are. 
+
+When we called the `callByValue()` function, we created a new set of variables containing the values of the 
+existing variables. Hence, we changed the values of these new variables, the values of the existing variables 
+which were defined in `main()` are not affected. On the other hand, when calling `callByReference()`, we passed
+along the *memory addresses* of the variables called in `main()` function. Hence, any updations to the values
+of those variables, affected the original variables, since they are manipulating the same memory address.
+
+Thus, the summary is that when it comes to the basic types, numbers and strings, it is always *deep copy*.
+There is no *shallow copy* when it comes to these types. Another way of saying that is that, when we want
+a *shallow copy*, use *memory addresses* for basic data types.
+
+Next, let's explore slices and arrays.
 
 ## Arrays and Slices
 
