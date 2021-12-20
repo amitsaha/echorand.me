@@ -12,6 +12,13 @@ when you just want to run a single copy of your application.
 
 Let's see a pattern for implementing concurrency safe file access in Go using `sync.Mutex`. 
 
+- [Our data structure](#our-data-structure)
+- [A reference implementation](#a-reference-implementation)
+	- [Writing to the file](#writing-to-the-file)
+	- [Reading from file](#reading-from-file)
+- [Notes](#notes)
+- [Learn more](#learn-more)
+
 ## Our data structure
 
 Let's consider the following `struct` type:

@@ -7,6 +7,20 @@ aliases:
 - /aws-vpc-subnets-and-internet-connectivity-over-ipv4.html
 ---
 
+Welcome to this new blog post!
+
+- [Public subnet - Public IP](#public-subnet---public-ip)
+  - [Ingress](#ingress)
+  - [Egress](#egress)
+- [Public subnet - No Public IP](#public-subnet---no-public-ip)
+- [Private subnet - Public IP](#private-subnet---public-ip)
+  - [Ingress](#ingress-1)
+- [Egress](#egress-1)
+- [Private subnet - No Public IP](#private-subnet---no-public-ip)
+- [Ingress](#ingress-2)
+- [Egress](#egress-2)
+- [Learn more](#learn-more)
+
 We can have two kinds of subnets inside a AWS VPC - __private__ and __public__. A public subnet is one which is 
 attached to an [Internet Gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html). This essentially adds a routing table entry to the subnet's routing table sending all Internet traffic to an **Internet Gateway**. On the other hand, 
 if traffic from a subnet destined for the "Internet" is sent to either a NAT instance, or a AWS managed NAT device, the subnet 

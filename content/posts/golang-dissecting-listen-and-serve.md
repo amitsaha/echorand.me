@@ -7,6 +7,16 @@ aliases:
 - /dissecting-golangs-handlerfunc-handle-and-defaultservemux.html
 ---
 
+Welcome to this blog post!
+
+- [Introduction](#introduction)
+- [What is `DefaultServeMux`?](#what-is-defaultservemux)
+- [Registering handlers](#registering-handlers)
+	- [The HandleFunc() type](#the-handlefunc-type)
+- [Using your own Handler with ListenAndServe()](#using-your-own-handler-with-listenandserve)
+- [Writing Middleware](#writing-middleware)
+- [Rewrapping ``http.ResponseWriter``](#rewrapping-httpresponsewriter)
+- [References](#references)
 # Introduction
 
 My aim in this post is to discuss three "concepts" in Go that I come across while writing HTTP servers. Through this

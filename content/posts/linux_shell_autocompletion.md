@@ -5,6 +5,22 @@ categories:
 -  software
 ---
 
+Welcome to this new blog post!
+
+- [Introduction](#introduction)
+- [Setting up](#setting-up)
+- [DIY bash completion](#diy-bash-completion)
+- [Data provided to completion handlers](#data-provided-to-completion-handlers)
+- [Single `<TAB>` and double `<TAB><TAB>`](#single-tab-and-double-tabtab)
+- [Getting good old BASH completion back](#getting-good-old-bash-completion-back)
+- [Magic of `bash-completion` package](#magic-of-bash-completion-package)
+- [`compgen` built-in command](#compgen-built-in-command)
+- [Learning more](#learning-more)
+- [Bash completion for applications](#bash-completion-for-applications)
+	- [cobra (Golang), click (Python) and clap (Rust)](#cobra-golang-click-python-and-clap-rust)
+	- [complete (Golang) and shell_completion (Rust)](#complete-golang-and-shell_completion-rust)
+- [Conclusion](#conclusion)
+
 # Introduction
 
 What happens when you press `<command> <TAB>` or `<command> <TAB><TAB>`? You get a bunch of suggestions with one of them

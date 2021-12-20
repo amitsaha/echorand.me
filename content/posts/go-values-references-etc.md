@@ -20,6 +20,20 @@ for certain data types, a deep copy is the default, while as for others shallow 
 
 Let's go exploring!
 
+- [Basic data types](#basic-data-types)
+	- [Call by Value and Call by reference](#call-by-value-and-call-by-reference)
+	- [Summary](#summary)
+- [Slice of integers and strings](#slice-of-integers-and-strings)
+	- [Call by Value and Call by reference](#call-by-value-and-call-by-reference-1)
+	- [Summary](#summary-1)
+- [Arrays of strings and integers](#arrays-of-strings-and-integers)
+	- [Call by Value and Call by reference](#call-by-value-and-call-by-reference-2)
+	- [Summary](#summary-2)
+- [Elements in Maps and Struct types](#elements-in-maps-and-struct-types)
+	- [Call by Value and Call by reference](#call-by-value-and-call-by-reference-3)
+	- [Summary](#summary-3)
+- [Conclusion](#conclusion)
+- [Resources](#resources)
 ## Basic data types
 
 Let's consider two of the basic data types - `int` and `string`.
@@ -518,7 +532,7 @@ If you want call by reference behavior:
 A map is shallow copied and a struct is deep copied, but the elements of the struct may be deep copied
 or shallow copied depending on their own default behavior.
 
-# Conclusion
+## Conclusion
 
 As we have seen in this post (or let's say as I learned while writing this post), whether a value in Go is shallow
 copied or deep copied varies. It has to do with the *internal* representation of the data type itself. Hence, the
@@ -531,6 +545,12 @@ A "surprise" for me that I had to overlook when I was working on this post was t
 different memory addresses, as printed by the `%p` verb. When I first came across the shallow copy
 behavior in some code (the contributing cause to writing this post), I was perplexed since the
 memory addresses was different. That remains an unanswered question for me, for now.
+
+I explored the same topic in C and Python programming languages several years back:
+
+- [Data in C](http://echorand.me/data-in-c.html)
+- [Date in CPython](http://echorand.me/data-in-cpython.html)
+- [Data in C and CPython](https://echorand.me/posts/data-in-c-cpython/)
 
 ## Resources
 

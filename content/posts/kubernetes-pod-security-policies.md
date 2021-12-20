@@ -4,7 +4,14 @@ date: 2020-05-20
 categories:
 -  infrastructure
 ---
+Welcome to this new blog post!
 
+- [Introduction](#introduction)
+- [Enforcing policies](#enforcing-policies)
+- [Using `kustomize` to manage policies](#using-kustomize-to-manage-policies)
+- [Rolling the policy changes out](#rolling-the-policy-changes-out)
+- [Multiple matching policies](#multiple-matching-policies)
+- [Conclusion](#conclusion)
 # Introduction
 
 Pod security policies are [cluster level resources](https://kubernetes.io/docs/concepts/policy/pod-security-policy/).
