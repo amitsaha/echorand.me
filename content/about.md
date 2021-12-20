@@ -50,7 +50,9 @@ You can contact me via [email](mailto:mail@echorand.me) (GPG key: [80B8B7E1857DC
 # Web properties
 - Internet Domains: practicalgobook.net, echorand.me
 - [GitHub](https://github.com/amitsaha)
-- [Twitter](http://twitter.com/echorand) 
+- [Twitter](http://twitter.com/echorand)
+- [Reddit](https://www.reddit.com/user/echorand)
+- [Hacker News](https://news.ycombinator.com/user?id=echorand)
 - [LinkedIn](https://au.linkedin.com/in/echorand)
 - [Keybase](https://keybase.io/amitsaha)
 
