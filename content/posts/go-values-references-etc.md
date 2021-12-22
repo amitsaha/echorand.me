@@ -5,9 +5,7 @@ categories:
 -  go
 ---
 
-*Update: Please note that my usage of "Call by reference" is not correct here as pointed out by a Reddit community member [here](https://www.reddit.com/r/golang/comments/rkyxiq/shallow_copy_and_deep_copy_in_go/). Read it as "Call by passing pointer values". While trying to understand this a bit more,
-I cam across a few more links to the topic. You can find them [here](https://www.reddit.com/r/golang/comments/rkyxiq/comment/hphjjfv/?utm_source=share&utm_medium=web2x&context=3) in my reply. I will do a follow up post on this topic perhaps. I am glad that the reddit commenter helped me revise my
-mental model on the topic.*
+*Update: Please note that my usage of "Call by reference" is not correct here as pointed out by a Reddit community member [here](https://www.reddit.com/r/golang/comments/rkyxiq/shallow_copy_and_deep_copy_in_go/). Read it as "Call by passing pointer values". While trying to understand this a bit more, I came across a few more links to the topic. You can find them [here](https://www.reddit.com/r/golang/comments/rkyxiq/comment/hphjjfv/?utm_source=share&utm_medium=web2x&context=3) in my reply. I will do a follow up post on this topic perhaps. I am grateful that the reddit commenter helped me revise my mental model on the topic.*
 
 A **shallow copy** of an variable/object is a copy of an object, usually a container - for example, an array or
 a struct type such that the elements in both the copy and the original object are occupying the same 
