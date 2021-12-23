@@ -14,8 +14,8 @@ aliases:
 
 *Manning Live Projects*
 
-- `Create a Secrets Sharing Application and Client in Go <https://www.manning.com/bundles/secrets-sharing-ser>`__
-- `Create a Web Application Scaffold Generator in Go <https://www.manning.com/liveproject/create-a-web-application-scaffold-generator-in-go>`__
+- `Create a Secrets Sharing Application and Client in Go <https://www.manning.com/bundles/secrets-sharing-ser>`__ (2021)
+- `Create a Web Application Scaffold Generator in Go <https://www.manning.com/liveproject/create-a-web-application-scaffold-generator-in-go>`__ (2021)
 
 *Software publications*
 
