@@ -7,9 +7,9 @@ aliases:
 
 *Books*
 
-- `Practical Go - Building Scalable Network and Non-Network Applications <https://practicalgobook.net/>`__ (Will be published in December, 2021)
-- `Doing Math with Python <http://doingmathwithpython.github.io>`__
-- `Write Your First Program <http://phindia.com/saha/>`__
+- `Practical Go - Building Scalable Network and Non-Network Applications <https://practicalgobook.net/>`__ (December, 2021)
+- `Doing Math with Python <http://doingmathwithpython.github.io>`__ (August, 2015)
+- `Write Your First Program <http://phindia.com/saha/>`__ (2012)
 
 
 *Manning Live Projects*
