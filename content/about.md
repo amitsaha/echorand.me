@@ -9,8 +9,10 @@ Hello, My name is Amit Saha. I work as a software engineer and I write books on 
 
 I live in Sydney, Australia. 
 
-You may be interested in learning more about [articles, books and other training material](../writings-trainings/),
-I have created. I also try and share things I learn via [presenting](../talks/) at various conferences and meetups.
+You may be interested in learning more about [articles, books and other training materials](../writings-trainings/)
+I have authored. I also share things I learn via [presenting](../talks/) at various conferences and meetup groups.
+I am not an expert on anything I write or share, so if you find a mistake/error in anything i share online,
+please let me know.
 
 You may find something useful on my [GitHub](https://github.com/amitsaha) (a software repository host)
 profile. 
