@@ -4,6 +4,27 @@ date:  2018-01-05
 category: software
 ---
 
+I use `vim` as my occasional text editor, especially when I am working on small projects or just editing a text document. Here's some notes for myself, mostly created by searching the web and pointing to or copying other people's answers.
+
+- [Modes](#modes)
+- [Files](#files)
+- [Opening commands](#opening-commands)
+- [Cursor movement](#cursor-movement)
+- [Line search](#line-search)
+- [Replacing a word in a block](#replacing-a-word-in-a-block)
+- [Changing a word at n positions](#changing-a-word-at-n-positions)
+- [Recording and playing macros](#recording-and-playing-macros)
+- [Swap two characters](#swap-two-characters)
+- [Switch case](#switch-case)
+- [Replace character](#replace-character)
+- [Move block of text](#move-block-of-text)
+- [Delete](#delete)
+- [Search](#search)
+- [Folds](#folds)
+  - [Movements](#movements)
+- [Powerless verbs](#powerless-verbs)
+- [Miscellaneous movements/Scrolling](#miscellaneous-movementsscrolling)
+- [External Resources](#external-resources)
 
 # Modes
 
@@ -131,8 +152,9 @@ zE Delete all folds the current buffer
 - s- delete character under the cursor and enter the Insert mode
 
 
-# Miscellaneous movements
+# Miscellaneous movements/Scrolling
 
+- `zt` to put the current line to the top of the screen
 - `zz` to center the current line to the center
 - `G` to go the last line of the document
 - `gg` to go the first line of the document
@@ -145,6 +167,9 @@ zE Delete all folds the current buffer
 - Scroll up full page: `Ctrl-b`
 - Go to line at 50% of file: `50%`
 - In Insert mode, `shift+right/left arrow` to jump forward/backward by words
+
+More scrolling tips and techniques:
+- https://unix.stackexchange.com/a/110252 
 
 # External Resources
 
