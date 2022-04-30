@@ -6,6 +6,14 @@ aliases:
 
 Please find below details/resources related to the conference/meetup talks I have given so far with the most recent talk listed first.
 
+#### Implementing Shared Functionality Using Middleware
+
+- Conference: Pycon US, April- May, 2022
+- [Talk details](https://us.pycon.org/2022/schedule/presentation/6/)
+- Video - TBD
+- [Slides](https://github.com/prod-python/pycon-us-2022#slides)
+- [Code for Demos](https://github.com/prod-python/pycon-us-2022)
+
 #### Lightning talk - static website + go:embed => ./website
 
 - Conference: GopherCon 2021, December, 2021
