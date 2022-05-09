@@ -95,7 +95,7 @@ with mock.patch('pyowm.commons.http_client.requests', just_enough_requests):
 And that's it. Here's a complete [HTML file](https://raw.githubusercontent.com/doingmathwithpython/code/master/explorations/PyScript/chap2/nyc_forecast_owm.html) which you can download. You will need an API key from open weather map. Once you have replaced 
 the token in code, and open in your browser, you should see a graph. 
 
-![Graph of the forecast temperature](/static/img/py_script_owm.png "Graph of the forecast temperature")
+![Graph of the forecast temperature](/img/py_script_owm.png "Graph of the forecast temperature")
 
 If nothing seems to happen, open the Console to look for any error logs.
 
