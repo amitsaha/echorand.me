@@ -28,15 +28,16 @@ Over the years, I have contributed code/docs to various projects:
 - Statsd exporter (Go)
 - Vector (Rust)
 - Inspec (Ruby)
+- Pyodide (Python)
 
-(My email address for these commits would be amitsaha.in@gmail.com or amitksaha@netbeans.org)
+(My email address for these commits would be mail@echorand.me, amitsaha.in@gmail.com or amitksaha@netbeans.org)
 
 # This blog
 
 This blog is generated using [Hugo](https://gohugo.io) and hosted on 
 [GitHub pages](https://github.com/amitsaha/amitsaha.github.io) powered via [GitHub actions](https://github.com/amitsaha/echorand.me/blob/master/.github/workflows/main.yml). 
 
-Basically the publishing flow for me looks like this:
+The publishing flow for me looks like this:
 
 1. I write my new content as a Markdown file and push a new commit with my changes
 1. (1) triggers a build - a GitHub action action
