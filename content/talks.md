@@ -10,7 +10,7 @@ Please find below details/resources related to the conference/meetup talks I hav
 
 - Conference: Pycon US, April- May, 2022
 - [Talk details](https://us.pycon.org/2022/schedule/presentation/6/)
-- Video - TBD
+- [Video](https://www.youtube.com/watch?v=_t7GxTbKocc)
 - [Slides](https://github.com/prod-python/pycon-us-2022#slides)
 - [Code for Demos](https://github.com/prod-python/pycon-us-2022)
 
