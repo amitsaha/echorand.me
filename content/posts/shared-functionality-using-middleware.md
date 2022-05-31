@@ -43,4 +43,4 @@ Slides and Demo code are available [here](https://github.com/prod-python/pycon-u
 
 I want to take a moment to acknowledge PyCon providing a free service for speakers
 to have a session with a speaking coach. That was really very helpful in improving
-my own talk delivery and presentatition.
+my own talk delivery and presentation.
