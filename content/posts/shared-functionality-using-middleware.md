@@ -2,7 +2,7 @@
 title:  PyCon US 2022 Talk - Implementing Shared Functionality Using Middleware
 date: 2022-06-01
 categories:
--  Python
+-  python
 ---
 
 I delivered a talk at the recently concluded [PyCon US 2022 conference](https://us.pycon.org/2022/). 
@@ -13,8 +13,12 @@ to the Pyodide project during the sprints, and was a great experience to work wi
 developers during the sprints and for a couple of days after the sprints. I also had a great
 time speaking to so many people, discussing my talk, my book, their talks, and their work.
 
+It was also great to speak to participants who were able to attend the conference, thanks
+to grants from Pyladies. This was a great reminder to me of the impact that PSF and Pyladies
+are having via their work.
+
 This is a [great recap](https://ehmatthes.com/blog/pycon_2022_highlights/) by another attendee
-as they experienced the conference themselves. 
+about how they experienced the conference.
 
 ## My talk 
 
