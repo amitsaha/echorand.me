@@ -1,6 +1,6 @@
 ---
 title:  PyCon US 2022 Talk - Implementing Shared Functionality Using Middleware
-date: 2022-06-01
+date: 2022-05-30
 categories:
 -  python
 ---
