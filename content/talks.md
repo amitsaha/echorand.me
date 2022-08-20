@@ -8,6 +8,14 @@ Please find below details/resources related to the conference/meetup talks I hav
 
 #### Implementing Shared Functionality Using Middleware
 
+- Conference: Kiwi PyCon XI, August, 2022
+- [Talk details](https://pretalx.com/kiwipycon-2021/talk/X9R7Q8/)
+- [Video](TBD)
+- [Slides](https://github.com/prod-python/kiwi-pycon-xi#slides)
+- [Code for Demos](https://github.com/prod-python/kiwi-pycon-xi)
+
+#### Implementing Shared Functionality Using Middleware
+
 - Conference: Pycon US, April- May, 2022
 - [Talk details](https://us.pycon.org/2022/schedule/presentation/6/)
 - [Video](https://www.youtube.com/watch?v=_t7GxTbKocc) (Few minutes in the beginning are missing, due to Audio Video issues)
