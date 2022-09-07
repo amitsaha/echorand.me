@@ -6,6 +6,7 @@ categories:
 ---
 
 I delivered a talk at the recently concluded [Kiwi PyCon XI](https://kiwipycon.nz). 
+Checkout some photos of the event from Kristina DC Hoeppner [here](https://www.flickr.com/photos/4nitsirk/albums/72177720301389367).
 
 I attended it virtually as I was unable to travel due to last minute interruptions
 from a certain virus. 
