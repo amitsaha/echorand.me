@@ -13,7 +13,7 @@ from a certain virus.
 
 The organizers were of course very well prepared for that. Massive kudos
 to the Next day video team and everyone else involved in the process,
-including the paper chair and the directory who did go the extra mile
+including the paper chair and the director who did go the extra mile
 in convincing me that I should make use of the virtual presentation
 opportunity rather than withdrawing my talk altogether. I am glad
 they did, as I could learn and share some new explorations that I had not shared
@@ -29,7 +29,6 @@ following key topics:
 - Writing server side middleware for WSGI applications
 - Writing server side middleware for FastAPI/ASGI applications
 - Writing server side middleware for gRPC unary and bidirectional streaming applications
-
 
 The video is now available [here](https://www.youtube.com/watch?v=93hv4JYMeYw)
 
