@@ -12,9 +12,9 @@ draft: true
 
 ## Writing your own RoundTripper implementation
 
-### Logging, adding headers, caching and such
-
 ### Returning static responses
+
+### Logging, adding headers, caching and such
 
 ## Summary
 
