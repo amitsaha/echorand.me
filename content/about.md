@@ -7,7 +7,8 @@ date: 2019-06-16T10:53:16+10:00
 
 Hello, My name is Amit Saha. I work as a software engineer and I write books on computer programming. 
 
-I live in Sydney, Australia. 
+I live in Sydney, Australia. I would like to acknowledge the Gadigal of the Eora Nation, the traditional
+custodians of this land and pay my respects to the Elders both past and present.
 
 You may be interested in learning more about [articles, books and other training materials](../writings-trainings/)
 I have authored. I also share things I learn via [presenting](../talks/) at various conferences and meetup groups.
@@ -29,6 +30,7 @@ Over the years, I have contributed code/docs to various projects:
 - Vector (Rust)
 - Inspec (Ruby)
 - Pyodide (Python)
+- Go
 
 (My email address for these commits would be mail@echorand.me, amitsaha.in@gmail.com or amitksaha@netbeans.org)
 
