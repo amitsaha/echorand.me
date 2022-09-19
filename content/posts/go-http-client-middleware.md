@@ -3,8 +3,17 @@ title: Writing HTTP client middleware in Go
 date: 2022-09-19
 categories:
 -  go
-draft: true
 ---
+
+In this post, I am going to share what I have learned about writing HTTP client middleware
+in Go. Let's get started!
+
+- [HTTP client and Transport](#http-client-and-transport)
+- [Writing your own RoundTripper implementation](#writing-your-own-roundtripper-implementation)
+  - [Returning static responses](#returning-static-responses)
+- [Summary](#summary)
+
+## HTTP client and Transport
 
 Go's [http.Client](https://pkg.go.dev/net/http#Client) defines a default value
 for the `Transport` field when one is not specified:
@@ -24,7 +33,7 @@ Graphically, the role and position of `http.DefaultTransport` can be shown as fo
 
 ![http.Client by default uses http.DefaultTransport](/img/go_http_client_transport_1.png "http.DefaultTransport is the default RoundTripper implementation")
 
-`DefaultTransport`'s job is to send a HTTP request from your computer to the network server,
+The job of `DefaultTransport` is to send a HTTP request from your computer to the network server,
 over the network, over TCP.
 
 Now, as we can see above, `DefaultTransport` is of type `http.RoundTripper`, which
@@ -42,7 +51,7 @@ That is the key to writing client side HTTP middleware.
 Let's see a first example.
 
 
-### Writing your own RoundTripper implementation
+## Writing your own RoundTripper implementation
 
 Our first RoundTripper implementation will forward all requests to the `DefaultTransport`'s `RoundTrip()` 
 method.
@@ -88,8 +97,8 @@ resp, err := client.Get("https://example.com")
 
 
 There is absolutely no useful purpose of writing a middleware like the above. However, what is
-useful though is a `RoundTrip()` implementation which executes other code before and after calling
-`http.DefaultTransport.RoundTrip()`.
+useful though is a `RoundTrip()` implementation which executes other code before and 
+after calling `http.DefaultTransport.RoundTrip()`.
 
 This is the pattern followed by middleware that implements logging and metrics, adds common headers or
 implements caching. I cover examples of using this pattern of writing middleware in my book, 
@@ -101,20 +110,20 @@ can implement client-side caching.
 Next, we will write a roundtripper implementation to return previously configured responses
 and not call the remote server at all.
 
-#### Returning static responses
+### Returning static responses
 
 This pattern of writing middleware is useful for writing _stub_ or _mock_ implementation
 of remote servers. One situation in which this is extremely useful is in writing tests
 for your application where you don't want to interact with remote network servers.
 
-When you invoke the client's `GET` method, the following steps occur in such a mdidleware:
+When you invoke the client's `GET` (or any other) method, the following steps occur in such a mdidleware:
 
-- The `RoundTrip()` method of the custom roundtripper implementation is invoked.
-- This method doesn't call `http.DefaultTransport.RoundTrip()`. Hence, the remote request never
+1. The `RoundTrip()` method of the custom roundtripper implementation is invoked.
+2. This method doesn't call `http.DefaultTransport.RoundTrip()`. Hence, the remote request never
   gets the request.
-- Instead, it creates and returns a `*http.Response` value itself, with a `nil` error value
-  - If the roundtripper wants to abort the request,  it can return a `nil` `*http.Response` value
-    and non-nill error value.
+3. Instead, it creates and returns a `*http.Response` value itself, with a `nil` error value
+   - If the roundtripper wants to abort the request,  it can return a `nil` `*http.Response` value
+     and non-nil error value.
 
 
 Graphically, it works as follows:
@@ -137,7 +146,7 @@ Inside the `RoundTrip()` method, based on the _outgoing_ request's URL, we
 can choose to either return a static response or call the `http.DefaultTransport.RoundTrip()`
 method, as follows:
 
-```
+```go
         switch r.URL.String() {
         case "https://github.com":
                 responseBody := "This is github.com stub"
@@ -161,7 +170,7 @@ method, as follows:
 }
 ```
 
-The above roundtriper implementation will exhibit the following behavior:
+The above roundtripper implementation will exhibit the following behavior:
 
 - For an outgoing request to `https://github.com`, a static response will be sent:
   - Response body: "This is github.com stub"

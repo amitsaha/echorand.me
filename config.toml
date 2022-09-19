@@ -9,6 +9,17 @@ lastmod = ["lastmod", ":fileModTime", ":default"]
 [markup.goldmark.renderer]
 unsafe= true
 
+[security]
+  enableInlineShortcodes = false
+  [security.exec]
+    allow = ['^dart-sass-embedded$', '^go$', '^npx$', '^postcss$', '^rst2html.py$']
+    osEnv = ['(?i)^(PATH|PATHEXT|APPDATA|TMP|TEMP|TERM)$']
+  [security.funcs]
+    getenv = ['^HUGO_']
+  [security.http]
+    methods = ['(?i)GET|POST']
+    urls = ['.*']
+
 [params]
   description = "echo $RANDOM. Exploring Software and writing about it."
   mainSection = "posts"
