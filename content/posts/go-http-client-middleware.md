@@ -1,16 +1,45 @@
 ---
 title: Writing HTTP client middleware in Go
-date: 2022-09-17
+date: 2022-09-19
 categories:
 -  go
 draft: true
 ---
 
-### A HTTP client
+Go's [http.Client](https://pkg.go.dev/net/http#Client) defines a default value
+for the `Transport` field when one is not specified:
 
-### http.RoundTripper and DefaultTransport
+```go
+type Client struct {
+        // Transport specifies the mechanism by which individual
+        // HTTP requests are made.
+        // If nil, DefaultTransport is used.
+        Transport RoundTripper
+        
+        // other fields
+}
+```
+
+Graphically, the role and position of `http.DefaultTransport` can be shown as follows:
 
 ![http.Client by default uses http.DefaultTransport](/img/go_http_client_transport_1.png "http.DefaultTransport is the default RoundTripper implementation")
+
+`DefaultTransport`'s job is to send a HTTP request from your computer to the network server,
+over the network, over TCP.
+
+Now, as we can see above, `DefaultTransport` is of type `http.RoundTripper`, which
+is an interface defined as follows:
+
+```go
+type RoundTripper interface {
+        RoundTrip(*Request) (*Response, error)
+}
+```
+Now, as with any other interface, we can write our own type which implements
+the `RoundTripper` interface and use that as the `Transport` for a HTTP client.
+That is the key to writing client side HTTP middleware.
+
+Let's see a first example.
 
 
 ### Writing your own RoundTripper implementation
@@ -40,7 +69,7 @@ The method definition will look as follows:
 
 ```go
 func (t *demoRoundTripper) RoundTrip(r *http.Request) (*http.Response, error) {
-	return http.DefaultTransport.RoundTrip(r)
+        return http.DefaultTransport.RoundTrip(r)
 }
 ```
 
@@ -56,6 +85,11 @@ client := http.Client{
 }
 resp, err := client.Get("https://example.com")
 ```
+
+
+There is absolutely no useful purpose of writing a middleware like the above. However, what is
+useful though is a `RoundTrip()` implementation which executes other code before and after calling
+`http.DefaultTransport.RoundTrip()`.
 
 This is the pattern followed by middleware that implements logging and metrics, adds common headers or
 implements caching. I cover examples of using this pattern of writing middleware in my book, 
@@ -185,6 +219,34 @@ As you completely control what happens to the outgoing request, your roundtrippe
 can implement logic based on the request type - such as GET or POST, send redirect responses back,
 drop requests completely to simulate failure scenarios and such. Now of course, we don't want
 to make our _stub_ too complicated, but it should be _just enough_ for our current requirements.
+
+It's also worth pointing out that you should make sure you refer to the documentation of
+`RoundTripper` interface as to what you should or should not do in your implementation:
+
+```
+// copied from:https://pkg.go.dev/net/http#RoundTripper
+
+// RoundTrip should not attempt to interpret the response. In
+// particular, RoundTrip must return err == nil if it obtained
+// a response, regardless of the response's HTTP status code.
+
+// RoundTrip should not attempt to
+// handle higher-level protocol details such as redirects,
+// authentication, or cookies.
+//
+// RoundTrip should not modify the request, except for
+// consuming and closing the Request's Body. RoundTrip may
+// read fields of the request in a separate goroutine. Callers
+// should not mutate or reuse the request until the Response's
+// Body has been closed.
+//
+// RoundTrip must always close the body, including on errors,
+// but depending on the implementation may do so in a separate
+// goroutine even after RoundTrip returns. This means that
+// callers wanting to reuse the body for subsequent requests
+// must arrange to wait for the Close call before doing so.
+//
+```
 
 ## Summary
 
