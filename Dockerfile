@@ -1,7 +1,7 @@
 FROM debian:latest
 
-ENV HUGO_VERSION 0.76.5
-ENV HUGO_BINARY hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
+ENV HUGO_VERSION 0.103.1
+ENV HUGO_BINARY hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
 
 # Install Hugo
 RUN set -x && \
