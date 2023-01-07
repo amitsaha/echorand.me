@@ -31,6 +31,7 @@ Over the years, I have contributed code/docs to various projects:
 - Inspec (Ruby)
 - Pyodide (Python)
 - Go
+- Envoy proxy (Only docs so far)
 
 (My email address for these commits would be mail@echorand.me, amitsaha.in@gmail.com or amitksaha@netbeans.org)
 
@@ -54,7 +55,7 @@ You can contact me via [email](mailto:mail@echorand.me) (GPG key: [80B8B7E1857DC
 
 # Elsewhere
 
-- Internet Domains: practicalgobook.net, echorand.me
+- Websites: practicalgobook.net, echorand.me
 - [GitHub](https://github.com/amitsaha)
 - [Twitter](http://twitter.com/echorand)
 - [Reddit](https://www.reddit.com/user/echorand)
