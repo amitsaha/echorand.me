@@ -15,4 +15,6 @@ RUN set -x && \
   pip3 install docutils pygments
 
 WORKDIR /site
+# MAYBE: Fix for https://github.com/amitsaha/echorand.me/actions/runs/4218371717
+RUN ["git", "config", "--global", "--add", "safe.directory", "/site"]
 ENTRYPOINT ["/usr/bin/hugo"]
