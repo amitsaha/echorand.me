@@ -14,6 +14,9 @@ aliases:
 
 *Manning Live Projects*
 
+These live projects aim to help you build something while you learn more of the Go programming language and ecosystem:
+
+- `Go and External APIs <https://www.manning.com/liveprojectseries/go-and-external-apis>`__ (2023)
 - `WebSocket-based Chat Backend in Go <https://www.manning.com/liveprojectseries/websocket-based-chat-backend-in-go-ser>`__ (2022)
 - `Create a Secrets Sharing Application and Client in Go <https://www.manning.com/bundles/secrets-sharing-ser>`__ (2021)
 - `Create a Web Application Scaffold Generator in Go <https://www.manning.com/liveproject/create-a-web-application-scaffold-generator-in-go>`__ (2021)
