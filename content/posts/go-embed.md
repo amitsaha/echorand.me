@@ -5,6 +5,11 @@ categories:
 - go
 ---
 
+- [Demo - Embedding a template](#demo---embedding-a-template)
+- [Demo - Serving files from a directory](#demo---serving-files-from-a-directory)
+- [Learn more](#learn-more)
+
+
 The most exciting feature for me in the Go 1.16 release is the new ["embed"](https://golang.org/pkg/embed/)
 package which allows you to embed a file contents as part of the Go application binary. 
 
@@ -66,7 +71,7 @@ tmpl, err := tmpl.Parse(string(tmplMainGo))
 You can see the working demo [here](https://github.com/amitsaha/go-embed). Clone the repository and run the following steps:
 
 ```
-
+$ cd simple-template
 $ go build
 
 $ ./go-embed 
@@ -80,7 +85,49 @@ func main() {
 
 ```
 
-## Notes
+## Demo - Serving files from a directory
 
-The `embed` package also currently supports embedding an file system tree via the `embed.FS` type. See the package docs for the
-[details](https://golang.org/pkg/embed/).
+Say, you have a directory of files, `htmx-static` containing two files:
+
+- `htmx.js`
+- `response-targets.js`
+
+To embed the files and then make them accessible via a HTTP server, you would do something like this:
+
+```go
+import (
+	"embed"
+	"net/http"
+	
+)
+
+// the go:embed directive which specifies the directory which we want
+// to embed so we use the embed.FS type
+
+//go:embed htmx-static
+var htmxAssets embed.FS
+
+
+func main() {
+
+	mux := http.NewServeMux()
+	mux.Handle("/htmx-static/", http.FileServer(http.FS(htmxAssets)))
+
+	
+	log.Fatal(http.ListenAndServe(":8080", mux))
+
+}
+```
+
+Once you have that, any requests to your server for the path, `/htmx-static/` will be served from
+the file server created from the embedded `htmxAssets` directory.
+
+For example, when we have a request for `http://localhost:8080/htmx-static/htmx.js`, the file, `htmx.js`
+will be looked up *inside* the `htmx-static` directory you embedded.
+
+You can find the demo [here](https://github.com/amitsaha/go-embed) inside the `simple-directory`
+directory.
+
+## Learn more
+
+See the package docs for the [details](https://golang.org/pkg/embed/).
