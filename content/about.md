@@ -51,17 +51,17 @@ The publishing flow for me looks like this:
 
 # Contact
 
-You can contact me via [email](mailto:mail@echorand.me) (GPG key: [80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B](https://keys.openpgp.org/search?q=mail%40echorand.me)).
+You can contact me via [email](mailto:mail@echorand.me) (GPG key: [80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B](https://keys.openpgp.org/search?q=80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B)).
 
 # Elsewhere
 
 - Websites: practicalgobook.net, echorand.me
 - [GitHub](https://github.com/amitsaha)
-- [Twitter](http://twitter.com/echorand)
-- [Reddit](https://www.reddit.com/user/echorand)
-- [Hacker News](https://news.ycombinator.com/user?id=echorand)
+- NOT USED: [Twitter](http://twitter.com/echorand)
+- NOT USED:[Reddit](https://www.reddit.com/user/echorand)
+- NOT USED:[Hacker News](https://news.ycombinator.com/user?id=echorand)
 - [LinkedIn](https://au.linkedin.com/in/echorand)
-- [Keybase](https://keybase.io/amitsaha)
+- NOT USED:[Keybase](https://keybase.io/amitsaha)
 
 # Subscribe
 
