@@ -47,6 +47,7 @@ Years Active: 2009 - 2012
 - `Multimodal Optimization Using a Bi-Objective Evolutionary Algorithm <https://www.mitpressjournals.org/doi/10.1162/EVCO_a_00042>`__
 - `A Bi-criterion Approach to Multimodal Optimization: Self-adaptive Approach <https://link.springer.com/chapter/10.1007/978-3-642-17298-4_10>`__
 - `Practical Robust Design Optimization Using Evolutionary Algorithms <https://asmedigitalcollection.asme.org/mechanicaldesign/article-abstract/133/10/101012/467457/Practical-Robust-Design-Optimization-Using?redirectedFrom=fulltext>`__
+- `Robust design optimization of high-performance axisymmetric scramjets based on surrogate-assisted evolutionary algorithms <https://espace.library.uq.edu.au/view/UQ:287435>`__
 - `How does the good old Genetic Algorithm fare at real world optimization <https://dblp.uni-trier.de/rec/html/conf/cec/SahaR11>`__
 - `Equality Constrained Multi-objective optimization <https://ieeexplore.ieee.org/document/6256109>`__
 - `Hybrid gradient projection based Genetic Algorithms for constrained optimization <https://ieeexplore.ieee.org/document/5586303>`__
