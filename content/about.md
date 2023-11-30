@@ -18,6 +18,24 @@ please let me know.
 You may find something useful on my [GitHub](https://github.com/amitsaha) (a software repository host)
 profile. 
 
+# Contact
+
+You can contact me via [email](mailto:mail@echorand.me) (GPG key: [80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B](https://keys.openpgp.org/search?q=80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B)). 
+
+I have a [calendly link](https://calendly.com/echorand/60min?month=2023-11) which you can use to book a video call with me if you want
+some one to discuss stuff with related to your career in technology, writing a book, speaking at a conference/meetup or contributing to 
+open source.
+
+# Elsewhere
+
+- Websites: practicalgobook.net, echorand.me
+- [GitHub](https://github.com/amitsaha)
+- NOT USED: [Twitter](http://twitter.com/echorand)
+- NOT USED:[Reddit](https://www.reddit.com/user/echorand)
+- NOT USED:[Hacker News](https://news.ycombinator.com/user?id=echorand)
+- [LinkedIn](https://au.linkedin.com/in/echorand)
+- NOT USED:[Keybase](https://keybase.io/amitsaha)
+
 # Open source contributions
 
 Over the years, I have contributed code/docs to various projects:
@@ -32,8 +50,9 @@ Over the years, I have contributed code/docs to various projects:
 - Pyodide (Python)
 - Go
 - Envoy proxy (Only docs so far)
+- Docker compose (Go)
 
-(My email address for these commits would be mail@echorand.me, amitsaha.in@gmail.com or amitksaha@netbeans.org)
+(My email address for these commits would be mail@echorand.me, amitsaha.in@gmail.com, amitksaha@netbeans.org or asaha@atlassian.com)
 
 # This blog
 
@@ -48,20 +67,6 @@ The publishing flow for me looks like this:
 1. The image is then run to generate the website source
 1. The generated website source is then pushed to [amitsaha.github.io](https://github.com/amitsaha/amitsaha.github.io)
 
-
-# Contact
-
-You can contact me via [email](mailto:mail@echorand.me) (GPG key: [80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B](https://keys.openpgp.org/search?q=80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B)).
-
-# Elsewhere
-
-- Websites: practicalgobook.net, echorand.me
-- [GitHub](https://github.com/amitsaha)
-- NOT USED: [Twitter](http://twitter.com/echorand)
-- NOT USED:[Reddit](https://www.reddit.com/user/echorand)
-- NOT USED:[Hacker News](https://news.ycombinator.com/user?id=echorand)
-- [LinkedIn](https://au.linkedin.com/in/echorand)
-- NOT USED:[Keybase](https://keybase.io/amitsaha)
 
 # Subscribe
 
