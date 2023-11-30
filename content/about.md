@@ -51,6 +51,7 @@ Over the years, I have contributed code/docs to various projects:
 - Go
 - Envoy proxy (Only docs so far)
 - Docker compose (Go)
+- Spinnaker (Java, Kotlin)
 
 (My email address for these commits would be mail@echorand.me, amitsaha.in@gmail.com, amitksaha@netbeans.org or asaha@atlassian.com)
 
