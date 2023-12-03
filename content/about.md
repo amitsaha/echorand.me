@@ -5,35 +5,35 @@ date: 2019-06-16T10:53:16+10:00
 
 # About me
 
-Hello, My name is Amit Saha. I work as a software engineer and I write books on computer programming. 
+Hello, My name is Amit Saha. 
 
 I live in Sydney, Australia. I would like to acknowledge the Gadigal of the Eora Nation, the traditional
 custodians of this land and pay my respects to the Elders both past and present.
 
-You may be interested in learning more about [articles, books and other training materials](../writings-trainings/)
+I work as a software engineer for Atlassian. You may be interested in learning more 
+about [articles, books and other training materials](../writings-trainings/)
 I have authored. I also share things I learn via [presenting](../talks/) at various conferences and meetup groups.
 I am not an expert on anything I write or share, so if you find a mistake/error in anything i share online,
 please let me know.
 
 You may find something useful on my [GitHub](https://github.com/amitsaha) (a software repository host)
-profile. 
+profile.
 
 # Contact
 
-You can contact me via [email](mailto:mail@echorand.me) (GPG key: [80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B](https://keys.openpgp.org/search?q=80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B)). 
+You can contact me via [email](mailto:mail@echorand.me) (GPG key: [80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B](https://keys.openpgp.org/search?q=80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B)) or message me on [LinkedIn](https://au.linkedin.com/in/echorand).
 
-I have a [calendly link](https://calendly.com/echorand/60min?month=2023-11) which you can use to book a video call with me if you want
+I have a [scheduling link](https://calendly.com/echorand/60min?month=2023-11) which you can use to book a video call with me if you want
 some one to discuss stuff with related to your career in technology, writing a book, speaking at a conference/meetup or contributing to 
-open source.
+open source. I would of course appreciate it, if you send me an email prior to our call.
 
-# Elsewhere
+# Elsewhere on the internet
 
 - Websites: practicalgobook.net, echorand.me
 - [GitHub](https://github.com/amitsaha)
 - NOT USED: [Twitter](http://twitter.com/echorand)
 - NOT USED:[Reddit](https://www.reddit.com/user/echorand)
 - NOT USED:[Hacker News](https://news.ycombinator.com/user?id=echorand)
-- [LinkedIn](https://au.linkedin.com/in/echorand)
 - NOT USED:[Keybase](https://keybase.io/amitsaha)
 
 # Open source contributions
