@@ -1,17 +1,19 @@
 ---
 title: "About"
-date: 2019-06-16T10:53:16+10:00
+date: 2024-08-09T10:53:16+10:00
 ---
 
 # About me
 
 Hello, My name is Amit Saha. 
 
-I live in Sydney, Australia. I would like to acknowledge the Gadigal of the Eora Nation, the traditional
+I live and work in/from Sydney, Australia. I would like to acknowledge the Gadigal of the Eora Nation, the traditional
 custodians of this land and pay my respects to the Elders both past and present.
 
-I work as a software engineer for Atlassian. You may be interested in learning more 
-about [articles, books and other training materials](../writings-trainings/)
+I work as an [independent software engineer](https://echorand.com/) and I am available currently for
+consultations only (i.e. adhoc advisory). See my [LinkedIn](https://au.linkedin.com/in/echorand) profile for my experiences.
+
+You may be interested in learning more about [articles, books and other training materials](../writings-trainings/)
 I have authored. I also share things I learn via [presenting](../talks/) at various conferences and meetup groups.
 I am not an expert on anything I write or share, so if you find a mistake/error in anything i share online,
 please let me know.
