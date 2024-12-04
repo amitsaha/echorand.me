@@ -10,8 +10,7 @@ Hello, My name is Amit Saha.
 I live and work in/from Sydney, Australia. I would like to acknowledge the Gadigal of the Eora Nation, the traditional
 custodians of this land and pay my respects to the Elders both past and present.
 
-I work as an [independent software engineer](https://echorand.com/) and I am available currently for
-consultations only (i.e. adhoc advisory). See my [LinkedIn](https://au.linkedin.com/in/echorand) profile for my experiences.
+See my [LinkedIn](https://au.linkedin.com/in/echorand) profile for my experiences.
 
 You may be interested in learning more about [articles, books and other training materials](../writings-trainings/)
 I have authored. I also share things I learn via [presenting](../talks/) at various conferences and meetup groups.
