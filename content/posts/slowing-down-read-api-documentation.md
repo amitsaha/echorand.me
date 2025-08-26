@@ -18,4 +18,5 @@ what I wanted to do.
 And now, when I take the rare opportunity to actually sit down, set aside time for solving a problem, I go read the API documentation and other people's blog posts
 and actually learn how to do it. Well, I know, I can also ask LLM to teach me how to do it, but in the mad rush of getting things done, I rarely do.
 
-So, this is a post to serve a reminder in my own journey to slow down and enjoy the process, when I can.
+So, this is a post to serve a reminder in my own journey to slow down and enjoy the process, when I can. Because, it is the process I also enjoyed and in most cases,
+why I am still doing what I have been now doing for 25+ years, in some form or another.
