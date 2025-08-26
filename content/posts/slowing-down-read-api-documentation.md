@@ -1,6 +1,6 @@
 ---
 title:  Slow down, Read API documentation and Tutorials
-date: 2025-08-27
+date: 2025-08-26
 categories:
 -  software
 ---
