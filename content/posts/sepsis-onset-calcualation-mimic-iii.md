@@ -40,7 +40,47 @@ labevents = pd.read_csv(f"{MIMIC_DIR}\\LABEVENTS.csv.gz",
 
 ```
 
+## Sepsis-3 Criteria
 
+From [The Third International Consensus Definitions for Sepsis and Septic Shock (Sepsis-3)](https://jamanetwork.com/journals/jama/fullarticle/2492881):
+
+> Sepsis should be defined as life-threatening organ dysfunction caused by a dysregulated host response to infection
+
+> For clinical operationalization, organ dysfunction can be represented by an increase in the Sequential [Sepsis-related] Organ Failure Assessment (SOFA) score of 2 points or more, which is associated with an in-hospital mortality greater than 10%.
+
+Another key point that's worth mentioning from the above is:
+
+> As described later, even a modest degree of organ dysfunction when infection is first **suspected** is associated with an in-hospital mortality in excess of 10%. Recognition of this condition thus merits a prompt and appropriate response.
+
+We will henceforth refer to infection detection as "suspected infection detection".
+
+## Operationalization in code
+
+To implement it, we will need to:
+
+1. Identify the onset of suspected infection
+2. Use the SOFA score and its increase magnitude
+
+## Identifying the onset of suspected infection
+
+To identify the onset of suspected infection, we will:
+
+1. Find the time of drawing of first culture for a particular HADM_ID (which uniquely identifies a patient's specific admission)
+2. Find the time of administering of antibiotics
+3. And if they are within 24 hours of each other (irrespective of order), we consider that there is an onset of suspected infection.
+
+### Time of drawing of the first culture
+
+```python
+# ['CHARTDATE'].min() computes the minimum (earliest) CHARTDATE for each HADM_ID group
+# since we already prased the CHARTDATE as datetime during reading, the min function
+# works as intended
+
+first_culture = micro.groupby('HADM_ID')['CHARTDATE'].min().reset_index()
+first_culture.columns = ['HADM_ID', 'first_culture_time']
+```
+
+### 
 
 ## References
 
