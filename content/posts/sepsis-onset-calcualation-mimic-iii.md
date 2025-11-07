@@ -84,19 +84,29 @@ first_culture.columns = ['HADM_ID', 'first_culture_time']
 
 From [Incidence and Trends of Sepsis in US Hospitals Using Clinical vs Claims Data, 2009-2014](https://pubmed.ncbi.nlm.nih.gov/28903154/),
 
-
+```python
 antibiotics = ['Vancomycin', 'Ceftriaxone', 'Meropenem', 'Piperacillin-Tazobactam', 'Levofloxacin']
 extended_abx = [
-    'Cefepime', 'Azithromycin', 'Ampicillin', 'Ampicillin/Sulbactam', 
+    'Cefepime', 'Azithromycin', 'Ampicillin', 'Ampicillin-Sulbactam', 
     'Clindamycin', 'Linezolid', 'Metronidazole', 'Cefuroxime', 'Tobramycin', 
-    'Gentamicin', 'Imipenem', 'Imipenem/Cilastatin', 'Ticarcillin', 
-    'Ticarcillin/Clavulanate', 'Ciprofloxacin'
+    'Gentamicin', 'Imipenem', 'Imipenem-Cilastatin', 'Ciprofloxacin'
 ]
+
 all_abx = antibiotics + extended_abx
-abx_given = prescriptions[prescriptions['DRUG'].str.contains('|'.join(all_abx), case=False, na=False)]
+
+abx_lc = [a.lower() for a in all_abx]
+drug_lc = prescriptions['DRUG'].fillna('').str.lower()
+# Create a boolean mask: True if any antibiotic name is a substring of the DRUG string
+mask = drug_lc.apply(lambda s: any(abx in s for abx in abx_lc))
+abx_given = prescriptions[mask]
 
 first_abx = abx_given.groupby('HADM_ID')['STARTDATE'].min().reset_index()
 first_abx.columns = ['HADM_ID', 'first_abx_time']
+```
+
+first_abx = abx_given.groupby('HADM_ID')['STARTDATE'].min().reset_index()
+first_abx.columns = ['HADM_ID', 'first_abx_time']
+```
 
 
 ## References
