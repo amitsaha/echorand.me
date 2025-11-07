@@ -80,11 +80,13 @@ first_culture = micro.groupby('HADM_ID')['CHARTDATE'].min().reset_index()
 first_culture.columns = ['HADM_ID', 'first_culture_time']
 ```
 
-### Time of administering of antiobiotics
+### Time of administering of antibiotics
 
-From [Incidence and Trends of Sepsis in US Hospitals Using Clinical vs Claims Data, 2009-2014](https://pubmed.ncbi.nlm.nih.gov/28903154/),
+Next, we look through the `prescriptions` dataframe's `DRUG` column and filter rows which contain one of the antibiotics
+commonly identified for infection onset:
 
 ```python
+
 antibiotics = ['Vancomycin', 'Ceftriaxone', 'Meropenem', 'Piperacillin-Tazobactam', 'Levofloxacin']
 extended_abx = [
     'Cefepime', 'Azithromycin', 'Ampicillin', 'Ampicillin-Sulbactam', 
@@ -104,9 +106,36 @@ first_abx = abx_given.groupby('HADM_ID')['STARTDATE'].min().reset_index()
 first_abx.columns = ['HADM_ID', 'first_abx_time']
 ```
 
-first_abx = abx_given.groupby('HADM_ID')['STARTDATE'].min().reset_index()
-first_abx.columns = ['HADM_ID', 'first_abx_time']
+### Identifying infection onset
+
+Now that we have identified the first instance of administering an antibiotic and drawing blood culture, we now join
+the two dataframes based on HADM_ID:
+
+```python
+suspected_infection = pd.merge(first_abx, first_culture, on='HADM_ID')
 ```
+
+Next, we find the delta between the two times and store it as a separate column:
+
+```python
+suspected_infection['delta'] = (
+    (suspected_infection['first_abx_time'] - suspected_infection['first_culture_time'])
+    .dt.total_seconds() / 3600
+)
+```
+
+Finally, we filter the data to store only those for which the absolute value of delta is within 24 hours:
+
+```python
+suspected_infection = suspected_infection[suspected_infection['delta'].abs() <= 24]
+```
+
+We add the suspected infection time as a separate column storing the earlier of the two times:
+
+```python
+suspected_infection['infection_time'] = suspected_infection[['first_abx_time', 'first_culture_time']].min(axis=1)
+```
+
 
 
 ## References
