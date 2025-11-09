@@ -148,11 +148,52 @@ the:
 5. Cardiovascular system
 6. Respiratory system
 
-To measure the first three, we will query the `labitems` table for the following item ids:
+To measure the first three, we will query the `labevents` table for the following item ids:
 
 1. Kidney - creatinine (item id: 50912)
 2. Coagulation - platelet count (item id: 51265)
 3. Liver - bilirubin total (itemid: 50885)
+
+We read one chunk at a time of the table, group the data into one of four bins based on their value
+and then associate a severity label with them (0, 1, 2, 3, 4 - normal to abnormal).
+
+For example, for renal, we do this:
+
+```python
+creat_itemid = 50912
+
+renal_rows = []
+
+# Renal - Creatinine
+cr = chunk[chunk['ITEMID'] == creat_itemid].copy()
+cr['renal_score'] = pd.cut(
+    cr['VALUENUM'],
+    bins=[-float('inf'), 1.2, 1.9, 3.4, 4.9, float('inf')], # bins for creatinine
+    labels=[0, 1, 2, 3, 4] # assignemnt of severity score
+).fillna(0).astype(int)
+renal_rows.append(cr[['HADM_ID', 'CHARTTIME', 'renal_score']])
+```
+
+Once we have read all the data, stored the data for each chunk as a row in the list, we then
+create dataframe for each of the three measurements:
+
+```python
+
+# Concatenate results
+renal_scores = pd.concat(renal_rows)
+coag_scores = pd.concat(coag_rows)
+liver_scores = pd.concat(liver_rows)
+
+```
+
+We see that for some of the measurement, the `HADM_ID` is `NaN`, these are data for outpatients,
+and will be filtered automatically later on.
+
+Next, we will calculate the remaining three:
+
+4. Central nervous system
+5. Cardiovascular system
+6. Respiratory system
 
 
 ## References
