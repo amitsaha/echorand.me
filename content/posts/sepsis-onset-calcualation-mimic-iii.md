@@ -136,11 +136,29 @@ We add the suspected infection time as a separate column storing the earlier of 
 suspected_infection['infection_time'] = suspected_infection[['first_abx_time', 'first_culture_time']].min(axis=1)
 ```
 
+## Identifying organ failure/dsyfunction
+
+Next, we want to identify organ failures for calculating the sequential organ failure assessment score (SOFA score). It comprises six subscores corresponding to the condition (See reference 2) of
+the:
+
+1. Kidney (renal)
+2. Coagulation
+3. Liver
+4. Central nervous system
+5. Cardiovascular system
+6. Respiratory system
+
+To measure the first three, we will query the `labitems` table for the following item ids:
+
+1. Kidney - creatinine (item id: 50912)
+2. Coagulation - platelet count (item id: 51265)
+3. Liver - bilirubin total (itemid: 50885)
 
 
 ## References
 
 1. [MIMIC-III data description](https://mimic.mit.edu/docs/iii/tables/)
+2. [Supplementary material of An optimal antibiotic selection framework for Sepsis patients using Artificial Intelligence](https://pmc.ncbi.nlm.nih.gov/articles/PMC11607445/)
 
 
 
