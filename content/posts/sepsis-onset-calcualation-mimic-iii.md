@@ -306,7 +306,7 @@ by reading the following data:
 
 Once we have the subscores, we calculate the total SOFA score:
 
-```
+```python
 from functools import reduce
 score_dfs = [
     renal_scores,    
