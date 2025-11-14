@@ -1,10 +1,28 @@
 ---
 title:  Sepsis onset calculation from MIMIC-III data using sepsis-3 criteria
-date: 2025-11-05
-draft: true
+date: 2025-11-10
 categories:
 - research
 ---
+
+In this blog post, I am going to desribe how we can calculate sepsis onset time using
+sepsis-3 criteria for the MIMIC-III patient data.
+
+- [Reading the relevant tables](#reading-the-relevant-tables)
+- [Sepsis-3 Criteria](#sepsis-3-criteria)
+- [Operationalization in code](#operationalization-in-code)
+- [Identifying the onset of suspected infection](#identifying-the-onset-of-suspected-infection)
+  - [Time of drawing of the first culture](#time-of-drawing-of-the-first-culture)
+  - [Time of administering of antibiotics](#time-of-administering-of-antibiotics)
+  - [Identifying infection onset](#identifying-infection-onset)
+- [Identifying organ failure/dsyfunction](#identifying-organ-failuredsyfunction)
+  - [Calculation of total SOFA score](#calculation-of-total-sofa-score)
+- [Finding sepsis onset time](#finding-sepsis-onset-time)
+- [Code](#code)
+- [Data access](#data-access)
+- [Assumptions](#assumptions)
+- [References](#references)
+
 
 ## Reading the relevant tables
 
@@ -195,7 +213,8 @@ Next, we will calculate the remaining three:
 5. Cardiovascular system
 6. Respiratory system
 
-For the **central nervous system**, we calculate the Glasgow Coma Scale (GCS) score, measuring the following by reading the `chartevents` table:
+For the **central nervous system**, we calculate the Glasgow Coma Scale (GCS) score, 
+measuring the following by reading the `chartevents` table:
 
 A. Eye response (item id: 223900, 220739)
 B. Verbal response (item id: 223901)
@@ -262,11 +281,114 @@ cns_scores = gcs_pivot[['HADM_ID', 'CHARTTIME', 'cns_score']]
 ```
 
 
+For **Cardio vascular system** score, we read the following data from different tables:
+
+1. Mean arterial pressure (MAP) from `chartevents`
+2. Vasopressors from `inputevents_mv` and `inputevents_cv`
+   1. Dopamine
+   2. Dobutamine
+   3. Epinephrine
+   4. Norepinephrine
+
+Based on the rate of the vasopressor administration and the MAP, a severity score is assigned.
+See reference [2], Page 7 for the severity score assignment.
+
+To see the calculation of the cardiovascular score, see the notebook, [Cardiovascular Score Standalone.ipynb](https://github.com/amitsaha/mimic-ml/blob/main/mimic-iii/sepsis-onset/Cardiovascular%20Score%20Standalone.ipynb) in the associated GitHub repository for this post.
+
+For calculating the **respiratory system** score, we calculate the P/F ratio
+(P: PaO2 - Partial pressure of oxygen), (F: Fraction of inspired oxygen),
+by reading the following data:
+
+1. Fraction of inspired oxygen (FiO2) from `charevents` (item id: 223835, 3420)
+2. Partial pressure of oxygen(PaO2) from `labevents` (item id: 50821)
+
+### Calculation of total SOFA score
+
+Once we have the subscores, we calculate the total SOFA score:
+
+```
+from functools import reduce
+score_dfs = [
+    renal_scores,    
+    coag_scores,
+    liver_scores,
+    cardio_scores,
+    cns_scores,
+    resp_scores
+]
+
+# Merge all on HADM_ID + CHARTTIME
+sofa_df = reduce(lambda left, right: pd.merge(left, right, how='outer', on=['HADM_ID', 'CHARTTIME']), score_dfs)
+
+# Fill missing scores with 0
+for col in sofa_df.columns:
+    if '_score' in col:
+        sofa_df[col] = sofa_df[col].fillna(0).astype(int)
+
+# Calculate total SOFA score
+sofa_df['total_sofa_score'] = sofa_df[[col for col in sofa_df.columns if '_score' in col]].sum(axis=1)
+```
+
+## Finding sepsis onset time
+
+Now, we have the suspected infection time and the organ dysfunction data via the SOFA score, we can
+now use the Sepsis-3 criteria to detect the sepsis onset:
+
+```python
+# Merge SOFA with infection time
+merged = pd.merge(sofa_df, suspected_infection[['HADM_ID', 'infection_time']], on='HADM_ID', how='inner')
+
+# Time diff in hours for each row
+merged['time_diff_hours'] = (merged['CHARTTIME'] - merged['infection_time']).dt.total_seconds() / 3600
+
+# Pre- and post-infection windows (24 h before and after)
+pre_window = merged[(merged['time_diff_hours'] >= -24) & (merged['time_diff_hours'] < 0)]
+post_window = merged[(merged['time_diff_hours'] >= 0) & (merged['time_diff_hours'] <= 48)]
+
+# Get baseline SOFA (lowest in 24h before)
+baseline_sofa = pre_window.groupby('HADM_ID')['total_sofa_score'].min().reset_index()
+baseline_sofa.columns = ['HADM_ID', 'baseline_sofa']
+
+# Join baseline with post-infection SOFA
+post_with_baseline = pd.merge(post_window, baseline_sofa, on='HADM_ID', how='left')
+post_with_baseline['sofa_delta'] = post_with_baseline['total_sofa_score'] - post_with_baseline['baseline_sofa']
+
+# First time SOFA delta ≥ 2 = Sepsis Onset
+sepsis_onset = (
+    post_with_baseline[post_with_baseline['sofa_delta'] >= 2]
+    .sort_values(['HADM_ID', 'CHARTTIME'])
+    .groupby('HADM_ID')
+    .first() # take the earliest charttime for the HADM_ID
+    .reset_index()
+)
+
+# Output: earliest time of sepsis
+sepsis_onset = sepsis_onset[['HADM_ID', 'CHARTTIME']].rename(columns={'CHARTTIME': 'sepsis_onset_time'})
+```
+
+With MIMIC-III data, the sepsis onset dataframe should have the shape:
+
+```
+sepsis_onset.shape
+(1731, 2)
+```
+
+## Code
+
+You can find jupyter notebooks [here](https://github.com/amitsaha/mimic-ml/tree/main/mimic-iii/sepsis-onset):
+
+1. [Sepsis onset time calculation](https://github.com/amitsaha/mimic-ml/blob/main/mimic-iii/sepsis-onset/Updated%20-%20Sepsis%20onset%20time%20calculation%20.ipynb)
+2. [Cardiovascular score calculation](https://github.com/amitsaha/mimic-ml/blob/main/mimic-iii/sepsis-onset/Cardiovascular%20Score%20Standalone.ipynb)
+
+## Data access
+
+See [here](https://mimic.mit.edu/docs/gettingstarted/).
+
+## Assumptions
+
+1. The sepsis onset is determined at an admission level, rather than an ICU stay level
 
 ## References
 
 1. [MIMIC-III data description](https://mimic.mit.edu/docs/iii/tables/)
 2. [Supplementary material of An optimal antibiotic selection framework for Sepsis patients using Artificial Intelligence](https://pmc.ncbi.nlm.nih.gov/articles/PMC11607445/)
-
-
-
