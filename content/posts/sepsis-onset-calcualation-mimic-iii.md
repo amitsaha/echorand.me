@@ -195,7 +195,72 @@ Next, we will calculate the remaining three:
 5. Cardiovascular system
 6. Respiratory system
 
-For the central nervous system, 
+For the **central nervous system**, we calculate the Glasgow Coma Scale (GCS) score, measuring the following by reading the `chartevents` table:
+
+A. Eye response (item id: 223900, 220739)
+B. Verbal response (item id: 223901)
+C. Motor response (item id: 223902)
+
+We read the data one chunk at a time, and accumulate them in a list:
+
+```python
+
+gcs_rows = []
+
+gcs_chunk = chunk[chunk['ITEMID'].isin(
+    gcs_itemids['EYE'] + gcs_itemids['VERBAL'] + gcs_itemids['MOTOR']
+)].copy()
+gcs_rows.append(gcs_chunk)
+```
+
+Then, we create a dataframe, and process the individual scores and calculate the final score that
+will be used for SOFA calculation:
+
+```python
+
+gcs_all = pd.concat(gcs_rows)
+gcs_all = gcs_all.dropna(subset=['VALUENUM'])
+
+# Take the maximum when multiple measurements exist for the hour
+gcs_all['CHARTTIME'] = pd.to_datetime(gcs_all['CHARTTIME']).dt.floor('h')
+gcs_pivot = gcs_all.pivot_table(index=['HADM_ID', 'CHARTTIME'], 
+                                columns='ITEMID', values='VALUENUM', aggfunc='max').reset_index()
+gcs_pivot.columns.name = None
+
+# Rename columns for clarity
+gcs_pivot = gcs_pivot.rename(columns={
+    223900: 'eye',
+    220739: 'eye_alt',
+    223901: 'verbal',
+    223902: 'motor'
+})
+
+# Fill missing eye from alternate
+gcs_pivot['eye'] = gcs_pivot['eye'].combine_first(gcs_pivot['eye_alt'])
+
+# Ensure all three components exist
+for col in ['eye', 'verbal', 'motor']:
+    if col not in gcs_pivot.columns:
+        gcs_pivot[col] = np.nan
+
+# Total GCS calculation (NaNs allowed)
+gcs_pivot['gcs_total'] = gcs_pivot[['eye', 'verbal', 'motor']].sum(axis=1, min_count=1)
+
+# Fill fully missing GCS with 15 (assume alert) 
+# TODO alternative - forward fill
+gcs_pivot['gcs_total'] = gcs_pivot['gcs_total'].fillna(15)
+
+# CNS SOFA scoring bins and severity allocation
+gcs_pivot['cns_score'] = pd.cut(
+    gcs_pivot['gcs_total'],
+    bins=[-float('inf'), 5, 8, 11, 14, 15],
+    labels=[4, 3, 2, 1, 0]
+).astype(int)
+
+# Final GCS score output
+cns_scores = gcs_pivot[['HADM_ID', 'CHARTTIME', 'cns_score']]
+```
+
 
 
 ## References
