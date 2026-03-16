@@ -9,7 +9,7 @@ In what can only be described as sign of the times, one of the books I wrote, ar
 [Doing Math With Python](https://doingmathwithpython.github.io/) is one of the works in 
 the [Anthropic Copyright Settlement](https://www.anthropiccopyrightsettlement.com/).
 
-![Doing Math with Python](/img/Screenshot 2026-03-17 064714.png "DMWP Anthropic")
+![Doing Math with Python](/img/dmwp-anthropic.png "DMWP Anthropic")
 
 This is just a post to commemorate this time in history and in a bizarre twist, me being part of it.
 
