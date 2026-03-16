@@ -1,6 +1,6 @@
 ---
 title:  Doing Math With Python in Anthropic Copyright Settlement
-date: 2026-16-03
+date: 2026-03-16
 categories:
 - software
 ---
