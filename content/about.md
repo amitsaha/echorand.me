@@ -25,7 +25,7 @@ open source. I would of course appreciate it, if you send me an email prior to o
 
 # Elsewhere on the internet
 
-- Websites: practicalgobook.net, echorand.me
+- Websites: practicalgobook.net, echorand.me, securebasefoundation.org, commonloopworks.com, echorand.com
 - [GitHub](https://github.com/amitsaha)
 - NOT USED: [Twitter](http://twitter.com/echorand)
 - NOT USED:[Reddit](https://www.reddit.com/user/echorand)
