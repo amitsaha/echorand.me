@@ -13,9 +13,10 @@ the [Anthropic Copyright Settlement](https://www.anthropiccopyrightsettlement.co
 
 This is just a post to commemorate this time in history and in a bizarre twist, me being part of it.
 
-Off late, I have realized, I don't like vibe coding, because my goal is to write code, the process of it, 
+Off late, I have realized, I don't like an "agent" doing my software work. My goal is to write code, the process of it, 
 not the end result. Sure, I like the end result, but it appears my dopamine hit is in the process. Also, my brain 
-can't handle all the interruptions and context switches.
+can't handle all the interruptions and context switches. So, I continue to craft it by hand, faultering, writing bad
+code. But it's atleast code I know how to handle and manage next time I need to do something with it. 
 
 I use Chatgpt, gemini and friends as a more efficient form of stackoverflow searches, mostly.
 
