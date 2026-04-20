@@ -1,11 +1,11 @@
 ---
 title:  DevOps Notes
-date: 2021-04-07
+date: 2026-04-19
 categories:
 - software
-draft: true
 ---
 
+Some suggestions that i offered to someone else, looking for some general guidance around setting up their DevOps processes.
 
 Overall, the idea is that you run as many automated checks/processes as possible before the code is merged into your main/master repository and 
 deployed to production so that you can:
@@ -19,7 +19,7 @@ deployed to production so that you can:
  7. Secrets are not being committed accidentally to version control
 The techniques have come to be referred to "shifting left" (imagine that left is the developer's laptop and the right is the production system): https://about.gitlab.com/topics/ci-cd/shift-left-devops/ 
 
-Before the PR is created
+**Before the PR is created**
 
  1. linting, code formatting and unit-test (if cheap) - generally, you will only run these processes here for the directories/code files that was changed
  2. Setup an appropriate .gitignore file so that secrets are not accidentally committed
@@ -29,7 +29,7 @@ Before the PR is created
 
 Please look for tools you can use to do this, but https://typicode.github.io/husky/ might be a good start for 1-3 and then for (4), github has their own guide.
 
-After the PR is created
+**After the PR is created**
 
 After a PR Is created, we will run the same checks we did for (1) above. In addition:
  1. We run more tests - perhaps integration tests
@@ -37,7 +37,7 @@ After a PR Is created, we will run the same checks we did for (1) above. In addi
  3. We might also run some test coverage tools here to ensure that the new code continues to have code coverage - this is tricky, as higher code coverage isn't necessarily an indication for working code, but it's a start
  4. You enforce how many approvals the PR needs and who can approve
  
-After the PR is merged
+**After the PR is merged**
 
 Let's say your organization uses only two branches - develop and main/master.
 
@@ -54,7 +54,7 @@ Note that you could also have a single "master" branch and then simply promote t
 You can implement manual reviews and checks using: https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/review-deployments 
 
 
-Ongoing management
+**Ongoing management**
 
  1. Secrets stored in the CI tool, and is retrieved at CI build time
  2. Any secrets that developers need access to are never committed - typically, via ensuring that `.env` files are in `.gitignore`. The secrets themselves are then only accessible by developers 
