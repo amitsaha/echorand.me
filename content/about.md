@@ -17,16 +17,14 @@ profile.
 
 # Contact
 
-You can contact me via [email](mailto:mail@echorand.me) (GPG key: [80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B](https://keys.openpgp.org/search?q=80B8B7E1857DC5B215B48EBE2A18534CA9B35D2B)) or message me on [LinkedIn](https://au.linkedin.com/in/echorand).
+You can contact me via [email](mailto:mail@echorand.me) or message me on [LinkedIn](https://au.linkedin.com/in/echorand).
 
-I have a [scheduling link](https://calendly.com/echorand/consult) which you can use to book a video call with me if you want
-some one to discuss stuff with related to your career in technology, writing a book, speaking at a conference/meetup or contributing to 
-open source. I would of course appreciate it, if you send me an email prior to our call.
 
 # Elsewhere on the internet
 
 - Websites: practicalgobook.net, echorand.me, securebasefoundation.org, commonloopworks.com, echorand.com
 - [GitHub](https://github.com/amitsaha)
+- [Substack](https://substack.com/@amitsaha) (non technology/software)
 - NOT USED: [Twitter](http://twitter.com/echorand)
 - NOT USED:[Reddit](https://www.reddit.com/user/echorand)
 - NOT USED:[Hacker News](https://news.ycombinator.com/user?id=echorand)
