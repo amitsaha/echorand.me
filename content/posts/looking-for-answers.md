@@ -5,9 +5,19 @@ categories:
 -  software
 ---
 
-I want to get access to the `subject_id` within my [Pytorch dataset](https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html).
+Some examples of where i get limited by a specific programming language/framework's syntax/particular way of doing things, and how I navigate
+it by trying to see if i can solve it myself based on what i know or good old internet search, (i.e. manually looking at links/posts) and
+learning a bit more in the process.
 
-Challenge: I don't want to ask the Internet, and may be only, a good old internet search, no LLM.
+Navigation
+
+- [1](#1)
+- [2](#2).
+
+## 1
+
+I want to get access to the `subject_id` within my [Pytorch dataset](https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html). I know that
+it is present in a dictionary for each row of my data.
 
 ```python
 (Pdb) eval_dataset
@@ -40,5 +50,15 @@ And there I have it, so now collecting the subject_ids is a matter of:
 (Pdb) subject_ids = [row[2]["subject_id"] for row in eval_dataset]
 ```
 
+
 Python makes it easy to inspect objects and get things. Other languages, a bit trickier perhaps, but it's possible, we have the good old
 printing!
+
+## 2
+
+I have an integer and i want to just run a loop that many times. 
+
+1. I search for `for loop javascript`
+2. I pick the [MDN link](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration)
+
+I preferred MDN over w3schools since i am aware of the authority of MDN - similar to w3schools, of course for me, but just went with MDN.
