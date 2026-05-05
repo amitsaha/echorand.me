@@ -1,5 +1,5 @@
 ---
-title:  Looking for answers without outsourcing
+title:  Looking for answers without outsourcing to LLM
 date: 2026-05-04
 categories:
 -  software
