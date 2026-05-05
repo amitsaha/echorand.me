@@ -12,7 +12,7 @@ learning a bit more in the process.
 Navigation
 
 - [1](#1)
-- [2](#2).
+- [2](#2)
 
 ## 1
 
