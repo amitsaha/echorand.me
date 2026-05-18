@@ -9,10 +9,13 @@ Some examples of where i get limited by a specific programming language/framewor
 it by trying to see if i can solve it myself based on what i know or good old internet search, (i.e. manually looking at links/posts) and
 learning a bit more in the process.
 
+> I know there is research now showing the impact of using LLMs on our brain, but to me, this is just how I want to do my work. I want to be involved.
+
 Navigation
 
 - [1](#1)
 - [2](#2)
+- [3](#3)
 
 ## 1
 
@@ -62,3 +65,89 @@ I have an integer and i want to just run a loop that many times.
 2. I pick the [MDN link](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration)
 
 I preferred MDN over w3schools since i am aware of the authority of MDN - similar to w3schools, of course for me, but just went with MDN.
+
+## 3
+
+I have a dataframe which is multi indexed and i want to each each unique combination of index columns data:
+
+```
+(Pdb) insurance_metrics
+                                                   n      tp       tn       fp      fn  accuracy  precision    recall        f1       auc    pr_auc
+dataset                    insurance
+eval_1_cardiomegaly.csv.gz Medicaid          14877.0  1816.0   9472.0   2897.0   692.0  0.758755   0.385317  0.724083  0.502977  0.826120  0.481929
+                           Medicare          45393.0  8678.0  21264.0  13126.0  2325.0  0.659617   0.398000  0.788694  0.529033  0.772568  0.493489
+...
+````
+
+I want to get access to the data for each unique combination of `dataset` and `insurance`":
+
+```
+insurance_metrics.index
+MultiIndex([('eval_1_cardiomegaly.csv.gz',         'Medicaid'),
+            ('eval_1_cardiomegaly.csv.gz',         'Medicare'),
+            ('eval_1_cardiomegaly.csv.gz',        'No charge'),
+```
+
+Search query: "pandas selecting by index value" 
+
+Reading, https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#selection-by-label
+
+
+> The .loc attribute is the primary access method. The following are valid inputs:
+> A single label, e.g. 5 or 'a' (Note that 5 is interpreted as a label of the index. This use is not an integer position along the index.).
+
+>   A list or array of labels ['a', 'b', 'c'].
+
+>    A slice object with labels 'a':'f'. Note that contrary to usual Python slices, both the start and the stop are included, when present in the index! See Slicing with labels.
+
+ >   A boolean array.
+
+
+**My brain goes. omg.**
+
+So, i start hacking around:
+
+```
+(Pdb) insurance_metrics.get(('eval_1_cardiomegaly.csv.gz', 'Medicaid'))
+```
+
+No dice.
+
+Okay, I know, `loc`, and i know that i want to specify a tuple, since I have a `MultiIndex`:
+
+```
+(Pdb) insurance_metrics.loc(('eval_1_cardiomegaly.csv.gz', 'Medicaid'))
+*** ValueError: No axis named ('eval_1_cardiomegaly.csv.gz', 'Medicaid') for object type DataFrame
+
+(Pdb) insurance_metrics.loc[("eval_1_cardiomegaly.csv.gz", "Medicare")]
+n            45393.000000
+tp            8678.000000
+tn           21264.000000
+fp           13126.000000
+fn            2325.000000
+accuracy         0.659617
+precision        0.398000
+recall           0.788694
+f1               0.529033
+auc              0.772568
+pr_auc           0.493489
+Name: (eval_1_cardiomegaly.csv.gz, Medicare), dtype: float64
+```
+
+Okay, so i have what i needed. To automate it, i am just gonna use `groupby`:
+
+```
+(Pdb) items=[(d, i) for d, i in insurance_metrics.groupby(by=['dataset', 'insurance'])]
+(Pdb) type(items[0])
+<class 'tuple'>
+(Pdb) items[0][0]
+('eval_1_cardiomegaly.csv.gz', 'Medicaid')
+(Pdb) items[0][1]
+                                            n      tp      tn      fp     fn  accuracy  precision    recall        f1      auc    pr_auc
+dataset                    insurance
+eval_1_cardiomegaly.csv.gz Medicaid   14877.0  1816.0  9472.0  2897.0  692.0  0.758755   0.385317  0.724083  0.502977  0.82612  0.481929
+```
+
+
+Okay, so apparentely, `groupby` works with index columns too. 
+
