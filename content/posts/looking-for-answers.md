@@ -70,7 +70,7 @@ I preferred MDN over w3schools since i am aware of the authority of MDN - simila
 
 I have a dataframe which is multi indexed and i want to each each unique combination of index columns data:
 
-```
+```python
 (Pdb) insurance_metrics
                                                    n      tp       tn       fp      fn  accuracy  precision    recall        f1       auc    pr_auc
 dataset                    insurance
@@ -81,7 +81,7 @@ eval_1_cardiomegaly.csv.gz Medicaid          14877.0  1816.0   9472.0   2897.0  
 
 I want to get access to the data for each unique combination of `dataset` and `insurance`":
 
-```
+```python
 insurance_metrics.index
 MultiIndex([('eval_1_cardiomegaly.csv.gz',         'Medicaid'),
             ('eval_1_cardiomegaly.csv.gz',         'Medicare'),
@@ -107,7 +107,7 @@ Reading, https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#s
 
 So, i start hacking around:
 
-```
+```python
 (Pdb) insurance_metrics.get(('eval_1_cardiomegaly.csv.gz', 'Medicaid'))
 ```
 
@@ -115,7 +115,7 @@ No dice.
 
 Okay, I know, `loc`, and i know that i want to specify a tuple, since I have a `MultiIndex`:
 
-```
+```python
 (Pdb) insurance_metrics.loc(('eval_1_cardiomegaly.csv.gz', 'Medicaid'))
 *** ValueError: No axis named ('eval_1_cardiomegaly.csv.gz', 'Medicaid') for object type DataFrame
 
@@ -136,7 +136,7 @@ Name: (eval_1_cardiomegaly.csv.gz, Medicare), dtype: float64
 
 Okay, so i have what i needed. To automate it, i am just gonna use `groupby`:
 
-```
+```python
 (Pdb) items=[(d, i) for d, i in insurance_metrics.groupby(by=['dataset', 'insurance'])]
 (Pdb) type(items[0])
 <class 'tuple'>
