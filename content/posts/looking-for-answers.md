@@ -16,6 +16,7 @@ Navigation
 - [1](#1)
 - [2](#2)
 - [3](#3)
+- [4](#4)
 
 ## 1
 
@@ -148,6 +149,92 @@ dataset                    insurance
 eval_1_cardiomegaly.csv.gz Medicaid   14877.0  1816.0  9472.0  2897.0  692.0  0.758755   0.385317  0.724083  0.502977  0.82612  0.481929
 ```
 
-
 Okay, so apparentely, `groupby` works with index columns too. 
 
+## 4
+
+I have two dataframes, `new_results` and `baseline_results`.
+
+I want to copy all the data from a `baseline_results` for a specific column value into `new_results`. In this case,
+the column value is `baseline_cardiomegaly.csv.gz` for `dataset` column.
+
+My trial and error attempts and how i got there:
+
+```python
+(Pdb) new_results
+        Unnamed: 0  y_true  y_pred    prob_1  ...                     dataset  gender              race         insurance
+0                0       1       1  0.649867  ...  eval_1_cardiomegaly.csv.gz       M             WHITE          Medicare
+
+...            ...     ...     ...       ...  ...                         ...     ...               ...               ...
+
+[142698 rows x 11 columns]
+
+```python
+
+(Pdb) baseline_results
+        Unnamed: 0  y_true  y_pred    prob_1  ...                       dataset  gender              race         insurance
+0                0       0       0  0.057635  ...  baseline_cardiomegaly.csv.gz       M  RECORD_NOT_FOUND  RECORD_NOT_FOUND
+[362281 rows x 12 columns]
+```
+
+Awfully bad attempts, without even thinking, one might say, hands typing, brain listening to music (perhaps from the muscle memory of yesterday):
+
+```python
+
+(Pdb) new_results["baseline_cardiomegaly.csv.gz"] = baseline_results["baseline_cardiomegaly.csv.gz"]
+*** KeyError: 'baseline_cardiomegaly.csv.gz'
+
+
+(Pdb) new_results["baseline_cardiomegaly.csv.gz"] = baseline_results.loc("baseline_cardiomegaly.csv.gz")
+*** ValueError: No axis named baseline_cardiomegaly.csv.gz for object type DataFrame
+(Pdb) new_results["baseline_cardiomegaly.csv.gz"] = baseline_results.loc(["baseline_cardiomegaly.csv.gz"])
+*** TypeError: unhashable type: 'list'
+(Pdb) new_results["baseline_cardiomegaly.csv.gz"] = pd.Series(baseline_results.loc(["baseline_cardiomegaly.csv.gz"]))
+*** TypeError: unhashable type: 'list'
+(Pdb) baseline_results.loc(["baseline_cardiomegaly.csv.gz"])
+*** TypeError: unhashable type: 'list'
+(Pdb) baseline_results.loc(("baseline_cardiomegaly.csv.gz"))
+*** ValueError: No axis named baseline_cardiomegaly.csv.gz for object type DataFrame
+
+```
+
+The above attempts are all my brain not considering the fact that I am choosing the value for a specific column and the value itself
+is not an index or a column  name.
+
+`dataset` is a column and that's the column I must look up (not an index).
+
+Once the brain has that updated context, I struggle with the exact syntax for filtering a bit:
+
+```python
+(Pdb) new_results["baseline_cardiomegaly.csv.gz"] = baseline_results[baseline_results[dataset == "baseline_cardiomegaly..csv.gz"]]
+*** NameError: name 'dataset' is not defined
+(Pdb) new_results["baseline_cardiomegaly.csv.gz"] = baseline_results[baseline_results["dataset" == "baseline_cardiomegaly..csv.gz"]]
+*** KeyError: False
+(Pdb) new_results["baseline_cardiomegaly.csv.gz"] = baseline_results[baseline_results["dataset"] == "baseline_cardiomegaly.csv.gz"]
+*** ValueError: Cannot set a DataFrame with multiple columns to the single column baseline_cardiomegaly.csv.gz
+
+```
+
+At this point I realize, what i am doing wrong, i have the selection correct, but i am trying to put in multiple columns and assign it to a single column,
+so I need `concat` which I again struggle with the right syntax:
+
+```python
+(Pdb) new_results = new_results.concat(baseline_results[baseline_results["dataset"] == "baseline_cardiomegaly.csv.gz"])
+*** AttributeError: 'DataFrame' object has no attribute 'concat'
+(Pdb) new_results = pd.concat(new_results, baseline_results[baseline_results["dataset"] == "baseline_cardiomegaly.csv.gz"])
+*** TypeError: concat() takes 1 positional argument but 2 were given
+(Pdb) new_results = pd.concat([baseline_results[baseline_results["dataset"] == "baseline_cardiomegaly.csv.gz"], new_results])
+```
+
+Okay finally i have it!
+Trial and error is my favorite way to learn, the brain needs to take the paths to the solution and there is a satisfaction I derive from that process:
+
+```python
+(Pdb) new_results
+        Unnamed: 0  y_true  y_pred    prob_1  ...                       dataset  gender              race         insurance
+0                0       0       0  0.057635  ...  baseline_cardiomegaly.csv.gz       M  RECORD_NOT_FOUND  RECORD_NOT_FOUND
+
+[362281 rows x 12 columns]
+```
+
+Okay, so I am training myself i think. I am my favorite agent.
