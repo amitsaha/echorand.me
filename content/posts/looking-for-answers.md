@@ -17,6 +17,7 @@ Navigation
 - [2](#2)
 - [3](#3)
 - [4](#4)
+- [5](#5)
 
 ## 1
 
@@ -238,3 +239,29 @@ Trial and error is my favorite way to learn, the brain needs to take the paths t
 ```
 
 Okay, so I am training myself i think. I am my favorite agent.
+
+## 5
+
+I want the equivalent of ternary operator `?` (in C or javascript) in Python. I have forgotten exactly how, but i know that
+i can use `if..else` in list comprehension, so perhaps it works outside it too?
+
+Let's try:
+
+```python
+>>> import random
+>>> value = 1 if random.random() > 0.5 else 0
+>>> value
+0
+>>> value = 1 if random.random() > 0.5 else 0
+>>> value
+0
+>>> value = 1 if random.random() > 0.5 else 0
+>>> value
+1
+```
+
+
+yeah, it does.
+
+of course, `random.random() > 0.5` is an example of a conditional evaluation.
+
