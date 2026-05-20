@@ -18,7 +18,7 @@ Navigation
 - [3](#3)
 - [4](#4)
 - [5](#5)
-
+- [6](#6)
 ## 1
 
 I want to get access to the `subject_id` within my [Pytorch dataset](https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html). I know that
@@ -264,4 +264,35 @@ Let's try:
 yeah, it does.
 
 of course, `random.random() > 0.5` is an example of a conditional evaluation.
+
+## 6
+
+I want to access, `feature-prep` directory which is at the same level as `utils`, from inside a file inside `utils`. Basically:
+
+1. Traverse one directory up from `utils`
+2. Go down another directory, `feature-prep`
+3. 
+
+```python
+(Pdb) Path(__file__) / "..//feature-prep"
+WindowsPath('C:/Users/amits/work/github.com/amitsaha/ml-fairness-health/mywork/experiments/mimic-cxr/utils/common_experiment.py/../feature-prep')
+(Pdb) import os
+(Pdb) os.path.exists(Path(__file__) / "..//feature-prep")
+False
+(Pdb) os.path.exists(Path(__file__))
+True
+(Pdb) os.path.basename(Path(__file__))
+'common_experiment.py'
+(Pdb) os.path.dirname(Path(__file__))
+'C:\\Users\\amits\\work\\github.com\\amitsaha\\ml-fairness-health\\mywork\\experiments\\mimic-cxr\\utils'
+(Pdb) os.path.dirname(os.path.dirname(Path(__file__)))
+'C:\\Users\\amits\\work\\github.com\\amitsaha\\ml-fairness-health\\mywork\\experiments\\mimic-cxr'
+(Pdb) os.path.exists(os.path.dirname(os.path.dirname(Path(__file__)))
+*** SyntaxError: '(' was never closed
+(Pdb) os.path.exists(os.path.dirname(os.path.dirname(Path(__file__))))
+True
+(Pdb) os.path.exists(Path(os.path.dirname(os.path.dirname(Path(__file__)))) / "feature-prep")
+True
+(Pdb) os.path.exists(Path(os.path.dirname(os.path.dirname(Path(__file__)))) / "feature-prep")
+```
 
