@@ -271,7 +271,6 @@ I want to access, `feature-prep` directory which is at the same level as `utils`
 
 1. Traverse one directory up from `utils`
 2. Go down another directory, `feature-prep`
-3. 
 
 ```python
 (Pdb) Path(__file__) / "..//feature-prep"
