@@ -10,6 +10,11 @@ body {
     background: #121212;
 }
 
+main#content {
+    background: #171717;
+    border-color: #2b2b2b;
+}
+
 header#banner a {
     color: #e0e0e0;
     text-decoration: none;
@@ -41,6 +46,25 @@ main#content ul#posts small {
 
 main#content ul#posts li a:hover {
     color: #21c7ff;
+}
+
+main#content ul#posts li {
+    border-color: #2e2e2e;
+}
+
+main#content ul#posts li:hover {
+    border-color: #414141;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+main#content blockquote {
+    border-left-color: #5f6d74;
+    background: #1f2426;
+}
+
+main#content pre {
+    border-color: #2e2e2e;
+    background: #181b1d;
 }
 
 main#content header#post-header time {
