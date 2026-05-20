@@ -45,8 +45,8 @@ main#content figure img {
 }
 
 main#content pre {
-    width: 108%;
-    margin-left: -3.8%;
+    width: auto;
+    margin-left: 0;
     padding: 1.5rem 2.2rem;
 }
 }
