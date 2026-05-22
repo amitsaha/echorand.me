@@ -19,6 +19,7 @@ Navigation
 - [4](#4)
 - [5](#5)
 - [6](#6)
+- [7](#7)
 ## 1
 
 I want to get access to the `subject_id` within my [Pytorch dataset](https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html). I know that
@@ -295,3 +296,50 @@ True
 (Pdb) os.path.exists(Path(os.path.dirname(os.path.dirname(Path(__file__)))) / "feature-prep")
 ```
 
+
+## 7
+
+```javascript
+> const userQueries = ["foo", "bar"];
+undefined
+> console.log(userQueries)
+[ 'foo', 'bar' ]
+undefined
+> for (const item in userQueries) {
+... console.log(item)
+... }
+0
+1
+undefined
+> for (const idx, item in userQueries) {
+for (const idx, item in userQueries) {
+           ^^^
+
+Uncaught SyntaxError: Missing initializer in const declaration
+> for (const {idx, item} in userQueries) {
+... console.log(item)
+... {
+... }
+... }
+undefined
+undefined
+undefined
+> for (const item in Object.entries(userQueries)) {
+... console.log(item)
+... }
+0
+1
+undefined
+```
+
+Then, i come across https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration#for...of_statement when I search again and in the Google AI summary.
+
+So, we have a `for..of` !? (why???)
+
+```
+> for (const item of userQueries) {
+... console.log(item)
+... }
+foo
+bar
+undefined```
