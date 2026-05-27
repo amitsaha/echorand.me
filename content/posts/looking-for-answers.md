@@ -20,6 +20,8 @@ Navigation
 - [5](#5)
 - [6](#6)
 - [7](#7)
+- [8](#8)
+
 ## 1
 
 I want to get access to the `subject_id` within my [Pytorch dataset](https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html). I know that
@@ -343,3 +345,11 @@ So, we have a `for..of` !? (why???)
 foo
 bar
 undefined```
+
+## 8
+
+Needed to upgrade some projects to tailwind v4 from v3.
+
+Used Github Copilot AI to see if i can get it do it, took me on a wild ride, with no luck and it appears to have stuck.
+
+Then it hit me, let's try https://tailwindcss.com/docs/upgrade-guide and the command worked like a charm.
