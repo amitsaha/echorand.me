@@ -338,13 +338,14 @@ Then, i come across https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guid
 
 So, we have a `for..of` !? (why???)
 
-```
+```javascript
 > for (const item of userQueries) {
 ... console.log(item)
 ... }
 foo
 bar
-undefined```
+undefined
+```
 
 ## 8
 
