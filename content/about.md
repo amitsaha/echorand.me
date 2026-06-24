@@ -5,7 +5,7 @@ date: 2024-08-09T10:53:16+10:00
 
 # About me
 
-Hello, My name is Amit Saha. See my [LinkedIn](https://www.linkedin.com/in/amitsaha0) profile for my experiences.
+Hello, My name is Amit Saha. See my [LinkedIn](https://www.linkedin.com/in/amitsaha0) profile for my professional experiences.
 
 You may be interested in learning more about [articles, books and other training materials](../writings-trainings/)
 I have authored. I also share things I learn via [presenting](../talks/) at various conferences and meetup groups.
