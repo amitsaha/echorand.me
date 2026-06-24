@@ -21,6 +21,7 @@ Navigation
 - [6](#6)
 - [7](#7)
 - [8](#8)
+- [9](#9)
 
 ## 1
 
@@ -354,3 +355,79 @@ Needed to upgrade some projects to tailwind v4 from v3.
 Used Github Copilot AI to see if i can get it do it, took me on a wild ride, with no luck and it appears to have stuck.
 
 Then it hit me, let's try https://tailwindcss.com/docs/upgrade-guide and the command worked like a charm.
+
+## 9
+
+I wanted to find the row which has the minimum and maximum value for `recall` in this dataframe:
+
+```
+(Pdb) current_group_results
+                        n    tp     tn    fp    fn  accuracy  precision    recall        f1       auc    pr_auc
+race
+AMERICAN INDIAN       4.0   0.0    1.0   0.0   3.0  0.250000   0.000000  0.000000  0.000000  0.333333  0.805556
+ASIAN                27.0   1.0   21.0   1.0   4.0  0.814815   0.500000  0.200000  0.285714  0.754545  0.379762
+BLACK               145.0   4.0  113.0  11.0  17.0  0.806897   0.266667  0.190476  0.222222  0.763441  0.299849
+HISPANIC             66.0   3.0   55.0   1.0   7.0  0.878788   0.750000  0.300000  0.428571  0.757143  0.430238
+OTHER                81.0   9.0   55.0   4.0  13.0  0.790123   0.692308  0.409091  0.514286  0.822804  0.660273
+RECORD_NOT_PRESENT  121.0   2.0  111.0   2.0   6.0  0.933884   0.500000  0.250000  0.333333  0.853982  0.417907
+WHITE               536.0  31.0  398.0  16.0  91.0  0.800373   0.659574  0.254098  0.366864  0.825097  0.581051
+(Pdb) type(current_group_results)
+<class 'pandas.core.frame.DataFrame'>
+```
+
+First attempt, just to check if i remembered it correctly:
+
+```
+(Pdb) current_group_results.minidx
+*** AttributeError: 'DataFrame' object has no attribute 'minidx'
+```
+
+I had a vague recollection that there is a method named in that manner, so i do a `dir`:
+
+```
+(Pdb) dir(current_group_results)
+['...
+
+'idxmax', 'idxmin', ...]
+```
+
+Once i spotted those, I was curious if they would also work on the series:
+
+```
+(Pdb) type(current_group_results["recall"])
+<class 'pandas.core.series.Series'>
+```
+
+Let's try it:
+
+```
+(Pdb) current_group_results["recall"]
+<bound method Series.idxmax of race
+AMERICAN INDIAN       0.000000
+ASIAN                 0.200000
+BLACK                 0.190476
+HISPANIC              0.300000
+OTHER                 0.409091
+RECORD_NOT_PRESENT    0.250000
+WHITE                 0.254098
+Name: recall, dtype: float64>
+
+
+(Pdb) current_group_results["recall"].idxmax()
+'OTHER'
+
+(Pdb) current_group_results["recall"].idxmin()
+'AMERICAN INDIAN'
+```
+
+We can get the max and min values as well:
+
+```
+(Pdb) current_group_results["recall"]["OTHER"]
+np.float64(0.4090909090909091)
+(Pdb) current_group_results["recall"]["AMERICAN INDIAN"]
+np.float64(0.0)
+```
+
+
+
