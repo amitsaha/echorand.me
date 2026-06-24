@@ -402,7 +402,7 @@ Let's try it:
 
 ```
 (Pdb) current_group_results["recall"]
-<bound method Series.idxmax of race
+
 AMERICAN INDIAN       0.000000
 ASIAN                 0.200000
 BLACK                 0.190476
