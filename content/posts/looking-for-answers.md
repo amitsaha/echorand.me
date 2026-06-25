@@ -432,8 +432,12 @@ np.float64(0.0)
 
 ## 10
 
-I want to filter a pandas dataframe rows by combining two filters/conditions. I have done this many times, but everytime i have had to search or 
-ask an LLM for the exact syntax, this time, i got it by brute force and now i know i will likely remember this:
+I want to filter a pandas dataframe rows by combining two filters/conditions. I have done this many times, but everytime without giving
+myself a chance, i have had to search or ask an LLM for the exact syntax.
+
+This time, I decided not to outsource.
+
+I got it by brute force and now i know i will likely remember this:
 
 ```python
 
