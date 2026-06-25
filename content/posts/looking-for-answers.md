@@ -22,6 +22,7 @@ Navigation
 - [7](#7)
 - [8](#8)
 - [9](#9)
+- [10](#10)
 
 ## 1
 
@@ -429,5 +430,39 @@ np.float64(0.4090909090909091)
 np.float64(0.0)
 ```
 
+## 10
 
+I want to filter a pandas dataframe rows by combining two filters/conditions. I have done this many times, but everytime i have had to search or 
+ask an LLM for the exact syntax, this time, i got it by brute force and now i know i will likely remember this:
 
+```python
+
+(Pdb) retraining_dataset[retraining_dataset[group] == min_recall_category]
+        Unnamed: 0                                      dicom_id  subject_id  study_id  Cardiomegaly    split             race gender insurance
+..
+[704 rows x 9 columns]
+
+(Pdb) retraining_dataset[retraining_dataset[group] == min_recall_category && retraining_dataset[Cardiomegaly]]
+*** SyntaxError: invalid syntax
+
+(Pdb) retraining_dataset[retraining_dataset[group] == min_recall_category & retraining_dataset[Cardiomegaly]]
+*** NameError: name 'Cardiomegaly' is not defined
+
+(Pdb) retraining_dataset[retraining_dataset[group] == min_recall_category & retraining_dataset['Cardiomegaly']]
+*** TypeError: Cannot perform 'rand_' with a dtyped [float64] array and scalar of type [bool]
+
+(Pdb) retraining_dataset[(retraining_dataset[group] == min_recall_category) && (retraining_dataset['Cardiomegaly'])]
+*** SyntaxError: invalid syntax
+
+(Pdb) retraining_dataset[(retraining_dataset[group] == min_recall_category) && (retraining_dataset['Cardiomegaly']==True)]
+*** SyntaxError: invalid syntax
+
+(Pdb) retraining_dataset[(retraining_dataset[group] == min_recall_category) & (retraining_dataset['Cardiomegaly']==True)]
+WORKS
+
+```
+
+So, the key is:
+
+1. Individual conditions in parentheses
+2. Combine them by `&` (or `|` (for `or`)
