@@ -58,7 +58,7 @@ unsafe= true
     weight = 1
 
 [[menu.main]]
-    name = "Writings and Trainings"
+    name = "Publications, Talks and Trainings"
     url = "/writings-trainings"
     weight = 1
 
