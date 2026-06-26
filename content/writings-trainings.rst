@@ -1,5 +1,5 @@
 ---
-title: Writings and Trainings
+title: Publications and Trainings
 aliases:
 - /pages/articles.html
 ---
