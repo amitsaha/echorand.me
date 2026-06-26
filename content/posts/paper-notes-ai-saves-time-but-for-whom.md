@@ -15,6 +15,14 @@ Some highlights that stood out for me from the paper, [AI saves time - but for w
 > which also helps us move forward - who is it moving forward really?
 >
 
+## Ideal goals or the pitch of AI solutions
+
+1. "efficiency savings resulting from the use of AI can be reinvested in the doctor–patient relationship"
+
+## How they stack up against findings?
+
+
+
 
 
 
