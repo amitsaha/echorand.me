@@ -1,6 +1,6 @@
 baseURL = "https://echorand.me"
 languageCode = "en-us"
-title = "Exploring Software (since 1997)"
+title = "Explorations"
 theme = "etch"
 googleAnalytics = "UA-108901610-1"
 enableGitInfo = true
