@@ -6,6 +6,11 @@ aliases:
 
 Please find below details/resources related to the conference/meetup talks I have given so far with the most recent talk listed first.
 
+#### AI Case Study: Computer Vision
+
+- Event: Sydney Health Executive Education (University of Sydney), June, 2026
+- [Talk materials](https://github.com/amitsaha/sheed-june-2026-presentation)
+
 #### Implementing Shared Functionality Using Middleware
 
 - Conference: Kiwi PyCon XI, August, 2022
