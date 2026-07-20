@@ -7,6 +7,8 @@ date: 2024-08-09T10:53:16+10:00
 
 Hello, My name is Amit Saha. See my [LinkedIn](https://www.linkedin.com/in/amitsaha0) profile for my professional experiences.
 
+I am available for your next project via my company, [Common Loop Works](https://www.commonloopworks.com/).
+
 You may be interested in learning more about [articles, books and other training materials](../writings-trainings/)
 I have authored. I also share things I learn via [presenting](../talks/) at various conferences and meetup groups.
 I am not an expert on anything I write or share, so if you find a mistake/error in anything i share online,
@@ -22,7 +24,7 @@ You can contact me via [email](mailto:mail@echorand.me) or message me on [Linked
 
 # Elsewhere on the internet
 
-- Websites: practicalgobook.net, echorand.me, securebasefoundation.org, commonloopworks.com, echorand.com
+- Websites: practicalgobook.net, echorand.me, securebasefoundation.org, commonloopworks.com
 - [GitHub](https://github.com/amitsaha)
 - [Substack](https://substack.com/@amitsaha) (non technology/software)
 - NOT USED: [Twitter](http://twitter.com/echorand)
