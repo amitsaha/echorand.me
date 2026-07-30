@@ -23,6 +23,7 @@ Navigation
 - [8](#8)
 - [9](#9)
 - [10](#10)
+- [11](#11)
 
 ## 1
 
@@ -470,3 +471,34 @@ So, the key is:
 
 1. Individual conditions in parentheses
 2. Combine them by `&` (or `|` (for `or`)
+
+## 11
+
+I have a dataframe:
+
+```python
+
+(Pdb) subgroup_results["metrics_race"]
+                                                   n      tp       tn       fp      fn  accuracy  precision    recall        f1       auc    pr_auc
+dataset                    race
+eval_1_cardiomegaly.csv.gz AMERICAN INDIAN     179.0    33.0     60.0     60.0    26.0  0.519553   0.354839  0.559322  0.434211  0.560169  0.354330
+                           ASIAN              2779.0   297.0   1720.0    464.0   298.0  0.725801   0.390276  0.499160  0.438053  0.738761  0.391143
+                           ..
+eval_2_cardiomegaly.csv.gz AMERICAN INDIAN      43.0     1.0     26.0     10.0     6.0  0.627907   0.090909  0.142857  0.111111  0.424603  0.204916
+                           ASIAN               738.0    67.0    475.0    109.0    87.0  0.734417   0.380682  0.435065  0.406061  0.746197  0.412286
+                           ..
+eval_3_cardiomegaly.csv.gz AMERICAN INDIAN      14.0     5.0      5.0      2.0     2.0  0.714286   0.714286  0.714286  0.714286  0.775510  0.705195
+                           ASIAN               101.0    22.0     33.0     38.0     8.0  0.544554   0.366667  0.733333  0.488889  0.618310  0.467499
+                           ..
+eval_4_cardiomegaly.csv.gz AMERICAN INDIAN       6.0     0.0      4.0      2.0     0.0  0.666667   0.000000       NaN  0.000000       NaN       NaN
+                           ASIAN                71.0    11.0     41.0     16.0     3.0  0.732394   0.407407  0.785714  0.536585  0.775689  0.379455
+                           ..
+                           RECORD_NOT_FOUND    375.0    41.0    264.0     46.0    24.0  0.813333   0.471264  0.630769  0.539474  0.824367  0.413750
+                           WHITE              1704.0   204.0    978.0    352.0   170.0  0.693662   0.366906  0.545455  0.438710  0.713397  0.345630
+```
+
+
+My end goal is i want to extract the `recall` values per dataset, preserving the category specific data, and for my purposes I want an array of these dicts,
+one element per dataset - i want to ensure that the array is ordered i.e. `eval_1` must come before `eval_2` and so on.
+
+.. to be completed ..
