@@ -42,7 +42,12 @@ Previous writings page: https://amitksaha.wordpress.com/writings/
 
 *Research publications*
 
-Years Active: 2009 - 2012
+Period: 2024 - Present
+
+- `Fairness in multimodal machine learning applications in clinical decision support: a systematic review <https://www.nature.com/articles/s41746-026-03000-x>`__
+
+
+Period: 2009 - 2012
 
 - `Practical Design Optimization Techniques <https://trove.nla.gov.au/work/173982059?q&versionId=252600574>`__
 - `Multimodal Optimization Using a Bi-Objective Evolutionary Algorithm <https://www.mitpressjournals.org/doi/10.1162/EVCO_a_00042>`__
