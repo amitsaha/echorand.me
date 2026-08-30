@@ -24,6 +24,8 @@ Navigation
 - [9](#9)
 - [10](#10)
 - [11](#11)
+- [12](#12)
+
 
 ## 1
 
@@ -502,3 +504,67 @@ My end goal is i want to extract the `recall` values per dataset, preserving the
 one element per dataset - i want to ensure that the array is ordered i.e. `eval_1` must come before `eval_2` and so on.
 
 .. to be completed ..
+
+
+## 12
+
+I have used AI to create a matplotlib figure for me based on some text instructions, because i don't find it fun to write
+programs to generate matplotlib lib figures. I don't find it fun in expanded version means:
+
+1. My goal here is to get a visual description of my text specification quick so that i can iterate over it
+2. Hence, i don't want to look up matplotlib documentation for figuring out how to draw rectangles/patches, etc
+3. I have always found matplotlib design hard. It took me lots of solid sleuthing to get over the global design of `plt`, `ax` and so on. And I attribute a lot of learning that happened to me working on my "Doing Math with Python" book and i haven't tried to learn any of it again for the last 12 years at least
+4. Also, and perhaps this is important - i am generating it because i know that if i need to go and tweak the script to suit my needs, i know enough matplotlib to find my way around - the learning that happened in (3).
+5. So, basically, if i need to figure it out, i can. This is not completely something I don't know or have a hang of.
+6. Hence, I generate.
+
+Okay, so I have this snippet, which I wrote - replacing the hardcoded figure names that was generated:
+
+```python
+
+plt.savefig(
+    f"{__name__}.pdf",
+    bbox_inches="tight"
+)
+
+plt.savefig(
+    f"{__name__}.png",
+    dpi=600,
+    bbox_inches="tight"
+)
+```
+
+My intention is that i want the figures to be named after my file name, but the files are being named as:
+
+```
+-a----        31/08/2026   9:06 AM          25330 __main__.pdf
+-a----        31/08/2026   9:06 AM         582014 __main__.png
+```
+
+So obviously, i have made the mistake of assuming `__name__` points to the file name. So:
+
+1. The first time i saw this, the file names being `__main__` my brain assumed that the f-string expansion is not correct - and the fault in thinking that is that i am equating, `__name__` to `__main__`.
+2. As i was starting to write this post, the first thing that i occurred to me, yes, I should use `__file__` but the fallacy in (1) was still not corrected
+3. And now finally, when I just was finishing point (1), i realized, I used `__name__` here because I have often written `__name__==__main__` - i learned about `__name__` in some detail 15 years back, and I have forgotten any of it
+
+So, this is what i wanted:
+
+```
+plt.savefig(
+    f"{os.path.basename(__file__).split(".")[0]}.pdf",
+    bbox_inches="tight"
+)
+
+plt.savefig(
+    f"{os.path.basename(__file__).split(".")[0]}.png",
+    dpi=600,
+    bbox_inches="tight"
+)
+```
+
+I didn't query LLM or search the internet, I didn't have to. That is because I have been coding in Python in one form or the
+other for the last 15 years. And the grunt work, the trial and error involved in learning things has stayed with me, 
+and I just needed to allow myself the time to retrieve all of that i already know.
+
+The work of understanding - is what I am reflecting on and understanding a system is essentially a way to know how 
+to operate a system.
