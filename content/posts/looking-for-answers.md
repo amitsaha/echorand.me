@@ -545,7 +545,7 @@ So obviously, i have made the mistake of assuming `__name__` points to the file 
 
 1. The first time i saw this, the file names being `__main__` my brain assumed that the f-string expansion is not correct - and the fault in thinking that is that i am equating, `__name__` to `__main__`.
 2. As i was starting to write this post, the first thing that i occurred to me, yes, I should use `__file__` but the fallacy in (1) was still not corrected
-3. And now finally, when I just was finishing point (1), i realized, I used `__name__` here because I have often written `__name__==__main__` - i learned about `__name__` in some detail 15 years back, and I have forgotten any of it
+3. And now finally, when I just was finishing point (1), i realized, I used `__name__` here because I have often written `__name__==__main__` - i learned about `__name__` in some detail 15 years back, and I have not forgotten any of it.
 
 So, this is what i wanted:
 
