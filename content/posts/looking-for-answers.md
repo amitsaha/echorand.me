@@ -547,9 +547,9 @@ So obviously, i have made the mistake of assuming `__name__` points to the file 
 2. As i was starting to write this post, the first thing that i occurred to me, yes, I should use `__file__` but the fallacy in (1) was still not corrected
 3. And now finally, when I just was finishing point (1), i realized, I used `__name__` here because I have often written `__name__==__main__` - i learned about `__name__` in some detail 15 years back, and I have not forgotten any of it.
 
-So, this is what i wanted:
+So, this is the code that achieves what i wanted:
 
-```
+```python
 plt.savefig(
     f"{os.path.basename(__file__).split(".")[0]}.pdf",
     bbox_inches="tight"
