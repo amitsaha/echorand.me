@@ -45,6 +45,15 @@ to them, often a mix of both.
 Overall, to summarize, it's fair to say, problem solving has been the reason i have been programming since i first learned
 about it. Types, code quality, good design, they are all nice to haves, but i am not gonna debate anyone over your way or my
 way. It's the act of writing code, building up an understanding of a system - however small it is, and then knowing
-how it works, the next time i come back to it, that's what I love about computer progrmaming.
+how it works, the next time i come back to it, that's what I love about computer progrmaming. It is also an act of 
+mindfulness for me, i zone in when i am coding by hand. The noise of the brain goes away. I am developing an understanding
+of what i am writing. I am feeling involved. I am part of the solution designing.
 
-_This post is may be in progress_ (Last Updated: 16 September, 2026)
+That leads me nicely to my relationship with a few things in progression:
+
+1. Third party libraries
+2. Auto completion and configuring tools to make programming easier
+3. AI based Inline code assistance and auto generation
+4. Agentic development
+
+_This post is in progress_ (Last Updated: 16 September, 2026)
