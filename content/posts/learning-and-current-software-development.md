@@ -15,7 +15,7 @@ to both of them as computer programming for the rest of this post.
 
 I will leave out all the career trajectory, progression, junior, senior, principal, senior, architect, promotions, etc 
 out of this post, since i don't have much to say about them. May be one thing - it was a game i never could get myself to 
-play - i have worked with a few people who can, and hey, good on them. I tried for a bit, and man, i didn't like who I needed
+play - i have worked with a few people who can, and hey, good on them. I tried for a bit, and i didn't like who I needed
 to become to play that game.
 
 ---
