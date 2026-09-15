@@ -4,6 +4,9 @@
         <h1>{{ .Title }}</h1>
         {{- if isset .Params "date" -}}
             <time>{{ .Date.Format "January 2, 2006" }}</time>
+            {{- if (and site.Params.show_updated (ne .Lastmod .Date)) -}}
+                · Updated: <time>{{ .Lastmod.Format "January 2, 2006" }}</time>
+            {{- end -}}
         {{- end -}}
     </header>
     {{- .Content -}}

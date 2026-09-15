@@ -1,6 +1,11 @@
 <li>
     <a href="{{ .Permalink }}">
         {{ .Title }}
-        <small><time>{{ .Date.Format "Jan 2, 2006" }}</time></small>
+        <small>
+            <time>{{ .Date.Format "Jan 2, 2006" }}</time>
+            {{- if (and site.Params.show_updated (ne .Lastmod .Date)) -}}
+                · Updated: <time>{{ .Lastmod.Format "Jan 2, 2006" }}</time>
+            {{- end -}}
+        </small>
     </a>
 </li>
