@@ -26,13 +26,17 @@ So, computer programming. I have been programming in one form or another since 1
 that really clicked it for me was to simulate a physics experiment around convex/concave lenses, and refraction using
 GW Basic. Then, I picked up a few languages. But overall, it was essentially, an act of manual typing by hand, reading
 from books, learning from books, or a teacher, and then writing by hand literally on paper, and then on a computer.
+One of my favorite stories for myself is i read a book on HTML (HTML complete) on one night, and i knew all i needed
+to know about html. I loved the beautiy of learnings like those. Similarly, I wrote lots of TSRs in C, and wrote Kernel modeules, compiled Linux from scratch for adding bluetooth support! What fun.
 
 Things have mostly been the same for me and I have kept doing it since i have enjoyed the process of problem solving.
 A specific type of problem solving. Features don't interest me, they bore me, soon-ish. But, give me a bug, and then i
 will get so stuck on it that everything else goes out of the window. That was what prompted me to switch from software
 engineering roles to DevOps/SRE roles because I would then be responsible for writing tools/frameworks for spotting
 those bugs. But that became boring too after a while. However, i could see myself doing that for a longer period of time
-than working on features.
+than working on features. Sure, i have not worked or didn't have it in me to work for all the advanced software companies
+out there, so I don't know if i would have liked to work on features for those companies. Either way, i do feel that
+features essentially will become boring for me at some point, cause it is really the happy path of things.
 
 Now, what kind of a programmer have i been? I am the kind of programmer who loves the problem solving aspects of the craft.
 That it is a tool to solve problems. Hence, if you ask me to solve leet code, i will suck, i have sucked for as long as
