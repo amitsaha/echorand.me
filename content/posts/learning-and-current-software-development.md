@@ -67,6 +67,8 @@ blog itself - there was a two year gap where I didn't post anything here.
 
 ---
 
+**Third party libraries**
+
 I started my programming with GW Basic. We will ignore it for the rest of the post as it is not relevant.
 
 C, C++ and Java were the first languages I coded in for the first few years of my programming life. I learned
@@ -76,7 +78,29 @@ during my time at Sun Microsystems, etc. The key aspect that is relevant in this
 all in most cases, using the standard libraries - `glibc`, `libstdc++`, JDK and perhaps a few very standard
 third party libraries, may be `stl`. 
 
-However, around the 2005/06's I started hearing about the Python programming language.
+However, around the 2005/06's I started hearing about the Python programming language. I jumped into it.
+Working on various projects to learn a new language. It is with Python, that i first started noticing that
+third party libraries were a big requirement. In fact, as the years progressed, i could see various shiny
+open source projects coming up, libraries for Python. And that's where I first i think felt like why do I need
+to use this another random library to do the work I need to do. Despite Python saying batteries included and I
+actually liked what it already had, the wider world appears to be gravitating towards third party libraries.
 
+And that was when I first felt this pang of, "What am I gonna do?" - just put these things together and build
+the application?
+
+And then fast forward a few years later, I discovered Go and loved it for its standard library. And as my book
+will show, or the projects i created for Manning, the usage of third party libraries are minimal - by a conscious
+choice. My goal is to teach things, and how they work, not to build applications.
+
+I will not do this section justice if I don't talk about abstractions in this context.
+
+So, when i felt that pang of "what am i gonna do?" in the context of third party libraries. What I am realling feeling
+is that, "don't abstract things away from me". However, by using a high level programming language, I am accepting
+an abstraction - whether over the JVM, or the assembler, or the Python bytecode compiler. I feel Ok about that choice.
+As much as I love working for my results, there is a limit to my love for working hard and also achieving outcomes.
+
+So, accepting abstractions are i believe a necessary choice to live in this world and for sure in the world of computer
+programming. At some point, i have desired to write my own programming language etc, but I got bored with the idea of
+inventing my own syntax. 
 
 _This post is in progress_ (Last Updated: 17 September, 2026 AEST)
