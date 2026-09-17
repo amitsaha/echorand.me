@@ -20,6 +20,8 @@ to become to play that game.
 
 ---
 
+## Introduction
+
 So, computer programming. I have been programming in one form or another since 1995. My first program that i can remember
 that really clicked it for me was to simulate a physics experiment around convex/concave lenses, and refraction using
 GW Basic. Then, I picked up a few languages. But overall, it was essentially, an act of manual typing by hand, reading
@@ -67,7 +69,7 @@ blog itself - there was a two year gap where I didn't post anything here.
 
 ---
 
-**Third party libraries**
+## Third party libraries
 
 I started my programming with GW Basic. We will ignore it for the rest of the post as it is not relevant.
 
@@ -102,5 +104,21 @@ As much as I love working for my results, there is a limit to my love for workin
 So, accepting abstractions are i believe a necessary choice to live in this world and for sure in the world of computer
 programming. At some point, i have desired to write my own programming language etc, but I got bored with the idea of
 inventing my own syntax. 
+
+---
+
+## Autocompletion, snippets etc
+
+---
+
+## AI and Inline code suggestions
+
+---
+
+## Agentic software development
+
+---
+
+## Writing books and creating teaching materials
 
 _This post is in progress_ (Last Updated: 17 September, 2026 AEST)
