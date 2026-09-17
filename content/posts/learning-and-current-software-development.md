@@ -1,5 +1,5 @@
 ---
-title:  Software development as a learning activity
+title: Software development as a learning activity
 date: 2026-09-15
 categories:
 -  software
