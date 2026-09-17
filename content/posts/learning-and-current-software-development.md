@@ -67,4 +67,16 @@ blog itself - there was a two year gap where I didn't post anything here.
 
 ---
 
+I started my programming with GW Basic. We will ignore it for the rest of the post as it is not relevant.
+
+C, C++ and Java were the first languages I coded in for the first few years of my programming life. I learned
+them all and wrote various programs. I coded in Java to contribute to NetBeans IDE. I wrote C/C++ during my time
+at Red Hat contributing to `lshw` and wrote some Linux kernel modules, tried to write to MySQL storage engines
+during my time at Sun Microsystems, etc. The key aspect that is relevant in this context was, all my programs were
+all in most cases, using the standard libraries - `glibc`, `libstdc++`, JDK and perhaps a few very standard
+third party libraries, may be `stl`. 
+
+However, around the 2005/06's I started hearing about the Python programming language.
+
+
 _This post is in progress_ (Last Updated: 17 September, 2026 AEST)
