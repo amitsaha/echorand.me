@@ -20,6 +20,10 @@ body {
 
 header#banner {
     margin: 25px 0 18px;
+    padding: 12px 14px;
+    background: #ffffff;
+    border: 1px solid #e5eaed;
+    border-radius: 8px;
 }
 
 header#banner a {
@@ -52,11 +56,19 @@ header#banner nav ul {
 
 header#banner nav ul li {
     display: inline;
-    margin: 0 3px;
+    margin: 0 5px;
 }
 
 header#banner nav ul li a {
     color: #454545;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+header#banner nav ul li a:hover {
+    background: #edf3f8;
+    text-decoration: none;
 }
 
 main#content a {
