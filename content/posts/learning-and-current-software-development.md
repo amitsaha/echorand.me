@@ -107,14 +107,97 @@ a desktop from a floppy disk.
 
 ## Autocompletion, snippets etc
 
+The next "issue" for me or the wall I ran into as I worked with larger projects was the problem
+of customising my editor or IDE to do fancy things or learning all the keyboard shortcuts.
+I used the word fancy because that's what they appear to me. What they really were, were ways to
+make the work of coding less cumbersome. 
+
+Some famous person said that if they had a day to cut down
+a tree, they would spend 70% or 80% of the time to sharpen their axe. Well my brain is like, 
+forget sharpening, i want to start cutting the tree. 
+
+And so I continued writing my code, using the basic code completion and occassionally doing some minor
+"fancy" things, like when using Emacs `C-x C-p` would insert, `import pdb; pdb.set_trace()` when working
+with Python code. My favorite way to debug till is adding print statements, and i like `gdb`, `pdb` etc
+but really when I am working with applications such as servers, i don't know printing is the way to go.
+
+Besides the friction and the time needed to customize my IDE/editor - because I am simply not going to copy
+someone else's configuration - I need to know what's happening, I also was protecting myself from the distraction
+of suddently 10s of options coming up while I am coding, right in the middle of my thought process, I don't
+want any interruption - from my editor. I am in the zone, i might be struggling, but i want to power through
+the struggle. Hence, the era of auto completion, snippets, customising editors in the perfect manner, I 
+didn't join that either. Of course, I made false starts, `dotfiles` etc, copied other people's `.vimrc` or `.nvim`
+and watched with admiration and jealousy with a mix of inferiroirity complex the efforts other people went to.
+
 
 ## AI and Inline code suggestions
+
+Now, considering my relationship with not necessarily intelligent auto completion, i didn't fare well with the AI
+driven inline code suggestion and completion. I did it for a bit, and then once again I realized, i want
+no disruption to my workflow. So, I turned that off and started using manual chats/inline chats to generate code
+and then manually add them. That meant somewhere in there, i was still in the loop. 
+
+In the last major project i worked on where I was building out the chat backend for my startup's products,
+I sparred the design manually, listing out the API endpoints and once I was sure of what was going to happen,
+I generated the blueprint without any interference from me. However, once the skeleton was generated, I then
+manually coded the implementation themselves, including the DB schema, the integration with a third party service
+provider we were relying on. I felt good about it, since the overarching design had me involved, in my head
+i know exactly what the call flows are like, and thus, crucially, the breaking points. Where can things fail,
+and if they do, where do I start looking.
+
+The exception to this me being in the loop workflow is frontend design/CSS code. I will try and not interfere
+or even try to understand the different coloring/positioning/opacity, only relying on the output. So, this is
+where again I make a careful choice of - what do I need to know? - I have chosen that I don't need to know any
+of the amazing engineering that's going on in the frontend.
 
 
 ## Agentic software development
 
+So, finally, I am here. I have finally decided that for some parts of projects, I am going to hand over things.
+For example, for the chat backend project, now that the basic infrastructure/design/blueprint is all in place
+and things work, any incremental work i now do i have stopped coding by hand.
+
+Part of it is i know the critical paths, so now the incremental work being done now is not something I will
+not know anything about when I need to look at it. 
+
+The other part is, I am choosing at every point, "is there anything I would like to learn here?". If no, hand
+it over. For example, when i code for my research work, I am coding by hand, but when I implement some software,
+that i might be building on top of my research, i am handing it over.
+
+A bit of it is the ability to claim to myself - that i know what's going on, and a bit of it is, this is my project,
+i want to work on it.
+
+Another overarching question that i keep asking myself when i make a choice is - what is my goal here? is it the outcome
+i am interested in here or is it the process that motivates me?
+
+When building a startup, i have finally realized (finally!) that it's the outcome, and some projects, or some parts
+of projects, it's the process, but some parts, it's the outcome. Perhaps it's a dance, a dance of flexibility.
+
+When working on my research, it's the process first and foremost, the rigor, the friction between what I know, what
+i don't know, and what I need to know to go where I want to go - that's where my joy lies.
+
 
 ## Writing books and creating teaching materials
+
+I have alluded to my joy in the friction involved when I am writing code. I am also channeling well known people
+when I say that, to really learn something, I have always tried to teach somebody that. Somehow I read it after
+I had already started doing it. My initial motivation for publishing articles, and then books, and giving talks
+or creating training materials was to be known - become famous on the internet. Become somebody. 
+
+That i have realized, since it hasn't happened yet, is not what I likely have been doing it. 
+
+I feel the real reason I like it, and have liked it, is because the friction introduced in creating any kind
+of material for an audience is how I challenge, validate and clarify my own understanding. I looked at some trends
+in my writings over decades and the talks I gave, they all try to demystify something, or bring two areas together,
+or small deep dives into things that randomly walked into and then I wanted to shed more light on them. 
+
+So, once again, it appears that the friction of coding, and anything to do with coding is what I seek in coding.
+The friction is where my learnings have happened and I know how valuable it is to me.
+
+
+Hence, i have this itch of working on a new book again, i have no idea what i want to write about, except for a few
+ideas. However, I know what I am seeking, it's the wrangling of the ideas, the wrangling of the unknowns and somehow
+make it all legible for someone else to consume.
 
 ## Conclusion
 
@@ -139,5 +222,3 @@ what they like to do - are they builders? Business persons? Or do they love the 
 Now, what is my relationship going to be with software development/computer programming when the practicalities of
 life knock on my door? I will find out. I am less righteous about it and bringing the whole problem home - what am 
 I gonna do about it? Perhaps that's a better way to tackle this problem (a very personal problem) than from anger.
-
-_This post is in progress_ (Last Updated: 17 September, 2026 AEST)
