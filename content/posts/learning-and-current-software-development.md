@@ -117,18 +117,26 @@ a desktop from a floppy disk.
 
 ## Conclusion
 
-I first thought that my anger/sadness/grieving about agentic software development was about other people who are juniors
-starting in the industry. That they paid money to become software developers and now suddenly everything has changed.
+The turbulence started with me being angry about anyone telling me to use AI to write my applications. 
 
-And I wanted to do something for them. So I wanted to write a book to help them. 
+Then, I wanted to give my own anger a moral - societal voice - so i made it (in my head, of course) about
+other people who are juniors starting in the industry. That they paid money to become software developers and 
+now suddenly everything has changed. I even created a nice story too for myself - i was like one of these software 
+developers 15 years back, etc. And I wanted to do something for them. So I wanted to write a book to help them.
 
-However, i think at this point, as much as all of that is true, and I don't know if i will do anything at all to solve
-that particular problem, but it was really me mourning the learning involved in software development/computer programming
-as I experienced it. And yet, the reality is all these resourceful software engineers, the ones who are right now
-in the middle of it all - they will discover themselves and what they like to do - are they builders? Business persons?
-Or do they love the problem solving aspects of it? It's their journey.
+I felt justified and righteous. What an amazing mix! 
+
+And then finally, I chose to come back to myself - this self that has witnessed and only knows about what's happening 
+for me. I wanted to write this post to help me clarify my own emotions. 
+
+I feel quite surely at this point, as much as all of that is true, and I don't know if i will do anything at all to solve
+that particular problem to help other people, but it is/was really me mourning the learning involved in 
+software development/computer programming as I experienced it. And yet, the reality is all these resourceful 
+software engineers, the ones who are right now in the middle of it all - they will discover themselves and 
+what they like to do - are they builders? Business persons? Or do they love the problem solving aspects of it? It's their journey.
 
 Now, what is my relationship going to be with software development/computer programming when the practicalities of
-life knock on my door? I will find out.
+life knock on my door? I will find out. I am less righteous about it and bringing the whole problem home - what am 
+I gonna do about it? Perhaps that's a better way to tackle this problem than from anger.
 
 _This post is in progress_ (Last Updated: 17 September, 2026 AEST)
