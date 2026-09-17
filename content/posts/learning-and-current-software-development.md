@@ -1,5 +1,5 @@
 ---
-title: Software development as a learning activity
+title: Computer programming as a process, not a means to an end
 date: 2026-09-15
 categories:
 -  software
