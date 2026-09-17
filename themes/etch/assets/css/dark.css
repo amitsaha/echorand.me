@@ -15,6 +15,11 @@ main#content {
     border-color: #2b2b2b;
 }
 
+header#banner {
+    background: #171717;
+    border-color: #2b2b2b;
+}
+
 header#banner a {
     color: #e0e0e0;
     text-decoration: none;
@@ -22,6 +27,11 @@ header#banner a {
 
 header#banner nav ul li a {
     color: #cccccc;
+}
+
+header#banner nav ul li a:hover {
+    background: #222a2f;
+    color: #f1f1f1;
 }
 
 main#content a {
