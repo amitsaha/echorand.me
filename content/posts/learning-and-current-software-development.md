@@ -184,7 +184,8 @@ when I say that, to really learn something, I have always tried to teach somebod
 I had already started doing it. My initial motivation for publishing articles, and then books, and giving talks
 or creating training materials was to be known - become famous on the internet. Become somebody. 
 
-That i have realized, since it hasn't happened yet, is not what I likely have been doing it. 
+That i have realized, perhaps, since it hasn't happened yet or it is not what I likely have been doing it, or 
+wanted to do it in the first place.
 
 I feel the real reason I like it, and have liked it, is because the friction introduced in creating any kind
 of material for an audience is how I challenge, validate and clarify my own understanding. I looked at some trends
@@ -193,7 +194,6 @@ or small deep dives into things that randomly walked into and then I wanted to s
 
 So, once again, it appears that the friction of coding, and anything to do with coding is what I seek in coding.
 The friction is where my learnings have happened and I know how valuable it is to me.
-
 
 Hence, i have this itch of working on a new book again, i have no idea what i want to write about, except for a few
 ideas. However, I know what I am seeking, it's the wrangling of the ideas, the wrangling of the unknowns and somehow
