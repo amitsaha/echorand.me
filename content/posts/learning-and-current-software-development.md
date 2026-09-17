@@ -1,5 +1,5 @@
 ---
-title: Computer programming as a process, not a means to an end
+title: Computer programming, and friction as a learning activity
 date: 2026-09-15
 categories:
 -  software
