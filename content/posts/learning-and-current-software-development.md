@@ -18,8 +18,6 @@ out of this post, since i don't have much to say about them. May be one thing - 
 play - i have worked with a few people who can, and hey, good on them. I tried for a bit, and i didn't like who I needed
 to become to play that game.
 
----
-
 ## Introduction
 
 So, computer programming. I have been programming in one form or another since 1995. My first program that i can remember
@@ -67,7 +65,6 @@ has resulted in a lot of pleasure for me - the revised, often fuller understandi
 any of those exercises gave me a lot of pleasure. And I only realize it when I stop doing it. For example, this
 blog itself - there was a two year gap where I didn't post anything here.
 
----
 
 ## Third party libraries
 
@@ -103,22 +100,35 @@ As much as I love working for my results, there is a limit to my love for workin
 
 So, accepting abstractions are i believe a necessary choice to live in this world and for sure in the world of computer
 programming. At some point, i have desired to write my own programming language etc, but I got bored with the idea of
-inventing my own syntax. 
-
----
+inventing my own syntax. I also tried to write my own operating system back in the day, but never made it past booting
+a desktop from a floppy disk. 
 
 ## Autocompletion, snippets etc
 
----
 
 ## AI and Inline code suggestions
 
----
 
 ## Agentic software development
 
 ---
 
 ## Writing books and creating teaching materials
+
+## Conclusion
+
+I first thought that my anger/sadness/grieving about agentic software development was about other people who are juniors
+starting in the industry. That they paid money to become software developers and now suddenly everything has changed.
+
+And I wanted to do something for them. So I wanted to write a book to help them. 
+
+However, i think at this point, as much as all of that is true, and I don't know if i will do anything at all to solve
+that particular problem, but it was really me mourning the learning involved in software development/computer programming
+as I experienced it. And yet, the reality is all these resourceful software engineers, the ones who are right now
+in the middle of it all - they will discover themselves and what they like to do - are they builders? Business persons?
+Or do they love the problem solving aspects of it? It's their journey.
+
+Now, what is my relationship going to be with software development/computer programming when the practicalities of
+life knock on my door? I will find out.
 
 _This post is in progress_ (Last Updated: 17 September, 2026 AEST)
