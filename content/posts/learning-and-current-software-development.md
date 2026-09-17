@@ -137,6 +137,6 @@ what they like to do - are they builders? Business persons? Or do they love the 
 
 Now, what is my relationship going to be with software development/computer programming when the practicalities of
 life knock on my door? I will find out. I am less righteous about it and bringing the whole problem home - what am 
-I gonna do about it? Perhaps that's a better way to tackle this problem than from anger.
+I gonna do about it? Perhaps that's a better way to tackle this problem (a very personal problem) than from anger.
 
 _This post is in progress_ (Last Updated: 17 September, 2026 AEST)
