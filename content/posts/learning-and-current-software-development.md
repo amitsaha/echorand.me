@@ -14,11 +14,7 @@ I recently had a chance to reflect on my relationship with software development 
 to both of them as computer programming for the rest of this post.
 
 I will leave out all the career trajectory, progression, junior, senior, principal, senior, architect, promotions, etc 
-out of this post, since i don't have much to say about them. May be one thing - it was a game i never could get myself to 
-play - i have worked with a few people who can, and hey, good on them. I tried for a bit, and i didn't like who I needed
-to become to play that game. At some point it was how many lines of code, today it might be the number of tokens, it's
-all fake currency that gets exchanged for some real currency - but at some point there is a diminishing returns for some
-of us. I digress.
+out of this post.
 
 ## Introduction
 
@@ -117,7 +113,6 @@ a desktop from a floppy disk.
 
 ## Agentic software development
 
----
 
 ## Writing books and creating teaching materials
 
