@@ -15,7 +15,8 @@ body {
     width: 100%;
     margin: 0 auto;
     padding: 0 16px 16px;
-    line-height: 1.6;
+    line-height: 1.65;
+    text-rendering: optimizeLegibility;
 }
 
 header#banner {
@@ -115,6 +116,29 @@ main#content {
     border: 1px solid #e5eaed;
     border-radius: 8px;
     padding: 18px;
+    font-size: 1.65rem;
+}
+
+main#content article {
+    font-family: "Charter", "Bitstream Charter", "Sitka Text", Cambria, serif;
+    line-height: 1.75;
+}
+
+main#content article p,
+main#content article ul,
+main#content article ol,
+main#content article blockquote {
+    max-width: 68ch;
+}
+
+main#content article h1,
+main#content article h2,
+main#content article h3,
+main#content article h4,
+main#content article h5,
+main#content article h6 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', 'Arial', sans-serif;
+    letter-spacing: -0.01em;
 }
 
 main#content hr {
