@@ -1,7 +1,7 @@
 @media (min-width: 770px) {
 body {
-    width: min(90vw, 920px);
-    line-height: 1.5;
+    width: min(90vw, 860px);
+    line-height: 1.6;
 }
 
 main#content hr {
