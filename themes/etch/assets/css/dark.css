@@ -6,18 +6,18 @@ html {
 }
 
 body {
-    color: #ebebeb;
-    background: #121212;
+    color: #e6ebee;
+    background: #0f1214;
 }
 
 main#content {
-    background: #171717;
-    border-color: #2b2b2b;
+    background: #151a1d;
+    border-color: #2b353b;
 }
 
 header#banner {
-    background: #171717;
-    border-color: #2b2b2b;
+    background: #151a1d;
+    border-color: #2b353b;
 }
 
 header#banner a {
@@ -30,16 +30,16 @@ header#banner nav ul li a {
 }
 
 header#banner nav ul li a:hover {
-    background: #222a2f;
+    background: #223039;
     color: #f1f1f1;
 }
 
 main#content a {
-    color: #00b1ed;
+    color: #5eb5ff;
 }
 
 main#content p {
-    color: #f5f5f5;
+    color: #e6edf1;
 }
 
 main#content hr {
@@ -68,13 +68,13 @@ main#content ul#posts li:hover {
 }
 
 main#content blockquote {
-    border-left-color: #5f6d74;
-    background: #1f2426;
+    border-left-color: #6e8794;
+    background: #1b252b;
 }
 
 main#content pre {
-    border-color: #2e2e2e;
-    background: #181b1d;
+    border-color: #32404a;
+    background: #13191d;
 }
 
 main#content header#post-header time {

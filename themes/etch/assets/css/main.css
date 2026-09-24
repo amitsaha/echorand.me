@@ -10,8 +10,8 @@ body {
     font-size: 16px;
     font-size: 1.6rem;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', 'Arial', sans-serif;
-    color: #313a3d;
-    background: #f4f7f9;
+    color: #273236;
+    background: #eef2f5;
     width: 100%;
     margin: 0 auto;
     padding: 0 16px 16px;
@@ -73,7 +73,7 @@ header#banner nav ul li a:hover {
 }
 
 main#content a {
-    color: #007dfa;
+    color: #0068d1;
     text-decoration: none;
     transition: color 0.2s ease;
 }
@@ -107,7 +107,7 @@ main#content h6 + p {
 }
 
 main#content p {
-    color: #394548;
+    color: #2f3b40;
     margin: 16px 0;
 }
 
@@ -144,7 +144,7 @@ main#content article h6 {
 main#content hr {
     height: 1px;
     border: 0;
-    background: #d8d8d8;
+    background: #c8d2d8;
 }
 
 /* index.html styles */
@@ -286,8 +286,8 @@ main#content blockquote {
     font-style: italic;
     margin: 14px 0;
     padding: 10px 14px;
-    border-left: 3px solid #afbdc5;
-    background: #f7fafc;
+    border-left: 3px solid #90a5b2;
+    background: #f1f6f9;
     border-radius: 0 4px 4px 0;
 }
 
@@ -310,9 +310,9 @@ main#content pre {
     margin: 20px 0;
     padding: 1.5rem 1.5rem;
     line-height: 1.4;
-    border: 1px solid #e1e7eb;
+    border: 1px solid #d4dee4;
     border-radius: 6px;
-    background: #fbfdff;
+    background: #f5f9fc;
 }
 
 main#content pre code {
