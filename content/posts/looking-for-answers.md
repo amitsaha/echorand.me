@@ -568,3 +568,59 @@ and I just needed to allow myself the time to retrieve all of that i already kno
 
 The work of understanding - is what I am reflecting on and understanding a system is essentially a way to know how 
 to operate a system.
+
+## 13
+
+https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html
+
+
+
+```python
+
+>>> X
+array([[1.0000e+04, 1.0000e-01, 2.0000e-01],
+       [1.0000e+04, 9.1000e-02, 1.4000e-02],
+       [1.0001e+04, 1.1100e-01, 1.1100e-01],
+       [1.0003e+04, 1.1000e-01, 2.2100e-01]])
+
+>>> y=[0, 0, 1, 1]
+```
+
+
+```python
+>>> skf=StratifiedKFold(n_splits=2)
+
+>>> folds = [(train_idx, test_idx) for i, (train_idx, test_idx) in enumerate(skf.split(X,y))]
+
+# 50% of 0 and 1 in each split
+>>> folds[0]
+# [0, 0, 1, 1]
+(array([1, 3]), array([0, 2]))
+
+>>> folds[1]
+# [0, 0, 1, 1]
+(array([0, 2]), array([1, 3]))
+```
+
+However, we see that the subject ID 1.0000e+04 has leaked into the test set:
+
+```
+# train set
+
+>>> X[1]
+array([1.0e+04, 9.1e-02, 1.4e-02])
+>>> X[3]
+array([1.0003e+04, 1.1000e-01, 2.2100e-01])
+
+# test/validation set
+
+>>> X[0]
+array([1.e+04, 1.e-01, 2.e-01])
+>>> X[2]
+array([1.0001e+04, 1.1100e-01, 1.1100e-01])
+```
+
+We don't want to have the subject ID repeated between the train and the test set.
+
+So, what shall we do?
+
