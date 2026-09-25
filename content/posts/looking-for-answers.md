@@ -25,6 +25,7 @@ Navigation
 - [10](#10)
 - [11](#11)
 - [12](#12)
+- [13](#13)
 
 
 ## 1
@@ -620,7 +621,29 @@ array([1.e+04, 1.e-01, 2.e-01])
 array([1.0001e+04, 1.1100e-01, 1.1100e-01])
 ```
 
-We don't want to have the subject ID repeated between the train and the test set.
+We don't want to have the subject ID repeated between the train and the test set while also preserving the class/label balance.
 
 So, what shall we do?
+
+So, this is where my brain wants to take short cuts:
+
+1. I want to ask AI chat
+2. I want to at least do a good old internet search
+
+I have already cursorily looked at the scikit learn model selection reference: https://scikit-learn.org/stable/api/sklearn.model_selection.html - none of them appear to give me
+a straight and fast answer to take me out of this unknown I am finding myself in.
+
+I have implemented this or I think i have done the same in another experiment, where I used AI's help to simply copy paste the snippet it gave me. Hence I don't know what I 
+did there. 
+
+> In fact, i probably used `StratifiedGroupKFold` there, but now looking at the reference documentation now, i can't help how it might have helped me there. 
+So, may be the code works, but it isn't doing what i want it to do as this is another example of what happens to my brain and learning when I don't take the time to understand what
+I am doing.
+
+
+Looking at LeaveOneGroupOut. The documentation says:
+
+"Provides train/test indices to split data such that each training set is comprised of all samples except ones belonging to one specific group. Arbitrary domain-specific group information is provided as an array of integers that encodes the group of each sample"
+
+
 
