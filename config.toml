@@ -53,6 +53,11 @@ unsafe= true
     weight = 1
 
 [[menu.main]]
+    name = "Tiny LLM Lab"
+    url = "/tiny-llm"
+    weight = 1
+
+[[menu.main]]
     name = "About"
     url = "/about"
     weight = 1
