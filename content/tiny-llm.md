@@ -3,6 +3,7 @@ title: Tiny LLM Lab
 ---
 
 Try a tiny in-browser LLM to ask questions about any post text you paste below.
+If you came here from a post page, the post content will be loaded automatically.
 
 <p>
   <label for="post-context">Post text:</label><br />
@@ -32,6 +33,41 @@ Try a tiny in-browser LLM to ask questions about any post text you paste below.
 
   const modelName = "Xenova/distilgpt2";
   let generator;
+
+  async function preloadPostFromQuery() {
+    const source = new URLSearchParams(window.location.search).get("source");
+    if (!source) {
+      return;
+    }
+
+    try {
+      const sourceUrl = new URL(source, window.location.origin);
+      if (sourceUrl.origin !== window.location.origin) {
+        return;
+      }
+
+      statusElement.textContent = "Loading post content...";
+      const response = await fetch(sourceUrl.toString());
+      if (!response.ok) {
+        statusElement.textContent = "Could not load post content";
+        return;
+      }
+
+      const html = await response.text();
+      const documentNode = new DOMParser().parseFromString(html, "text/html");
+      const article = documentNode.querySelector("article");
+      if (!article) {
+        statusElement.textContent = "Could not find post content";
+        return;
+      }
+
+      contextElement.value = article.textContent.trim();
+      statusElement.textContent = "Post content preloaded";
+    } catch (error) {
+      statusElement.textContent = "Could not preload post content";
+      console.error(error);
+    }
+  }
 
   async function getGenerator() {
     if (generator) {
@@ -75,4 +111,6 @@ Try a tiny in-browser LLM to ask questions about any post text you paste below.
       buttonElement.disabled = false;
     }
   });
+
+  preloadPostFromQuery();
 </script>
