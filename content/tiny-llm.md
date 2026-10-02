@@ -25,7 +25,7 @@ The model runs fully in your browser, so first load may be slow and long inputs 
 <div id="llm-answer" style="border: 1px solid #ccc; border-radius: 6px; padding: 0.75rem; min-height: 8rem;" aria-live="polite"></div>
 
 <script type="module">
-  import { env, pipeline } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.0';
+  import { env, pipeline } from "https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2";
 
   env.allowLocalModels = false;
   env.useBrowserCache = true;
