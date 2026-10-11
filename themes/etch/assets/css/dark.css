@@ -6,44 +6,44 @@ html {
 }
 
 body {
-    color: #e6ebee;
-    background: #0f1214;
+    color: #e5e7eb;
+    background: #0f1115;
 }
 
 main#content {
-    background: #151a1d;
-    border-color: #2b353b;
+    background: #151923;
+    border-color: #2a3342;
 }
 
 header#banner {
-    background: #151a1d;
-    border-color: #2b353b;
+    background: #151923;
+    border-color: #2a3342;
 }
 
 header#banner a {
-    color: #e0e0e0;
+    color: #e5e7eb;
     text-decoration: none;
 }
 
 header#banner nav ul li a {
-    color: #cccccc;
+    color: #cbd5e1;
 }
 
 header#banner nav ul li a:hover {
-    background: #223039;
-    color: #f1f1f1;
+    background: #1f2937;
+    color: #f8fafc;
 }
 
 main#content a {
-    color: #5eb5ff;
+    color: #93c5fd;
 }
 
 main#content p {
-    color: #e6edf1;
+    color: #dbe5ee;
 }
 
 main#content hr {
-    background: #5c5c5c;
+    background: #475569;
 }
 
 main#content #toc h4 {
@@ -51,34 +51,34 @@ main#content #toc h4 {
 }
 
 main#content ul#posts small {
-    color: #a7a7a7;
+    color: #9ca3af;
 }
 
 main#content ul#posts li a:hover {
-    color: #21c7ff;
+    color: #bfdbfe;
 }
 
 main#content ul#posts li {
-    border-color: #2e2e2e;
+    border-color: #334155;
 }
 
 main#content ul#posts li:hover {
-    border-color: #414141;
+    border-color: #475569;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
 }
 
 main#content blockquote {
-    border-left-color: #6e8794;
-    background: #1b252b;
+    border-left-color: #64748b;
+    background: #18202c;
 }
 
 main#content pre {
-    border-color: #32404a;
-    background: #13191d;
+    border-color: #344155;
+    background: #111827;
 }
 
 main#content header#post-header time {
-    color: #a7a7a7;
+    color: #9ca3af;
 }
 {{- if not (eq .Site.Params.dark "on") -}}
 }
