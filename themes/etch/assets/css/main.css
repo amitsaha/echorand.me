@@ -152,7 +152,7 @@ main#content article p,
 main#content article ul,
 main#content article ol,
 main#content article blockquote {
-    max-width: 68ch;
+    max-width: none;
 }
 
 main#content article h1,

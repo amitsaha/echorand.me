@@ -1,12 +1,12 @@
 @media (min-width: 770px) {
 body {
-    width: min(90vw, 860px);
+    width: min(94vw, 920px);
     line-height: 1.6;
 }
 
 main#content hr {
-    width: 108%;
-    margin-left: -3.8%;
+    width: 100%;
+    margin-left: 0;
 }
 
 /* index.html styles */
@@ -32,16 +32,16 @@ main#content header#post-header h1 {
 }
 
 main#content img {
-    max-width: 108%;
-    margin-left: -3.8%;
+    max-width: 100%;
+    margin-left: 0;
 }
 
 main#content figure {
-    margin-left: -3.8%;
+    margin-left: 0;
 }
 
 main#content figure img {
-    max-width: 108%;
+    max-width: 100%;
 }
 
 main#content pre {
