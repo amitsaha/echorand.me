@@ -1,84 +1,29 @@
 {{ if not (eq .Site.Params.dark "on") -}}
 @media (prefers-color-scheme: dark) {
 {{ end -}}
+:root {
+    --paper: #141210;
+    --sheet: #1c1916;
+    --ink: #ebe4d6;
+    --ink-soft: #ddd4c4;
+    --muted: #b3a48f;
+    --line: #3a332b;
+    --line-strong: #524737;
+    --accent: #e8b86d;
+    --accent-hover: #f3d7a6;
+    --wash: #2a241c;
+    --quote: #241e18;
+    --code-bg: #12100e;
+    --shadow: rgba(0, 0, 0, 0.45);
+}
+
 html {
-    scrollbar-color: #6c6c6c #2e2e2e;
+    scrollbar-color: #6b5c48 #1c1916;
 }
 
-body {
-    color: #e5e7eb;
-    background: #0f1115;
-}
-
-main#content {
-    background: #151923;
-    border-color: #2a3342;
-}
-
-header#banner {
-    background: #151923;
-    border-color: #2a3342;
-}
-
-header#banner a {
-    color: #e5e7eb;
-    text-decoration: none;
-}
-
-header#banner nav ul li a {
-    color: #cbd5e1;
-}
-
-header#banner nav ul li a:hover {
-    background: #1f2937;
-    color: #f8fafc;
-}
-
-main#content a {
-    color: #93c5fd;
-}
-
-main#content p {
-    color: #dbe5ee;
-}
-
-main#content hr {
-    background: #475569;
-}
-
-main#content #toc h4 {
-    color: #d4d4d4;
-}
-
-main#content ul#posts small {
-    color: #9ca3af;
-}
-
-main#content ul#posts li a:hover {
-    color: #bfdbfe;
-}
-
-main#content ul#posts li {
-    border-color: #334155;
-}
-
-main#content ul#posts li:hover {
-    border-color: #475569;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
-}
-
-main#content blockquote {
-    border-left-color: #64748b;
-    background: #18202c;
-}
-
-main#content pre {
-    border-color: #344155;
-    background: #111827;
-}
-
-main#content header#post-header time {
-    color: #9ca3af;
+::selection {
+    background: #6b4e28;
+    color: #f6efe4;
 }
 {{- if not (eq .Site.Params.dark "on") -}}
 }

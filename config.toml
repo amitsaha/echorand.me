@@ -7,7 +7,11 @@ enableGitInfo = true
 lastmod = ["lastmod", ":fileModTime", ":default"]
 
 [markup.goldmark.renderer]
-unsafe= true
+    unsafe= true
+
+[markup.highlight]
+    style = "gruvbox"
+    noClasses = true
 
 [security]
   enableInlineShortcodes = false

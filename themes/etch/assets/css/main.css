@@ -2,16 +2,37 @@
     box-sizing: border-box;
 }
 
+:root {
+    --paper: #f3efe6;
+    --sheet: #faf7f1;
+    --ink: #2c261f;
+    --ink-soft: #3d342b;
+    --muted: #6f6456;
+    --line: #e3d8c6;
+    --line-strong: #d3c4ab;
+    --accent: #8a4510;
+    --accent-hover: #6d360c;
+    --wash: #efe6d4;
+    --quote: #f6f0e4;
+    --code-bg: #f4efe4;
+    --shadow: rgba(62, 42, 18, 0.08);
+}
+
 html {
     font-size: 62.5%;
+}
+
+::selection {
+    background: #e8c99a;
+    color: #2c261f;
 }
 
 body {
     font-size: 16px;
     font-size: 1.6rem;
     font-family: "Inter", "Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    color: #1f2933;
-    background: #f7f7f5;
+    color: var(--ink);
+    background: var(--paper);
     width: 100%;
     margin: 0 auto;
     padding: 0 16px 16px;
@@ -22,13 +43,14 @@ body {
 header#banner {
     margin: 25px 0 18px;
     padding: 12px 14px;
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
+    background: var(--sheet);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--accent);
     border-radius: 8px;
 }
 
 header#banner a {
-    color: #1f2933;
+    color: var(--ink);
     text-decoration: none;
 }
 
@@ -61,24 +83,26 @@ header#banner nav ul li {
 }
 
 header#banner nav ul li a {
-    color: #334155;
+    color: var(--ink-soft);
     padding: 2px 6px;
     border-radius: 4px;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 header#banner nav ul li a:hover {
-    background: #eef2f7;
+    background: var(--wash);
+    color: var(--accent);
     text-decoration: none;
 }
 
 main#content a {
-    color: #1d4ed8;
+    color: var(--accent);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 main#content a:hover {
+    color: var(--accent-hover);
     text-decoration: underline;
 }
 
@@ -107,13 +131,13 @@ main#content h6 + p {
 }
 
 main#content p {
-    color: #273444;
+    color: var(--ink-soft);
     margin: 16px 0;
 }
 
 main#content {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
+    background: var(--sheet);
+    border: 1px solid var(--line);
     border-radius: 8px;
     padding: 18px;
     font-size: 1.65rem;
@@ -144,7 +168,7 @@ main#content article h6 {
 main#content hr {
     height: 1px;
     border: 0;
-    background: #d1d9e2;
+    background: var(--line-strong);
 }
 
 /* index.html styles */
@@ -159,14 +183,14 @@ main#content ul#posts {
 main#content ul#posts li {
     margin: 10px 0;
     padding: 8px 12px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--line);
     border-radius: 6px;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 main#content ul#posts small {
     font-size: 0.8em;
-    color: #767676;
+    color: var(--muted);
     margin-left: 10px;
 }
 
@@ -175,12 +199,12 @@ main#content ul#posts li a {
 }
 
 main#content ul#posts li a:hover {
-    color: #2563eb;
+    color: var(--accent-hover);
 }
 
 main#content ul#posts li:hover {
-    border-color: #cbd5e1;
-    box-shadow: 0 4px 14px rgba(30, 41, 59, 0.08);
+    border-color: var(--line-strong);
+    box-shadow: 0 4px 14px var(--shadow);
 }
 
 main#content ul#posts li a:hover small {
@@ -198,20 +222,21 @@ main#content header#post-header h1 {
 main#content header#post-header time {
     display: block;
     font-size: 0.85em;
-    color: #767676;
+    color: var(--muted);
 }
 
 main#content #toc {
-    border: 1px solid #b1b1b1;
+    border: 1px solid var(--line-strong);
     border-radius: 1px;
     line-height: 26px;
     margin: 16px 0;
     padding: 9px 14px;
+    background: var(--quote);
 }
 
 main#content #toc h4 {
     font-size: 1.06em;
-    color: #3d3d3d;
+    color: var(--ink);
     margin: 0;
 }
 
@@ -286,8 +311,8 @@ main#content blockquote {
     font-style: italic;
     margin: 14px 0;
     padding: 10px 14px;
-    border-left: 3px solid #94a3b8;
-    background: #f8fafc;
+    border-left: 3px solid var(--accent);
+    background: var(--quote);
     border-radius: 0 4px 4px 0;
 }
 
@@ -296,9 +321,19 @@ main#content pre {
     font-family: 'Menlo', monospace;
 }
 
-main#content code {
-    font-size: 0.96em;
-    padding: 0 5px;
+main#content :not(pre) > code {
+    font-size: 0.92em;
+    padding: 0.1em 0.35em;
+    color: var(--ink);
+    background: var(--code-bg);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+}
+
+main#content pre {
+    /* Hugo writes the highlight colors inline, so this has to win. */
+    background: #1e1a16 !important;
+    color: #f3ecdf !important;
 }
 
 main#content pre {
@@ -310,9 +345,8 @@ main#content pre {
     margin: 20px 0;
     padding: 1.5rem 1.5rem;
     line-height: 1.4;
-    border: 1px solid #d7e0e8;
+    border: 1px solid #3a332b;
     border-radius: 6px;
-    background: #f8fafc;
 }
 
 main#content pre code {
@@ -327,6 +361,11 @@ footer#footer {
     font-size: 14px;
     font-size: 1.4rem;
     font-weight: 300;
-    color: #949494;
+    color: var(--muted);
     margin: 30px 0;
+}
+
+#llm-answer {
+    border: 1px solid var(--line-strong);
+    background: var(--quote);
 }
