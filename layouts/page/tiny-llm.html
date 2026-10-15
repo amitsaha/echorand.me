@@ -1,0 +1,30 @@
+{{ define "main" }}
+<article id="tiny-llm">
+    <header id="post-header">
+        <h1>{{ .Title }}</h1>
+    </header>
+    {{ .Content }}
+    <div class="llm-form">
+        <label for="post-context">Post text</label>
+        <textarea id="post-context" rows="12" placeholder="Paste text from one of my posts here"></textarea>
+        <label for="question">Question</label>
+        <input id="question" type="text" placeholder="What does the post say about …?" />
+        <div class="llm-actions">
+            <button id="run-llm" type="button">Ask</button>
+            <button id="clear-llm" type="button">Clear answers</button>
+        </div>
+        <p id="llm-status" aria-live="polite">Model: not loaded</p>
+        <p id="llm-context-window"></p>
+        <div id="llm-answer"></div>
+    </div>
+</article>
+<footer id="footer">
+    Post managed in a <a href="https://github.com/amitsaha/echorand.me">git repo</a> | <a href="https://github.com/amitsaha/echorand.me/commit/{{.GitInfo.Hash}}">Last Commit on this post </a>
+  | <a href="https://github.com/amitsaha/echorand.me/edit/master/content/{{.File.Path}}">Edit post</a>
+    <p>
+    Blog managed via <a href="https://gohugo.io/">Hugo</a> and using a modified version of the <a href="https://themes.gohugo.io/etch/">Etch</a> theme.
+    </p>
+</footer>
+{{ $script := "js/tiny-llm.js" | relURL }}
+<script type="module" src="{{ $script }}"></script>
+{{ end }}

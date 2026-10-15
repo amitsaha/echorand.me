@@ -365,7 +365,266 @@ footer#footer {
     margin: 30px 0;
 }
 
+#tiny-llm .llm-form label {
+    display: block;
+    margin: 1.1rem 0 0.35rem;
+    color: var(--ink);
+    font-weight: 600;
+}
+
+#tiny-llm textarea,
+#tiny-llm input[type="text"] {
+    width: 100%;
+    font: inherit;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    padding: 0.7rem 0.8rem;
+}
+
+#tiny-llm textarea {
+    min-height: 16rem;
+    resize: vertical;
+}
+
+#tiny-llm textarea:focus,
+#tiny-llm input[type="text"]:focus {
+    outline: 2px solid var(--accent);
+    border-color: var(--accent);
+}
+
+#tiny-llm .llm-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0.9rem 0 0.4rem;
+}
+
+#tiny-llm button {
+    font: inherit;
+    font-size: 1.4rem;
+    color: var(--ink);
+    background: var(--wash);
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    padding: 0.5rem 0.85rem;
+    cursor: pointer;
+}
+
+#tiny-llm button:hover {
+    border-color: var(--accent);
+    color: var(--accent-hover);
+}
+
+#tiny-llm button:disabled {
+    opacity: 0.6;
+    cursor: progress;
+}
+
+#tiny-llm #llm-status,
+#tiny-llm #llm-context-window {
+    font-size: 1.35rem;
+    color: var(--muted);
+    margin: 0.35rem 0;
+}
+
 #llm-answer {
     border: 1px solid var(--line-strong);
     background: var(--quote);
+    border-radius: 6px;
+    padding: 0.75rem;
+    min-height: 8rem;
+    margin-top: 0.8rem;
+}
+
+#llm-answer .llm-turn {
+    margin: 0 0 1.2rem;
+}
+
+#llm-answer .llm-turn strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--ink);
+}
+
+#llm-answer .llm-turn p,
+#llm-answer .llm-empty {
+    white-space: pre-wrap;
+    margin: 0;
+}
+
+#jev-demo textarea {
+    width: 100%;
+    min-height: 12rem;
+    resize: vertical;
+    font: inherit;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    padding: 0.7rem 0.8rem;
+}
+
+#jev-demo textarea:focus {
+    outline: 2px solid var(--accent);
+    border-color: var(--accent);
+}
+
+#jev-demo .jev-form label,
+#jev-demo h2 {
+    display: block;
+    margin: 1.1rem 0 0.35rem;
+    color: var(--ink);
+    font-size: 1.7rem;
+}
+
+#jev-demo .jev-examples,
+#jev-demo .jev-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0.8rem 0;
+}
+
+#jev-demo button {
+    font: inherit;
+    font-size: 1.4rem;
+    color: var(--ink);
+    background: var(--wash);
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    padding: 0.5rem 0.85rem;
+    cursor: pointer;
+}
+
+#jev-demo button:hover {
+    border-color: var(--accent);
+    color: var(--accent-hover);
+}
+
+#jev-demo button:disabled {
+    opacity: 0.6;
+    cursor: progress;
+}
+
+#jev-demo #jev-status {
+    font-size: 1.35rem;
+    color: var(--muted);
+    margin: 0.35rem 0;
+}
+
+#jev-demo .jev-card {
+    margin: 0.9rem 0;
+    padding: 0.85rem 0.95rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--quote);
+}
+
+#jev-demo .jev-card h2 {
+    margin: 0 0 0.25rem;
+}
+
+#jev-demo .jev-card p {
+    margin: 0.2rem 0 0.55rem;
+}
+
+#jev-demo .jev-action {
+    font-weight: 600;
+    color: var(--ink);
+}
+
+#jev-demo .jev-row {
+    margin: 0.45rem 0;
+}
+
+#jev-demo .jev-row-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 1.4rem;
+    color: var(--ink);
+}
+
+#jev-demo .jev-track {
+    height: 0.7rem;
+    margin-top: 0.25rem;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+#jev-demo .jev-fill {
+    display: block;
+    height: 100%;
+    background: var(--line-strong);
+}
+
+#jev-demo .jev-row.is-lead .jev-fill {
+    background: var(--accent);
+}
+
+#jev-groups {
+    margin-top: 2.4rem;
+}
+
+#jev-groups p {
+    margin: 0.6rem 0;
+}
+
+#jev-groups label {
+    display: block;
+    margin: 1.1rem 0 0.35rem;
+    color: var(--ink);
+    font-size: 1.5rem;
+}
+
+#jev-groups output {
+    font-weight: 600;
+}
+
+#jev-groups input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+}
+
+#jev-groups #jev-groups-summary {
+    font-weight: 600;
+    color: var(--ink);
+}
+
+#jev-groups-boards {
+    display: grid;
+    gap: 0.8rem;
+}
+
+#jev-groups h3 {
+    margin: 0 0 0.2rem;
+    font-size: 1.6rem;
+    color: var(--ink);
+}
+
+#jev-groups .jev-track {
+    position: relative;
+}
+
+#jev-groups .jev-mark {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    margin-left: -1px;
+    background: var(--ink);
+}
+
+@media (min-width: 700px) {
+    #jev-groups-boards {
+        grid-template-columns: 1fr 1fr;
+    }
 }

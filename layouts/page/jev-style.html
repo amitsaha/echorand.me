@@ -1,0 +1,47 @@
+{{ define "main" }}
+<article id="jev-demo">
+    <header id="post-header">
+        <h1>{{ .Title }}</h1>
+    </header>
+    {{ .Content }}
+    <div class="jev-form">
+        <p class="jev-examples">
+            <button type="button" data-example="mixed">Late shoes and a double charge</button>
+            <button type="button" data-example="shipping">Where is my package?</button>
+            <button type="button" data-example="angry">Wrong item, refund today</button>
+        </p>
+        <label for="jev-state">State</label>
+        <textarea id="jev-state" rows="7">Shoes arrived two weeks late and in the wrong size. Also I see two charges on my card.</textarea>
+        <h2>Questions</h2>
+        <ul>
+            <li><strong>Choice.</strong> Which team should handle this? Returns, shipping, or billing.</li>
+            <li><strong>Noul.</strong> Does this need urgent human attention? A probability that the answer is yes.</li>
+            <li><strong>Score.</strong> How frustrated is the customer? Calm, frustrated, or very angry.</li>
+        </ul>
+        <div id="jev-policy"></div>
+        <div class="jev-actions">
+            <button id="jev-run" type="button">Decide</button>
+        </div>
+        <p id="jev-status" aria-live="polite">The classifier downloads when you press Decide.</p>
+        <div id="jev-result"></div>
+    </div>
+    <section id="jev-groups">
+        <h2>One cutoff for extra care</h2>
+        <p>A clinic offers a care-management program to patients whose risk score is at or above a cutoff. Patients below the line get routine care. These sixteen patients have the same kind of illness. The score predicts what the clinic will spend on them. Less is spent on Black patients who have the same need, so their scores sit lower.</p>
+        <p>The cutoff never reads the group. Because the scores sit in different places, that one line offers the program to fewer Black patients. These scores are written into the page so you can move the line. The same mechanism, a cost score and one enrollment cutoff, is what <a href="https://doi.org/10.1126/science.aax2342">Obermeyer et al. reported in Science in 2019</a>: at a given score, Black patients were sicker, and the cutoff identified fewer of them for extra care.</p>
+        <label for="jev-cutoff">Risk-score cutoff <output id="jev-cutoff-value" for="jev-cutoff">0.70</output></label>
+        <input id="jev-cutoff" type="range" min="0" max="1" step="0.01" value="0.70">
+        <p id="jev-groups-summary" aria-live="polite"></p>
+        <div id="jev-groups-boards"></div>
+    </section>
+</article>
+<footer id="footer">
+    Post managed in a <a href="https://github.com/amitsaha/echorand.me">git repo</a> | <a href="https://github.com/amitsaha/echorand.me/commit/{{.GitInfo.Hash}}">Last Commit on this post </a>
+  | <a href="https://github.com/amitsaha/echorand.me/edit/master/content/{{.File.Path}}">Edit post</a>
+    <p>
+    Blog managed via <a href="https://gohugo.io/">Hugo</a> and using a modified version of the <a href="https://themes.gohugo.io/etch/">Etch</a> theme.
+    </p>
+</footer>
+{{ $script := "js/jev-style.js" | relURL }}
+<script type="module" src="{{ $script }}"></script>
+{{ end }}
