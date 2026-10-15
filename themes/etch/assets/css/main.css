@@ -95,6 +95,62 @@ header#banner nav ul li a:hover {
     text-decoration: none;
 }
 
+header#banner nav > ul > li {
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+header#banner nav details {
+    position: relative;
+}
+
+header#banner nav summary {
+    cursor: pointer;
+    list-style: none;
+    color: var(--ink-soft);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+header#banner nav summary::-webkit-details-marker {
+    display: none;
+}
+
+header#banner nav summary::after {
+    content: " ▾";
+}
+
+header#banner nav summary:hover,
+header#banner nav details[open] > summary {
+    background: var(--wash);
+    color: var(--accent);
+}
+
+header#banner nav details ul {
+    position: absolute;
+    z-index: 5;
+    top: calc(100% + 4px);
+    left: 0;
+    min-width: 100%;
+    margin: 0;
+    padding: 0.3rem 0;
+    background: var(--sheet);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    box-shadow: 0 8px 20px var(--shadow);
+}
+
+header#banner nav details ul li {
+    display: block;
+    margin: 0;
+}
+
+header#banner nav details ul li a {
+    display: block;
+    white-space: nowrap;
+    padding: 0.35rem 0.8rem;
+}
+
 main#content a {
     color: var(--accent);
     text-decoration: none;

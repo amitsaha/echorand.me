@@ -52,41 +52,49 @@ lastmod = ["lastmod", ":fileModTime", ":default"]
   tag = "tags"
 
 [[menu.main]]
+    name = "About"
+    url = "/about"
+    weight = 10
+
+[[menu.main]]
     name = "Posts"
     url = "/posts"
-    weight = 1
+    weight = 20
+
+[[menu.main]]
+    name = "Publications and Trainings"
+    url = "/writings-trainings"
+    weight = 30
+
+[[menu.main]]
+    name = "Talks"
+    url = "/talks"
+    weight = 40
+
+[[menu.main]]
+    name = "Client side LLM demos"
+    identifier = "client-side-llm-demos"
+    weight = 50
 
 [[menu.main]]
     name = "Tiny LLM Lab"
     url = "/tiny-llm"
+    parent = "client-side-llm-demos"
     weight = 1
 
 [[menu.main]]
     name = "LLM based decision making"
     url = "/llm-based-decision-making"
-    weight = 1
-
-[[menu.main]]
-    name = "About"
-    url = "/about"
-    weight = 1
-
-[[menu.main]]
-    name = "Publications and Trainings"
-    url = "/writings-trainings"
-    weight = 1
-
-[[menu.main]]
-    name = "Talks"
-    url = "/talks"
-    weight = 1
+    parent = "client-side-llm-demos"
+    weight = 2
 
 [[menu.main]]
     name = "Categories"
     url = "/categories"
-    weight = 2
+    weight = 60
 
 [[menu.main]]
     name = "Subscribe (RSS)"
-    url = "/index.xml" 
+    url = "/index.xml"
+    weight = 70 
     

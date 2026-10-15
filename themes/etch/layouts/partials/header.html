@@ -4,7 +4,18 @@
         <ul>
             {{ range .Site.Menus.main.ByWeight -}}
             <li>
+                {{- if .HasChildren -}}
+                <details>
+                    <summary>{{ .Name }}</summary>
+                    <ul>
+                        {{ range .Children.ByWeight -}}
+                        <li><a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a></li>
+                        {{- end }}
+                    </ul>
+                </details>
+                {{- else -}}
                 {{ .Pre }}<a href="{{ .URL }}" title="{{ .Title }}">{{- .Name -}}</a>{{ .Post }}
+                {{- end -}}
             </li>
             {{- end }}
         </ul>
