@@ -5,9 +5,10 @@ date: 2024-08-09T10:53:16+10:00
 
 # About me
 
-Hello, My name is Amit Saha. See my [LinkedIn](https://www.linkedin.com/in/amitsaha0) profile for my professional experiences.
+Hello, My name is Amit Saha. See my [LinkedIn](https://www.linkedin.com/in/amitsaha0) profile for my work/education experiences in technology
+and elsewhere.
 
-I am available for your next project via my company, [Common Loop Works](https://www.commonloopworks.com/).
+I may be available for your next project via my company, [Common Loop Works](https://www.commonloopworks.com/).
 
 You may be interested in learning more about [articles, books and other training materials](../writings-trainings/)
 I have authored. I also share things I learn via [presenting](../talks/) at various conferences and meetup groups.
