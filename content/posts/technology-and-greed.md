@@ -1,6 +1,6 @@
 ---
 title:  The algorithm and the AI
-date: 2026-10-30
+date: 2026-10-29
 categories:
 - software
 ---
