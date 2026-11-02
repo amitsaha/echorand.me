@@ -7,7 +7,7 @@ categories:
 
 I am using `ollama` on Windows PC.
 
-# Generate git commit message
+## Generate git commit message
 
 Powershell:
 
