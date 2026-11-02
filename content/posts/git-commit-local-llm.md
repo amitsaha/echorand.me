@@ -9,6 +9,8 @@ I am using `ollama` on Windows PC.
 
 ## Generate git commit message
 
+Uses [qwen3-coder:30b](https://ollama.com/library/qwen3-coder:30b):
+
 Powershell:
 
 ```
