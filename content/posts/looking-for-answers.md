@@ -26,6 +26,7 @@ Navigation
 - [11](#11)
 - [12](#12)
 - [13](#13)
+- [14](#14)
 
 
 ## 1
@@ -644,6 +645,38 @@ I am doing.
 Looking at LeaveOneGroupOut. The documentation says:
 
 "Provides train/test indices to split data such that each training set is comprised of all samples except ones belonging to one specific group. Arbitrary domain-specific group information is provided as an array of integers that encodes the group of each sample"
+
+## 14
+
+I wanted to do some updates to the code and website for doing math with python: https://doingmathwithpython.github.io/code-and-solutions-refresh.html. It has been a good solid 
+10 years since I had touched the code and 3 years since i touched the website. My body memory/muscle memory of it all - was very weak/non-existent.
+
+While updating the code, I first had to understand the issue a user had reported me to. While updating the website I had to first remember the restructured text formatting, the
+publishing workflow, etc. I used a combination of AI tools and manual effort to achieve the following:
+
+1. Create a new version of the code that didn't depend on the 3rd party service
+2. Update the website with the new blog post
+3. Update the publishing workflow to use CI (github actions) so that I don't have to manually do it
+
+
+For (1), the key requirement was that I needed to give the reader a way to access weather forecast data that they can download. I looked at the open weather map
+updated API and it all just looked too complicated for me to suggest the reader to use, plus I wanted some kind of "control" over how the data format/availability
+worked. So, I used Google's AI studio to use the Google maps platform API to build a custom web application for it. This was 100% vibe coded. It works. 
+
+Then, I wanted to write the updated code, for that I referred to the existing solutions and the Python standard library's csvfile documentation and updated the code
+manually. No AI was used in this process - of understanding the previous error, figuring out why the code was breaking and then fixing it. I noticed a friction,
+a resistance to need to again get my brain into a whole different area - and I didn't give in - i didn't give in to the resistance and "used AI". I persisted since I
+had set an intention to do it manually. 
+
+For (2) I noticed the same friction when writing restructured text blog posts, and had the urge to "ask AI" to get pelican to use mardkdown, since that's what i write
+most my blog posts/content now, but I persisted, i opened the restructured text reference and I coded it. I had a few problems, in hunting down anonymoous hyperlinks
+(if you know you know!) - that was a blast from the past - but I sorted them all manually. Once again, I had set an intention to do it manually.
+
+For (3), I didn't want to deal with the CI stuff, so i let "AI" do it. 
+
+After my analysis in https://echorand.me/posts/learning-and-current-software-development/ - i am slowly deciding what I want to be involved in - and one way
+I am doing that based on my primary objective - here my primary objective was to fix up the code and publish a blog post sharing the updates and i did both of
+that manually. Getting access to the data and making it available to my readers and fixing up CI workflow were not my primary goals, so I let "AI" do it.
 
 
 
