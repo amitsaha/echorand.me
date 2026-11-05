@@ -670,7 +670,8 @@ had set an intention to do it manually.
 
 For (2) I noticed the same friction when writing restructured text blog posts, and had the urge to "ask AI" to get pelican to use mardkdown, since that's what i write
 most my blog posts/content now, but I persisted, i opened the restructured text reference and I coded it. I had a few problems, in hunting down anonymoous hyperlinks
-(if you know you know!) - that was a blast from the past - but I sorted them all manually. Once again, I had set an intention to do it manually.
+(if you know you know!) - that was a blast from the past - when I did all these fixes manually - and that has stayed with me, in my memory,
+but I sorted them all manually. Once again, I had set an intention to do it manually.
 
 For (3), I didn't want to deal with the CI stuff, so i let "AI" do it. 
 
