@@ -701,9 +701,6 @@ I get most of it, I simplify it first, write my own comments and then a specific
 def leaf_counts(assigned_leaves, error_targets):
     """Exact missed/sepsis counts for each leaf id in `assigned`."""
     counts = {}
-    # assigned_leaves is a pandas series indexed by feautre indices
-    # a leaf can be a terminating point for multiple features, so we
-    # do a groupby to iterate over each (leaf_id, members) combination
     for leaf_id, members in assigned_leaves.groupby(assigned_leaves):
         missed = int(error_targets.loc[members.index].sum())
         counts[int(leaf_id)] = (missed, int(len(members)))
