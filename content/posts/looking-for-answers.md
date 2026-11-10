@@ -27,6 +27,7 @@ Navigation
 - [12](#12)
 - [13](#13)
 - [14](#14)
+- [15](#15) 
 
 
 ## 1
@@ -681,3 +682,96 @@ that manually. Getting access to the data and making it available to my readers 
 
 
 
+## 15
+
+This is different from all the above tips, since here I am trying to understand a code that I used LLM to generate. I used LLM to generate this
+piece of code for creating a decision tree using `scikit-learn`. I had generated it because I was in a rush - which is I have realized most of my
+outsourcing tends to happen. Once a human being, for example, me knows that there is a quicker/easier way to do it, i have to try really hard to 
+do it the hard way. Hence, before I first tried to learn how the generated code was working, I manually first learned what I needed to know by writing a decision tree
+by following the documentation and good old internet searches. (See [code](https://github.com/amitsaha/ml-stat-learnings/blob/main/decision-tree/model.py) and `gvim` as
+my editor with no AI support.
+
+Now that I have fairly good idea of how it all works and is implemented due to me going through that disciplined process of not outsourcing any of my thinking
+to LLM, I wanted to better understand the generated code. 
+
+I get most of it, I simplify it first, write my own comments and then a specific piece of code stands out that i don't follow.
+
+
+```python
+def leaf_counts(assigned_leaves, error_targets):
+    """Exact missed/sepsis counts for each leaf id in `assigned`."""
+    counts = {}
+    # assigned_leaves is a pandas series indexed by feautre indices
+    # a leaf can be a terminating point for multiple features, so we
+    # do a groupby to iterate over each (leaf_id, members) combination
+    for leaf_id, members in assigned_leaves.groupby(assigned_leaves):
+        missed = int(error_targets.loc[members.index].sum())
+        counts[int(leaf_id)] = (missed, int(len(members)))
+    return counts
+```
+
+From my first reading I get what it's trying to do, but i don't **really** get how it is doing it. I have used `groupby()` for various things, but this usage
+of `groupby` feels unfamiliar to me, since it is a `Series` of int-like values. 
+
+So, I insert `import pdb; pdb.set_trace()` just after `counts` and i see this:
+
+```python
+(Pdb) assigned
+131       4
+142      11
+162      10
+240      11
+257       4
+         ..
+28741    10
+28757    10
+28766     4
+28799    10
+28847    10
+Name: leaf_id, Length: 621, dtype: int64
+
+(Pdb) assigned.value_counts(normalize=True)
+leaf_id
+4     0.481481
+10    0.257649
+11    0.173913
+14    0.041868
+3     0.020934
+7     0.016103
+6     0.004831
+13    0.003221
+
+(Pdb) type(assigned)
+<class 'pandas.core.series.Series'>
+```
+
+Looking around the code, I see, that the `Series` has an index set to the element IDs, so basically what this series is a collection of leaf indices, with the index
+being the element ID, sort of like a hash table implemented using a linked list, where the key is the leaf id and the list contains all the element IDs that end up in that 
+leaf. Okay cool! But here's the thing, I got this intuitive idea by experimenting with a demo Series, as follows:
+
+```python
+>>> import pandas as pd
+>>> demo_series = pd.Series([1, 2, 6, 6, 1], index=[1, 2, 3, 4, 6])
+```
+
+The series is basically this using my hash table/linked list analogy:
+
+```
+1 -> [1, 6]
+2 -> [2]
+6 -> [3, 4]
+```
+
+And so now when we do the `groupby()` on this print out the element and the index, we get this:
+
+```python
+>>> for i, j in demo_series.groupby(demo_series):
+...     print(i, j.index)
+...
+1 Index([1, 6], dtype='int64')
+2 Index([2], dtype='int64')
+6 Index([3, 4], dtype='int64')
+```
+
+
+So, this is how I end up understanding this code.
