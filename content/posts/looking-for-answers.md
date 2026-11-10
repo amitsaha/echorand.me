@@ -774,6 +774,7 @@ And so now when we do the `groupby()` on this print out the element and the inde
 ```
 
 
-So, this is how I end up understanding this code. Abstractions are great, and I am sure there are parts of the generated code which makes use of such abstractions, but i am
-a little bit wiser now how my code is working in that particular section because I took the time to understand using the approach above. And I could have asked LLM to explain to me
-that code, but where's the fun in that?
+So, this is how I end up understanding this code. Abstractions are great, and I could have easily glossed over the usage of groupby because oh yes i know it, but if i hadn't
+done this detour, I would have had no clue really! 
+
+And I could have asked LLM to explain to me that code, but where's the fun in that?
