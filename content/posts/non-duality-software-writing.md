@@ -36,7 +36,13 @@ but for tweaking the output. I reason I am stating this is, I have completely do
 I feel a certain anger when looking at this code generated. I am not saying that and I know that my code if i were to write it by hand would take me many hours
 and might end up looking like exactly what AI has created, but then because I created it, i would have an understanding of it. In fact, that is likely why my anger
 is at - the lack of understanding. The cognitive debt is high. And now, when my goal is to do something else, i am having to end up using that time for now
-understanding code that i have not written.
+understanding code that i have not written. 
+
+Now, this is not very different from me working on an unknown code base - written by humans, as I have done over the years. So, perhaps, if I reframe this
+as someone else's code - the someone in this case just happens to be AI - may be that might help me? However, really, the issue that I am facing here
+or getting at i feel is that of time. If i budget for the time I need to understand an unknown repository of code into the time I allocate to achieving my goals,
+perhaps that might help here? Because the AI generation was undertaken by me, so that I could come up with a working system to validate some ideas, so perhaps,
+the trick really is a mind trick as with most things i suppose.
 
 This is happening post my own reflection of my reactions to the world of AI assisted coding. So, I am clear, what I like - i like to understand things 
 i am working on, and implementing. Since writing that post, I have come across three key ideas that other people have talked about that resonated with.
