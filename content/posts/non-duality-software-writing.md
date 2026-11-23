@@ -28,7 +28,10 @@ On a different day, I am currently trying to fix minor things in a generated cod
 the task I had given it are requiring me to make too many jumps in my code and thus my brain. It's a simple task, and yet I feel like I am reading
 a program that is doing something way more complex than it is. And I don't feel like at this stage, I can either completely hand over stuff to the tool, to make
 these minor changes, or start from scratch myself. I don't like either state. So, what's the solution? I think for me the solution is to be completely
-intentional about every step I am taking when generating some code. How does that look like? I am not sure again. 
+intentional about every step I am taking when generating some code. How does that look like? I am not sure again. I persisted with the tool, and completely
+switched to english as my language and not deciding to do any change by hand and it's carrying on doing what i want it to do. So, where do I end up? In fact,
+i would say, since i am not writing the code, my brain can now focus on the analysis of the output of the program - not for understanding the program mind you -
+but for tweaking the output. I reason I am stating this is, I have completely done away with the idea that I am going to be making updates to this code by hand.
 
 This is happening post my own reflection of my reactions to the world of AI assisted coding. So, I am clear, what I like - i like to understand things 
 i am working on, and implementing. Since writing that post, I have come across three key ideas that other people have talked about that resonated with.
