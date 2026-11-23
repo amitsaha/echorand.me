@@ -10,7 +10,7 @@ Today, as I working with some code, I reached a realization that I am feeling a 
 currently doing, or trying to do, and i know what the surrounding code is doing - that is visible in my editor. A certain understanding
 appeared to be present in me - a certain knowing of what I am looking to accomplish, and what is currently happening.
 
-I reached this realization point as I was trying to understand certain parts of the code, inserting a debugging breakpoint, 
+I reached this realization point as I was trying to understand certain parts of the code, inserting a debugging break point, 
 printing out values, looking up some API documentation. 
 
 This was not code I had written from scratch, but I had the first version generated from LLM. However, I reached this point of
@@ -20,9 +20,18 @@ I am going to call this state of realization of oneness as the _non-dual_ state.
 the state of complete immersion with whatever one is doing at that point or trying to reach some state of enlightenment, or when in
 a conversation with someone - when there is a realization of the universal oneness of things. In this state, I felt like I am one
 with the program I am working with. There is no feeling of - I am not sure what this program is doing - or how it is doing it. Now,
-the reason I am distinguishing this state of work from the frequently used flow state or in the zone is that one of my challenges
-with adopting generative AI tools in my work is that I don't feel that sense of oneness - that comes when I am writing things from
-scratch. 
+the reason I am distinguishing this state of work from the frequently used phrases such as _flow state_ or _in the zone_ is that one of 
+my challenges with adopting generative AI tools in my work is that I don't feel that sense of oneness - that comes when I am writing things from
+scratch. Perhaps, a flow state or in the zone is reached for me when I am experiencing this immersion.
+
+On a different day, I am currently trying to fix minor things in a generated code and it is proving really hard. The functions that has been generated to accomplish
+the task I had given it are requiring me to make too many jumps in my code and thus my brain. It's a simple task, and yet I feel like I am reading
+a program that is doing something way more complex than it is. And I don't feel like at this stage, I can either completely hand over stuff to the tool, to make
+these minor changes, or start from scratch myself. I don't like either state. So, what's the solution? I think for me the solution is to be completely
+intentional about every step I am taking when generating some code. How does that look like? I am not sure again. 
+
+This is happening post my own reflection of my reactions to the world of AI assisted coding. So, I am clear, what I like - i like to understand things 
+i am working on, and implementing. Since writing that post, I have come across three key ideas that other people have talked about that resonated with.
 
 ## Verification
 
