@@ -33,6 +33,11 @@ switched to english as my language and not deciding to do any change by hand and
 i would say, since i am not writing the code, my brain can now focus on the analysis of the output of the program - not for understanding the program mind you -
 but for tweaking the output. I reason I am stating this is, I have completely done away with the idea that I am going to be making updates to this code by hand.
 
+I feel a certain anger when looking at this code generated. I am not saying that and I know that my code if i were to write it by hand would take me many hours
+and might end up looking like exactly what AI has created, but then because I created it, i would have an understanding of it. In fact, that is likely why my anger
+is at - the lack of understanding. The cognitive debt is high. And now, when my goal is to do something else, i am having to end up using that time for now
+understanding code that i have not written.
+
 This is happening post my own reflection of my reactions to the world of AI assisted coding. So, I am clear, what I like - i like to understand things 
 i am working on, and implementing. Since writing that post, I have come across three key ideas that other people have talked about that resonated with.
 
