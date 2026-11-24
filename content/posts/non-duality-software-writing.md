@@ -45,9 +45,33 @@ perhaps that might help here? Because the AI generation was undertaken by me, so
 the trick really is a mind trick as with most things i suppose.
 
 This is happening post my own reflection of my reactions to the world of AI assisted coding. So, I am clear, what I like - i like to understand things 
-i am working on, and implementing. Since writing that post, I have come across three key ideas that other people have talked about that resonated with.
+i am working on, and implementing. Since writing that post, I have come across three key ideas that other people have talked about that 
+I resonated with.
 
-## Verification
+## Verification as the new model of operation
+
+The first idea that I want to dissect a bit is that of _verification_. Ignoring the implementation details (such as spec driven development),
+the basic idea is that we start developing software as follows:
+
+1. Your favorite AI tool generates the feature/fix as the case may be, running it's own checks that you may have defined/configured,
+   your test suite, etc
+2. You, human, verify it via manually looking at the change to make sure it makes sense
+3. Go back to (1) when a new bug/feature request comes in
+
+The idea appears to be that, that is sufficient to ship the bug fix/feature and understand what's happening. I suppose if we didn't
+care about understanding, we would completely bypass (2) and not bother with code reviews, etc. But there appears to be some sort of
+a realization and consensus in the broader industry that we need to at least perform (2), just in case and also continue to understand
+the changes that are being made.
+
+Overall, I think that's just a false sense of security we are trying to give ourselves. When I do it myself, I know that's what I am doing.
+I am not fooling myself that I am understanding what just happened. So, to summarize the point I am trying to make here is:
+
+_verification is neither knowledge nor understanding_
+
+Knowledge or understanding happens when one is actively involved in something, churning out the CPU that all humans are born with. 
+Without that, we are just pretending that we understand something or know something. Peter Naur
+
+
 
 is not knowledge: https://blog.cosmos-institute.org/p/verification-is-not-knowledge
 
